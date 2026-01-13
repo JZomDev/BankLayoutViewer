@@ -79,4 +79,11 @@ footer{color:var(--muted);font-size:13px;padding:12px}
 .editor-actions button{margin-right:8px}
 #preview pre{font-family:monospace;white-space:pre-wrap}
 
+/* Modal styles for import */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:60}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,6,5,0.7)}
+.modal-panel{position:relative;z-index:61;max-width:720px;width:92%;border-radius:8px}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.modal-panel textarea{background:#0b0f0e;color:#e6f0ef;border:1px solid #23302f;padding:10px;border-radius:6px}
+
 

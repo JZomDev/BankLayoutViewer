@@ -15,7 +15,7 @@
                 <label>Layout Name</label>
             <input id="tagName" value="New layout">
             <div class="tag-actions">
-              <a href="editor.html" class="small-btn">Import</a>
+              <button id="open-import" class="small-btn">Import</button>
               <button id="export-btn" class="small-btn">Export</button>
             </div>
           </div>
@@ -56,5 +56,25 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <!-- Import modal -->
+    <div id="importModal" class="modal" aria-hidden="true" style="display:none">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel panel">
+        <div class="modal-header">
+          <h3>Import</h3>
+          <button id="closeImport" class="small-btn">✕</button>
+        </div>
+        <p>Paste the exported layout here.</p>
+        <textarea id="pasteArea" rows="8" placeholder="Paste layout JSON here" style="width:100%"></textarea>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <label style="display:flex;align-items:center;gap:8px"><input id="addToLayout" type="checkbox"> Add to Layout</label>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button id="importConfirm" class="small-btn">Import</button>
+            <button id="cancelImport" class="small-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

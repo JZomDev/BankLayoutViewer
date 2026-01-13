@@ -77,6 +77,8 @@
 
   function showLayout(l){
     current = l;
+    // expose current layout to other scripts (import modal)
+    try{ window.current = current; }catch(e){}
     const cols = l.width || 8;
     const rows = l.height || 7;
     layoutGrid.innerHTML = '';
@@ -152,6 +154,11 @@
       }
     });
   }
+
+  // Listen for import events to refresh the UI when editor merges items
+  window.addEventListener('bank-layouts:imported', (e) => {
+    if(window.current) showLayout(window.current);
+  });
 
   function clearSelection(){
     selected = null;
@@ -343,6 +350,53 @@
     // ensure drag and click handlers are attached to newly placed item
     attachDragHandlersToCells();
     renderLayoutsList();
+  }
+
+  // Export current layout in the requested banktags format
+  const exportBtn = document.getElementById('export-btn');
+  const layoutNameInput = document.getElementById('tagName');
+
+  // mapping from our internal item ids -> external codes (example values)
+  const externalIdMap = {
+    1: 6585, // Apple
+    2: 6586, // Banana
+    3: 6587, // Orange
+    4: 6588, // Watermelon
+    5: 6589  // Pineapple
+  };
+
+  function buildExportText(){
+    if(!current) return '';
+    const cols = current.width || 8;
+    const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
+    const lines = [];
+    // For each placed item, output a line in the format:
+    // banktags,1,LayoutName,952,layout,<cellIndex>,<externalId>
+    // cellIndex is linear index: y * cols + x
+    (current.items || []).forEach(it => {
+      const idx = (it.y * cols) + it.x;
+      const ext = externalIdMap[it.id] || it.id;
+      const line = ['banktags','1', name.replace(/,/g,' '), '952', 'layout', String(idx), String(ext)].join(',');
+      lines.push(line);
+    });
+    return lines.join('\n');
+  }
+
+  if(exportBtn){
+    exportBtn.addEventListener('click', () => {
+      const text = buildExportText();
+      const w = window.open('', '_blank', 'noopener,noreferrer');
+      if(!w) { alert('Could not open window — check popup blocker'); return; }
+      w.document.title = 'Export - banktags';
+      const pre = w.document.createElement('pre');
+      pre.textContent = text || '/* no items to export */';
+      pre.style.padding = '16px';
+      pre.style.background = '#0b0b0b';
+      pre.style.color = '#e6f0ef';
+      pre.style.whiteSpace = 'pre-wrap';
+      w.document.body.style.background = '#0b0b0b';
+      w.document.body.appendChild(pre);
+    });
   }
 
   itemSearch && itemSearch.addEventListener('input', e => {
