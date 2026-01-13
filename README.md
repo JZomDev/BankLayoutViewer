@@ -1,1 +1,1 @@
-[Click here to visit the helper](https://jzomdev.github.io/pluginhub-searcher/)
+[Click here to visit the helper](https://jzomdev.github.io/BankLayoutViewer)
