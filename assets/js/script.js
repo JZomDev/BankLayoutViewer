@@ -361,6 +361,16 @@
       tile.className = 'choose-item-tile';
       tile.innerHTML = `<img src="${it.img}" alt="${it.name}"><div class="name">${it.name}</div>`;
       tile.addEventListener('click', () => {
+        // if choosing the left icon (no layout id), set the tag-card icon and update current
+        if(choosingLayoutId === 'left-icon'){
+          const iconEl = document.querySelector('.tag-card .icon');
+          if(iconEl){ iconEl.innerHTML = `<img src="${it.img}" alt="${it.name}" style="width:36px;height:36px;border-radius:6px">`; }
+          // record left icon id globally so exports use it when no layout thumb set
+          try{ window.leftIconId = it.id; }catch(e){}
+          if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
+          closeChooseModal();
+          return;
+        }
         const layout = layouts.find(x => Number(x.id) === Number(choosingLayoutId));
         if(!layout) return;
         layout.thumbId = it.id;
@@ -428,32 +438,46 @@
     const cols = current.width || 8;
     const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
     const lines = [];
+    // Determine the item id to place in the header (use current.thumbId, or left icon fallback)
+    const headerInternalId = (current && current.thumbId) || window.leftIconId || null;
+    const headerItemId = headerInternalId ? (externalIdMap[headerInternalId] || headerInternalId) : '';
+    // header line: banktags,1,<tagName>,<itemid>,layout
+    const header = ['banktags','1', name.replace(/,/g,' '), String(headerItemId), 'layout'].join(',');
+    lines.push(header);
     // For each placed item, output a line in the format:
     // banktags,1,LayoutName,952,layout,<cellIndex>,<externalId>
     // cellIndex is linear index: y * cols + x
     (current.items || []).forEach(it => {
       const idx = (it.y * cols) + it.x;
       const ext = externalIdMap[it.id] || it.id;
-      const line = ['banktags','1', name.replace(/,/g,' '), '952', 'layout', String(idx), String(ext)].join(',');
+      const line = [String(idx), String(ext)].join(',');
       lines.push(line);
     });
-    return lines.join('\n');
+    return lines.join(',');
   }
 
   if(exportBtn){
     exportBtn.addEventListener('click', () => {
       const text = buildExportText();
-      const w = window.open('', '_blank', 'noopener,noreferrer');
-      if(!w) { alert('Could not open window — check popup blocker'); return; }
-      w.document.title = 'Export - banktags';
-      const pre = w.document.createElement('pre');
-      pre.textContent = text || '/* no items to export */';
-      pre.style.padding = '16px';
-      pre.style.background = '#0b0b0b';
-      pre.style.color = '#e6f0ef';
-      pre.style.whiteSpace = 'pre-wrap';
-      w.document.body.style.background = '#0b0b0b';
-      w.document.body.appendChild(pre);
+      if(!text){ alert('No items to export.'); return; }
+      // Fallback: populate the in-page export modal so user can copy the text
+      const exportModal = document.getElementById('exportModal');
+      const exportArea = document.getElementById('exportAreaInPage');
+      if(exportModal && exportArea){
+        exportArea.value = text;
+        exportModal.style.display = 'flex'; exportModal.setAttribute('aria-hidden','false');
+        const closeExp = document.getElementById('closeExport');
+        const cancelExp = document.getElementById('cancelExport');
+        const copyBtn = document.getElementById('copyExportBtn');
+        if(copyBtn) copyBtn.addEventListener('click', async () => {
+          try{ await navigator.clipboard.writeText(exportArea.value); alert('Copied to clipboard'); }
+          catch(e){ alert('Copy failed: '+e.message); }
+        });
+        if(closeExp) closeExp.addEventListener('click', () => { exportModal.style.display='none'; exportModal.setAttribute('aria-hidden','true'); });
+        if(cancelExp) cancelExp.addEventListener('click', () => { exportModal.style.display='none'; exportModal.setAttribute('aria-hidden','true'); });
+        return;
+      }
+      alert('Could not open export window — please allow popups.\n\n'+text);
     });
   }
 
@@ -491,5 +515,17 @@
       const filtered = items.filter(i => i.name.toLowerCase().includes(q));
       renderChooseItems(filtered);
     });
+    // make left tag icon clickable to choose an item for the thumbnail
+    const tagIcon = document.querySelector('.tag-card .icon');
+    if(tagIcon){ tagIcon.style.cursor = 'pointer'; tagIcon.addEventListener('click', () => openChooseModal('left-icon')); }
+    // set initial leftIconId from the default icon image if present
+    try{
+      const iconImg = document.querySelector('.tag-card .icon img');
+      if(iconImg && iconImg.getAttribute('src')){
+        const src = iconImg.getAttribute('src');
+        const found = items.find(it => it.img === src);
+        if(found) window.leftIconId = found.id;
+      }
+    }catch(e){}
   });
 })();

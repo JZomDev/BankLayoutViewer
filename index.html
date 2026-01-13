@@ -10,7 +10,7 @@
     <div class="site-wrap">
       <aside class="left-col panel">
         <div class="tag-card">
-          <div class="icon">🪄</div>
+          <div class="icon"><img src="assets/images/apple.svg" alt="Apple" style="width:40px;height:40px;border-radius:6px"></div>
           <div class="tag-controls">
                 <label>Layout Name</label>
             <input id="tagName" value="New layout">
@@ -73,6 +73,22 @@
             <button id="importConfirm" class="small-btn">Import</button>
             <button id="cancelImport" class="small-btn">Cancel</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Export modal (in-page fallback when popups blocked) -->
+    <div id="exportModal" class="modal" aria-hidden="true" style="display:none">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel panel">
+        <div class="modal-header">
+          <h3>Export</h3>
+          <button id="closeExport" class="small-btn">✕</button>
+        </div>
+        <p>Copy the exported layout below.</p>
+        <textarea id="exportAreaInPage" rows="10" placeholder="Exported text" style="width:100%"></textarea>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px">
+          <button id="copyExportBtn" class="small-btn">Copy</button>
+          <button id="cancelExport" class="small-btn">Close</button>
         </div>
       </div>
     </div>
