@@ -15,7 +15,10 @@
 
   function renderItems(list){
     itemsGrid.innerHTML = '';
-    list.forEach(it => {
+    const limited = Array.isArray(list) ? list.slice(0,20) : [];
+    limited.forEach(it => {
+      // skip items without a CDN image
+      if(!it || !it.img || String(it.img).trim() === '') return;
       const tile = document.createElement('div');
       tile.className = 'item-tile';
       tile.innerHTML = `
@@ -84,8 +87,9 @@
     current = l;
     // expose current layout to other scripts (import modal)
     try{ window.current = current; }catch(e){}
-    const cols = l.width || 8;
-    const rows = l.height || 7;
+    // enforce a fixed grid size: 8 columns x 100 rows
+    const cols = 8;
+    const rows = 100;
     layoutGrid.innerHTML = '';
     layoutGrid.style.gridTemplateColumns = `repeat(${cols},56px)`;
     for(let r=0;r<rows;r++){
@@ -336,7 +340,7 @@
     // load item definitions from CDN JSON
     await loadItems();
     if(layouts.length===0){
-      layouts = [ {id:1,title:'New layout',author:'You',width:8,height:7,items:[]} ];
+      layouts = [ {id:1,title:'New layout',author:'You',width:8,height:100,items:[]} ];
     }
     renderLayoutsList();
     renderItems(items);
@@ -349,7 +353,8 @@
       const data = await r.json();
       if(Array.isArray(data) && data.length>0){
         // map to internal items array and build externalIdMap
-        items = data.map((it, idx) => ({ id: idx+1, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.image || it.image || ''), externalId: it.id }));
+        // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
+        items = data.map((it, idx) => ({ id: idx+1, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
         externalIdMap = {};
         items.forEach(it => { if(it.externalId !== undefined) externalIdMap[it.id] = it.externalId; });
         // expose mappings on window
@@ -381,7 +386,10 @@
   function renderChooseItems(list){
     const grid = chooseGridEl(); if(!grid) return;
     grid.innerHTML = '';
-    list.forEach(it => {
+    const limited = Array.isArray(list) ? list.slice(0,20) : [];
+    limited.forEach(it => {
+      // skip items without a CDN image
+      if(!it || !it.img || String(it.img).trim() === '') return;
       const tile = document.createElement('div');
       tile.className = 'choose-item-tile';
       tile.innerHTML = `<img src="${it.img}" alt="${it.name}"><div class="name">${it.name}</div>`;
@@ -450,7 +458,7 @@
 
   function buildExportText(){
     if(!current) return '';
-    const cols = current.width || 8;
+    const cols = 8;
     const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
     const lines = [];
     // Determine the item id to place in the header (use current.thumbId, or left icon fallback)
@@ -513,7 +521,8 @@
 
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim().toLowerCase();
-    const filtered = items.filter(i => i.name.toLowerCase().includes(q));
+    if(q.length < 3){ renderItems([]); return; }
+    const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
     renderItems(filtered);
   });
 
@@ -525,9 +534,12 @@
     const chooseSearch = document.getElementById('chooseSearch');
     if(closeChoose) closeChoose.addEventListener('click', closeChooseModal);
     if(cancelChoose) cancelChoose.addEventListener('click', closeChooseModal);
+    if(chooseSearch) chooseSearch.value = '';
+    if(chooseSearch) renderChooseItems([]);
     if(chooseSearch) chooseSearch.addEventListener('input', e => {
       const q = (e.target.value||'').trim().toLowerCase();
-      const filtered = items.filter(i => i.name.toLowerCase().includes(q));
+      if(q.length < 3){ renderChooseItems([]); return; }
+      const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
       renderChooseItems(filtered);
     });
     // make left tag icon clickable to choose an item for the thumbnail
