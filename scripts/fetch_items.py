@@ -18,6 +18,8 @@ API_BASE = WIKI_BASE + '/api.php'
 IMG_PATH = '../cdn/items/'
 
 BUCKET_API_FIELDS = [
+    'page_name',
+    'page_name_sub',
     'item_name',
     'image',
     'item_id',
@@ -58,23 +60,36 @@ def getEquipmentData():
     fields_csv = ",".join(map(repr, BUCKET_API_FIELDS))
     while True:
         print('Fetching equipment info: ' + str(offset))
-        query = {
-            'action': 'bucket',
-            'format': 'json',
+        innerQuery = {
             'query': 
             (
                 f"bucket('infobox_item')"
                 f".select({fields_csv})"
                 f".limit(500).offset({offset})"
                 f".where('item_id', '!=', bucket.Null())"
-                f".join('infobox_bonuses', 'infobox_bonuses.page_name_sub', 'infobox_item.page_name_sub')"
-                f".orderBy('page_name_sub', 'asc').run()"
+                f".where('Category:Items')"
+                f".where(bucket.Not('Category:Interface items'))"
+                f".where(bucket.Not('Category:Discontinued content'))"
+                f".where(bucket.Not('Category:Beta items'))"
+                # f".where('item_name','Raw lobster')"
+                f".orderBy('item_name', 'asc').run()"
             )
         }
+        query = {
+            'action': 'bucket',
+            'format': 'json',
+           'query':  innerQuery.get('query')
+        }
+
+        # print('Query: ' + str(innerQuery.get('query')))
 
         r = requests.get(API_BASE + '?' + urllib.parse.urlencode(query), headers={
             'User-Agent': 'JZomDev Bank Tags Layout helper'
         })
+
+        if (r.status_code != 200):
+            print("Error fetching data from wiki API: " + str(r.status_code))
+            break
 
         data = r.json()
 

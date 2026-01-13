@@ -6,14 +6,8 @@
   const layoutGrid = document.getElementById('layoutGrid');
   const itemSearch = document.getElementById('itemSearch');
 
-  // Five items with images
-  const items = [
-    { id: 1, name: 'Apple', img: 'assets/images/apple.svg' },
-    { id: 2, name: 'Banana', img: 'assets/images/banana.svg' },
-    { id: 3, name: 'Orange', img: 'assets/images/orange.svg' },
-    { id: 4, name: 'Watermelon', img: 'assets/images/watermelon.svg' },
-    { id: 5, name: 'Pineapple', img: 'assets/images/pineapple.svg' }
-  ];
+  // Items will be loaded from cdn/json/items.json and images from cdn/items/
+  let items = [];
 
   let layouts = [];
   let current = null;
@@ -339,12 +333,43 @@
       const data = await r.json();
       layouts = Array.isArray(data) ? data : (data.layouts || []);
     }catch(e){ layouts = []; }
+    // load item definitions from CDN JSON
+    await loadItems();
     if(layouts.length===0){
       layouts = [ {id:1,title:'New layout',author:'You',width:8,height:7,items:[]} ];
     }
     renderLayoutsList();
     renderItems(items);
     showLayout(layouts[0]);
+  }
+
+  async function loadItems(){
+    try{
+      const r = await fetch('cdn/json/items.json', {cache:'no-store'});
+      const data = await r.json();
+      if(Array.isArray(data) && data.length>0){
+        // map to internal items array and build externalIdMap
+        items = data.map((it, idx) => ({ id: idx+1, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.image || it.image || ''), externalId: it.id }));
+        externalIdMap = {};
+        items.forEach(it => { if(it.externalId !== undefined) externalIdMap[it.id] = it.externalId; });
+        // expose mappings on window
+          try{ window.externalIdMap = externalIdMap; }catch(e){}
+          try{ window.reverseExternalIdMap = {}; Object.keys(externalIdMap).forEach(k => { window.reverseExternalIdMap[String(externalIdMap[k])] = Number(k); }); }catch(e){}
+          // if the page has a default icon img, map it to leftIconId
+          try{
+            const iconImg = document.querySelector('.tag-card .icon img');
+            if(iconImg){
+              const iconSrcAttr = iconImg.getAttribute('src') || '';
+              const resolved = iconImg.src || '';
+              const found = items.find(it => it.img === iconSrcAttr || (new URL(it.img, location.href).href === resolved));
+              if(found) window.leftIconId = found.id;
+            }
+          }catch(e){}
+      }
+    }catch(e){
+      console.warn('Could not load cdn items:', e);
+      // keep items empty or fallback to existing ones if desired
+    }
   }
 
   // --- Choose item modal for selecting layout thumbnail ---
@@ -416,22 +441,12 @@
   const exportBtn = document.getElementById('export-btn');
   const layoutNameInput = document.getElementById('tagName');
 
-  // mapping from our internal item ids -> external codes (example values)
-  const externalIdMap = {
-    1: 6585, // Apple
-    2: 6586, // Banana
-    3: 6587, // Orange
-    4: 6588, // Watermelon
-    5: 6589  // Pineapple
-  };
+  // mapping from our internal item ids -> external codes (will be populated after loading items)
+  let externalIdMap = {};
 
-  // expose mapping so importers can map external ids back to internal ids
+  // expose mapping containers on window; they'll be populated by loadItems()
   try{ window.externalIdMap = externalIdMap; }catch(e){}
-  try{
-    const reverseExternalIdMap = {};
-    Object.keys(externalIdMap).forEach(k => { reverseExternalIdMap[String(externalIdMap[k])] = Number(k); });
-    window.reverseExternalIdMap = reverseExternalIdMap;
-  }catch(e){}
+  try{ window.reverseExternalIdMap = {}; }catch(e){}
 
   function buildExportText(){
     if(!current) return '';
