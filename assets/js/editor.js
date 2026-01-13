@@ -138,7 +138,7 @@
       if(cancelImport){ cancelImport.addEventListener('click', hideModal); }
 
       if(importConfirm){
-        importConfirm.addEventListener('click', () => {
+        importConfirm.addEventListener('click', async () => {
           const txt = modalPaste ? modalPaste.value.trim() : (pasteArea ? pasteArea.value.trim() : '');
           if(!txt){ showMessage('No Text to import.', true); return; }
           let parsed;
@@ -151,6 +151,41 @@
             layoutName = parsed.layoutName;
             layoutIcon = parsed.layoutIcon;
            }catch(err){ showMessage(err.message, true); return; }
+          // Apply imported layout name to the UI input if present
+          try{
+            const nameInput = document.getElementById('tagName');
+            if(nameInput && layoutName) nameInput.value = layoutName;
+          }catch(e){}
+          // If a layoutIcon was provided, try to resolve it to an item image and set the left/icon
+          if(layoutIcon){
+            try{
+              // attempt to fetch the CDN items JSON to find the matching external id and image
+              const r = await fetch('cdn/json/items.json', {cache:'no-store'});
+              if(r && r.ok){
+                const data = await r.json();
+                if(Array.isArray(data)){
+                  const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
+                  if(foundIdx > -1){
+                    const found = data[foundIdx];
+                    const imageName = found.imagepath || found.image || '';
+                    if(imageName){
+                      const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
+                      const iconEl = document.querySelector('.tag-card .icon');
+                      if(iconEl){ iconEl.innerHTML = `<img src="${imgUrl}" alt="${found.name||''}" style="width:36px;height:36px;border-radius:6px">`; }
+                      // compute internal id (index + 1) and set leftIconId and current thumb
+                      try{ window.leftIconId = foundIdx + 1; }catch(e){}
+                      if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
+                    }
+                  } else {
+                    // fallback: try reverseExternalIdMap to compute internal id and leave thumbnail to main script
+                    if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
+                      try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
+                    }
+                  }
+                }
+              }
+            }catch(e){ /* ignore errors resolving icon */ }
+          }
           // If Add to Layout is checked, try to merge item entries into current layout
               let itemsToAdd = [];
               if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
