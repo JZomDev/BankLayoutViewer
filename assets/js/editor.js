@@ -193,10 +193,13 @@
               if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
               else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
               else { showMessage('Invalid Layout.', true); return; }
-              // add items to current
-              if(window.current && Array.isArray(window.current.items)){
-                itemsToAdd.forEach(it => { window.current.items.push(it); });
-              } else if(window.current){ window.current.items = itemsToAdd.slice(); }
+              // add items to current — replace existing items (clear board) instead of merging
+              if(window.current){
+                window.current.items = itemsToAdd.slice();
+              } else {
+                // ensure there's a current object for the UI to render
+                window.current = { items: itemsToAdd.slice() };
+              }
               // refresh UI by dispatching a custom event the main script can listen for
               window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
           
