@@ -30,38 +30,52 @@
   }
 
   function parseText(text){
-    // Support two formats: JSON (legacy) or banktags CSV lines
+    // Support only banktags CSV lines
     const t = text.trim();
     if(!t) throw new Error('Empty input');
     const lines = t.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-    // If the first non-empty line starts with 'banktags', parse as CSV banktags format
-    if(lines[0].toLowerCase().startsWith('banktags')){
-      const out = [];
-      const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
-      for(const ln of lines){
-        const parts = ln.split(',');
-        if(parts.length < 7) continue;
-        // Format: banktags,1,Name,952,layout,<cellIndex>,<externalId>
-        const cellIndex = Number(parts[5]);
-        const externalId = parts[6];
+    // Require the banktags header
+    if(!lines[0].toLowerCase().startsWith('banktags')){
+      throw new Error('Unsupported format, check your copy paste');
+    }
+    const out = [];
+    const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
+    const splits = lines[0].split(',');
+    if(splits.length < 7){
+      throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
+    }
+    let startIndex = 0;
+    for(let i=3;i<splits.length;i++)
+    {
+        const content = splits[i].trim();
+        if (content === 'layout')
+        {
+            startIndex = i + 1;
+            break;
+        }
+    }
+
+    for(let i=startIndex;i<splits.length - 1;i++)
+    {
+        const cellIndex = Number(splits[i].trim());
+        const externalId = splits[i+1].trim();
         if(isNaN(cellIndex)) continue;
         const x = cellIndex % cols;
         const y = Math.floor(cellIndex / cols);
         // try to map externalId to our internal id via window.reverseExternalIdMap
         let id = null;
         if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(externalId)]){
-          id = window.reverseExternalIdMap[String(externalId)];
+            id = window.reverseExternalIdMap[String(externalId)];
         } else {
-          // fallback: try numeric
-          const n = Number(externalId);
-          id = isNaN(n) ? externalId : n;
+            // fallback: try numeric
+            const n = Number(externalId);
+            id = isNaN(n) ? externalId : n;
         }
         out.push({ x, y, id, qty: 1 });
-      }
-      return out;
+        
     }
+            return out;
 
-    try{ return JSON.parse(text); }catch(e){ throw new Error('Invalid JSON: '+e.message); }
   }
 
   // File upload removed — paste JSON directly into the textarea.
@@ -142,7 +156,7 @@
       if(importConfirm){
         importConfirm.addEventListener('click', () => {
           const txt = modalPaste ? modalPaste.value.trim() : (pasteArea ? pasteArea.value.trim() : '');
-          if(!txt){ showMessage('No JSON to import.', true); return; }
+          if(!txt){ showMessage('No Text to import.', true); return; }
           let parsed;
           try{ parsed = parseText(txt); }catch(err){ showMessage(err.message, true); return; }
           // If Add to Layout is checked, try to merge item entries into current layout
