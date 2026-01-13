@@ -1,0 +1,40 @@
+/* Basic styles for the demo page */
+:root{
+  --bg:#f6f7fb;
+  --panel:#ffffff;
+  --muted:#6b7280;
+  --accent:#2858ff;
+}
+html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#111}
+header{padding:28px 20px;background:linear-gradient(90deg,#ffffff, #f0f4ff);border-bottom:1px solid #e6e9f2}
+.lead{margin:6px 0;color:var(--muted)}
+main{max-width:980px;margin:28px auto;padding:0 18px}
+.panel{background:var(--panel);border-radius:8px;padding:18px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+#tag-list{list-style:none;padding:0;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px}
+#tag-list li{background:#eef2ff;color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600}
+#loading{color:var(--muted)}
+footer{max-width:980px;margin:16px auto;padding:0 18px;color:var(--muted);font-size:13px}
+
+/* Header and actions */
+.site-header{background:linear-gradient(90deg,#ffffff,#f7f9ff);border-bottom:1px solid #e6e9f2;padding:14px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;max-width:980px;margin:0 auto;padding:0 18px}
+.brand{margin:0;font-size:20px}
+.actions button{margin-left:8px;padding:8px 12px;border-radius:6px;border:1px solid #dde6ff;background:#fff;color:var(--accent);cursor:pointer}
+.header-search{max-width:980px;margin:8px auto;padding:0 18px}
+#search{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #e6e9f2}
+
+/* Card grid */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
+.card{background:var(--panel);border-radius:10px;padding:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04);display:flex;flex-direction:column;gap:8px}
+.card .thumb{height:120px;background:#f1f5ff;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.card h3{margin:0;font-size:15px}
+.card .meta{font-size:13px;color:var(--muted)}
+
+/* Editor page */
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#pasteArea{width:100%;font-family:monospace;padding:8px;border-radius:6px;border:1px solid #e6e9f2}
+.editor-actions{margin-top:8px}
+.editor-actions button{margin-right:8px}
+#preview pre{font-family:monospace;white-space:pre-wrap}
+
+

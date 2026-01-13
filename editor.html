@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Editor — Bank Layouts Helper</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand">← Back</a>
+        <div class="header-title">Layout Editor</div>
+        <div></div>
+      </div>
+    </header>
+
+    <main class="container" style="max-width:980px;margin:20px auto;">
+      <section class="panel">
+        <h2>Import / Export JSON</h2>
+        <div class="editor-grid">
+          <div>
+            <label for="fileInput">Upload JSON file</label>
+            <input id="fileInput" type="file" accept="application/json">
+
+            <label for="pasteArea">Or paste JSON</label>
+            <textarea id="pasteArea" rows="10" placeholder="Paste layout JSON here"></textarea>
+
+            <div class="editor-actions">
+              <button id="loadBtn">Load</button>
+              <button id="validateBtn">Validate</button>
+            </div>
+          </div>
+
+          <div>
+            <label>Preview</label>
+            <div id="preview" class="panel" style="min-height:160px;overflow:auto"></div>
+
+            <div style="margin-top:10px;display:flex;gap:8px;">
+              <button id="downloadBtn">Download JSON</button>
+              <button id="copyBtn">Copy to clipboard</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

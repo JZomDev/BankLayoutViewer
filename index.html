@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bank Tags Helper</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="brand">Bank Layouts Helper</h1>
+        <nav class="actions">
+          <a class="btn" href="editor.html">Editor</a>
+          <button id="export-btn">Export</button>
+          <button id="share-btn">Share</button>
+        </nav>
+      </div>
+      <div class="container header-search">
+        <input id="search" placeholder="Search layouts, tags, authors..." />
+      </div>
+    </header>
+
+    <main id="app">
+      <section class="panel">
+        <h2>Layouts</h2>
+        <div id="grid-area">
+          <p id="loading">Loading layouts…</p>
+          <div id="card-grid" class="card-grid" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Deploy this page to GitHub Pages (see README).</small>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

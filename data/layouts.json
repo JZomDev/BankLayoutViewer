@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Starter Bank",
+    "author": "Alice",
+    "tags": ["starter","compact"],
+    "thumbnail": ""
+  },
+  {
+    "id": 2,
+    "title": "Pro Layout",
+    "author": "Bob",
+    "tags": ["pro","large"],
+    "thumbnail": ""
+  },
+  {
+    "id": 3,
+    "title": "Collector's Grid",
+    "author": "Carol",
+    "tags": ["collector","organized"],
+    "thumbnail": ""
+  }
+]
