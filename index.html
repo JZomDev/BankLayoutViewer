@@ -15,8 +15,9 @@
                 <label>Layout Name</label>
             <input id="tagName" value="New layout">
             <div class="tag-actions">
-              <button id="open-import" class="small-btn">Import</button>
-              <button id="export-btn" class="small-btn">Export</button>
+                <button id="open-import" class="small-btn">Import</button>
+                <button id="export-btn" class="small-btn">Export</button>
+                <button id="clear-btn" class="small-btn">Clear</button>
             </div>
           </div>
         </div>
@@ -66,12 +67,28 @@
           <button id="closeImport" class="small-btn">✕</button>
         </div>
         <p>Paste the exported layout here.</p>
-        <textarea id="pasteArea" rows="8" placeholder="Paste layout JSON here" style="width:100%"></textarea>
+        <textarea id="pasteArea" rows="8" placeholder="Paste layout here" style="width:100%"></textarea>
         <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
           <div style="margin-left:auto;display:flex;gap:8px">
             <button id="importConfirm" class="small-btn">Import</button>
             <button id="cancelImport" class="small-btn">Cancel</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Choose item modal (for selecting layout thumbnail) -->
+    <div id="chooseItemModal" class="modal" aria-hidden="true" style="display:none">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel panel">
+        <div class="modal-header">
+          <h3>Choose layout image</h3>
+          <button id="closeChoose" class="small-btn">✕</button>
+        </div>
+        <label style="display:block;color:var(--muted);margin-bottom:8px">Search items</label>
+        <input id="chooseSearch" placeholder="search items..." style="width:100%;padding:8px;border-radius:6px;border:1px solid #23302f;background:#0f1615;color:#e6f0ef;margin-bottom:10px">
+        <div id="chooseItemsGrid" class="items-grid"></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:10px">
+          <button id="cancelChoose" class="small-btn">Cancel</button>
         </div>
       </div>
     </div>

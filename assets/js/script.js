@@ -58,9 +58,15 @@
     layoutsList.innerHTML = '';
     layouts.forEach(l => {
       const li = document.createElement('li');
-      li.innerHTML = `<div>
-          <strong>${l.title}</strong>
-          <div class="meta">${l.author || '—'}</div>
+      // determine thumbnail image
+      const thumbItem = items.find(it => it.id === l.thumbId) || items[0] || {};
+      const thumbSrc = l.thumbnail || (thumbItem && thumbItem.img) || '';
+      li.innerHTML = `<div class="layout-entry-left">
+          <img src="${thumbSrc}" class="layout-thumb" data-layout-id="${l.id}" alt="thumb">
+          <div>
+            <strong>${l.title}</strong>
+            <div class="meta">${l.author || '—'}</div>
+          </div>
         </div>
         <div>
           <button data-id="${l.id}" class="use-btn">✔</button>
@@ -72,6 +78,11 @@
       const id = e.target.getAttribute('data-id');
       const l = layouts.find(x=>String(x.id)===String(id));
       if(l) showLayout(l);
+    }));
+    // thumbnail click handlers: open chooser modal
+    document.querySelectorAll('.layout-thumb').forEach(img => img.addEventListener('click', e => {
+      const id = e.target.getAttribute('data-layout-id');
+      openChooseModal && openChooseModal(Number(id));
     }));
   }
 
@@ -336,6 +347,45 @@
     showLayout(layouts[0]);
   }
 
+  // --- Choose item modal for selecting layout thumbnail ---
+  let choosingLayoutId = null;
+  const chooseModal = () => document.getElementById('chooseItemModal');
+  const chooseGridEl = () => document.getElementById('chooseItemsGrid');
+  const chooseSearchEl = () => document.getElementById('chooseSearch');
+
+  function renderChooseItems(list){
+    const grid = chooseGridEl(); if(!grid) return;
+    grid.innerHTML = '';
+    list.forEach(it => {
+      const tile = document.createElement('div');
+      tile.className = 'choose-item-tile';
+      tile.innerHTML = `<img src="${it.img}" alt="${it.name}"><div class="name">${it.name}</div>`;
+      tile.addEventListener('click', () => {
+        const layout = layouts.find(x => Number(x.id) === Number(choosingLayoutId));
+        if(!layout) return;
+        layout.thumbId = it.id;
+        layout.thumbnail = it.img;
+        renderLayoutsList();
+        // if this layout is currently loaded, update displayed layout header if needed
+        if(current && current.id === layout.id) { try{ window.current = current; }catch(e){} }
+        closeChooseModal();
+      });
+      grid.appendChild(tile);
+    });
+  }
+
+  function openChooseModal(layoutId){
+    choosingLayoutId = layoutId;
+    const m = chooseModal(); if(!m) return;
+    const search = chooseSearchEl(); if(search) search.value = '';
+    renderChooseItems(items);
+    m.style.display = 'flex'; m.setAttribute('aria-hidden','false');
+  }
+
+  function closeChooseModal(){
+    const m = chooseModal(); if(!m) return; m.style.display = 'none'; m.setAttribute('aria-hidden','true'); choosingLayoutId = null;
+  }
+
   function placeItem(item){
     if(!current){ alert('No layout loaded'); return; }
     const cells = Array.from(layoutGrid.querySelectorAll('.cell'));
@@ -407,11 +457,39 @@
     });
   }
 
+  // Clear button: remove all placed items from the current layout and clear the grid
+  const clearBtn = document.getElementById('clear-btn');
+  if(clearBtn){
+    clearBtn.addEventListener('click', () => {
+      if(!current) return;
+      if(!confirm('Clear all items from the current layout?')) return;
+      // clear data
+      current.items = [];
+      // clear DOM cells
+      const cells = layoutGrid.querySelectorAll('.cell');
+      cells.forEach(c => { c.innerHTML = ''; delete c.dataset.itemId; });
+      renderLayoutsList();
+    });
+  }
+
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim().toLowerCase();
     const filtered = items.filter(i => i.name.toLowerCase().includes(q));
     renderItems(filtered);
   });
 
-  document.addEventListener('DOMContentLoaded', load);
+  // wire choose modal controls after DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    load();
+    const closeChoose = document.getElementById('closeChoose');
+    const cancelChoose = document.getElementById('cancelChoose');
+    const chooseSearch = document.getElementById('chooseSearch');
+    if(closeChoose) closeChoose.addEventListener('click', closeChooseModal);
+    if(cancelChoose) cancelChoose.addEventListener('click', closeChooseModal);
+    if(chooseSearch) chooseSearch.addEventListener('input', e => {
+      const q = (e.target.value||'').trim().toLowerCase();
+      const filtered = items.filter(i => i.name.toLowerCase().includes(q));
+      renderChooseItems(filtered);
+    });
+  });
 })();

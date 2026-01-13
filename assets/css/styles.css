@@ -54,6 +54,14 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .layouts-list{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:8px}
 .layouts-list li{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:8px;background:#0e1615}
 .layouts-list .meta{color:var(--muted);font-size:13px}
+.layout-thumb{width:44px;height:44px;border-radius:6px;object-fit:cover;margin-right:10px;cursor:pointer;border:1px solid #1b2a29}
+.layout-entry-left{display:flex;align-items:center;gap:10px}
+
+/* chooser modal (reuse modal classes) */
+#chooseItemsGrid{max-height:320px;overflow:auto}
+.choose-item-tile{padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.choose-item-tile img{width:40px;height:40px}
+.choose-item-tile.selected{outline:2px solid var(--accent)}
 
 footer{color:var(--muted);font-size:13px;padding:12px}
 
