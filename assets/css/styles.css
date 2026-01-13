@@ -10,7 +10,7 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .panel{background:var(--panel);border-radius:8px;padding:14px}
 
 /* Layout columns */
-.site-wrap{display:grid;grid-template-columns:260px 1fr 320px;gap:18px;padding:18px}
+.site-wrap{display:grid;grid-template-columns:320px 1fr 320px;gap:18px;padding:18px}
 .left-col{display:flex;flex-direction:column;gap:18px}
 .center-col{display:flex;flex-direction:column;gap:12px}
 .right-col{display:flex;flex-direction:column;gap:12px}
@@ -25,14 +25,14 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .browse-link{display:block;margin-top:8px;color:var(--accent);font-size:13px}
 
 .search-block label{display:block;color:var(--muted);margin-bottom:6px}
-#itemSearch{width:100%;padding:8px;border-radius:6px;border:1px solid #23302f;background:#0f1615;color:#e6f0ef}
+#itemSearch{width:100%;padding:6px 8px;border-radius:6px;border:1px solid #23302f;background:#0f1615;color:#e6f0ef;font-size:13px;box-sizing:border-box}
 
-.items-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.item-tile{background:#121918;border-radius:6px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-.item-tile img{width:48px;height:48px}
-.item-tile .thumb{width:48px;height:48px;background:#0e1413;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.items-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;box-sizing:border-box}
+.item-tile{background:#121918;border-radius:6px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-sizing:border-box}
+.item-tile img{width:36px;height:36px}
+.item-tile .thumb{width:40px;height:40px;background:#0e1413;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .item-tile .id{font-size:11px;color:var(--muted)}
-.item-tile .name{font-size:12px;margin-top:6px;color:#e6f0ef}
+.item-tile .name{font-size:11px;margin-top:4px;color:#e6f0ef;text-align:center}
 .item-tile.selected{outline:2px solid rgba(47,182,168,0.18);box-shadow:0 4px 12px rgba(0,0,0,0.4) inset}
 
 /* center grid */
