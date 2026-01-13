@@ -35,6 +35,16 @@
         selected = { type: 'palette', id: it.id, item: it, tileEl: tile };
         tile.classList.add('selected');
       });
+      // allow dragging palette items into grid
+      const img = tile.querySelector('img');
+      if(img){
+        img.setAttribute('draggable','true');
+        img.addEventListener('dragstart', e => {
+          const payload = JSON.stringify({ id: it.id });
+          try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
+          e.dataTransfer.effectAllowed = 'copy';
+        });
+      }
       tile.addEventListener('dblclick', () => {
         // double-click places the item into the first available slot
         clearSelection();
@@ -89,6 +99,20 @@
             const data = JSON.parse(payload);
             handleDrop(data, cell);
           }catch(err){ console.warn('drop parse', err); }
+        });
+        // double-click to remove item in cell
+        cell.addEventListener('dblclick', () => {
+          if(cell.dataset.itemId){
+            // remove from current.items
+            if(current && Array.isArray(current.items)){
+              const posKey = cell.dataset.pos;
+              const idx = current.items.findIndex(x=>`${x.x},${x.y}` === posKey);
+              if(idx > -1) current.items.splice(idx,1);
+            }
+            cell.innerHTML = '';
+            delete cell.dataset.itemId;
+            renderLayoutsList();
+          }
         });
         // click handler for selection/placement
         cell.addEventListener('click', () => {
@@ -252,6 +276,26 @@
       return;
     }
     // otherwise data may contain full item (e.g., from item list). In other flows, we call placeItem() directly.
+    // if payload contains an id but no from, treat as new placement from palette
+    if(!fromPos && itemId){
+      // replace existing item at target or place into empty
+      const itemDef = items.find(x=>x.id===Number(itemId));
+      if(!itemDef) return;
+      const [x,y] = targetCell.dataset.pos.split(',').map(Number);
+      // remove existing at pos if present
+      if(targetCell.dataset.itemId){
+        const posKey = targetCell.dataset.pos;
+        const idx = current.items.findIndex(i=>`${i.x},${i.y}`===posKey);
+        if(idx>-1) current.items.splice(idx,1);
+      }
+      current.items = current.items || [];
+      current.items.push({ x,y, id: Number(itemId), qty: 1 });
+      targetCell.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" draggable="true"></div><div class="qty">1</div>`;
+      targetCell.dataset.itemId = Number(itemId);
+      attachDragHandlersToCells();
+      renderLayoutsList();
+      return;
+    }
   }
 
   function attachDragHandlersToCells(){
