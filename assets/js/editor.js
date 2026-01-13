@@ -32,6 +32,7 @@
     }
     const out = {
         layoutName: 'Imported Layout',
+        layoutIcon: 1963,
         items: []
     };
     const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
@@ -46,6 +47,12 @@
         if (i == 2)
         {
             out.layoutName = splits[i].trim();
+            continue;
+        }
+        if (i == 3)
+        {
+            out.layoutIcon = splits[i].trim();
+            continue;
         }
         if (content === 'layout')
         {
@@ -137,10 +144,12 @@
           let parsed;
           let itemsLayout
           let layoutName;
+          let layoutIcon
           try{ 
             parsed = parseText(txt);
             itemsLayout = parsed.items;
             layoutName = parsed.layoutName;
+            layoutIcon = parsed.layoutIcon;
            }catch(err){ showMessage(err.message, true); return; }
           // If Add to Layout is checked, try to merge item entries into current layout
               let itemsToAdd = [];
