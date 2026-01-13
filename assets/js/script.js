@@ -365,6 +365,14 @@
     5: 6589  // Pineapple
   };
 
+  // expose mapping so importers can map external ids back to internal ids
+  try{ window.externalIdMap = externalIdMap; }catch(e){}
+  try{
+    const reverseExternalIdMap = {};
+    Object.keys(externalIdMap).forEach(k => { reverseExternalIdMap[String(externalIdMap[k])] = Number(k); });
+    window.reverseExternalIdMap = reverseExternalIdMap;
+  }catch(e){}
+
   function buildExportText(){
     if(!current) return '';
     const cols = current.width || 8;

@@ -30,6 +30,37 @@
   }
 
   function parseText(text){
+    // Support two formats: JSON (legacy) or banktags CSV lines
+    const t = text.trim();
+    if(!t) throw new Error('Empty input');
+    const lines = t.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+    // If the first non-empty line starts with 'banktags', parse as CSV banktags format
+    if(lines[0].toLowerCase().startsWith('banktags')){
+      const out = [];
+      const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
+      for(const ln of lines){
+        const parts = ln.split(',');
+        if(parts.length < 7) continue;
+        // Format: banktags,1,Name,952,layout,<cellIndex>,<externalId>
+        const cellIndex = Number(parts[5]);
+        const externalId = parts[6];
+        if(isNaN(cellIndex)) continue;
+        const x = cellIndex % cols;
+        const y = Math.floor(cellIndex / cols);
+        // try to map externalId to our internal id via window.reverseExternalIdMap
+        let id = null;
+        if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(externalId)]){
+          id = window.reverseExternalIdMap[String(externalId)];
+        } else {
+          // fallback: try numeric
+          const n = Number(externalId);
+          id = isNaN(n) ? externalId : n;
+        }
+        out.push({ x, y, id, qty: 1 });
+      }
+      return out;
+    }
+
     try{ return JSON.parse(text); }catch(e){ throw new Error('Invalid JSON: '+e.message); }
   }
 
@@ -91,7 +122,6 @@
   const closeImport = document.getElementById('closeImport');
   const cancelImport = document.getElementById('cancelImport');
   const importConfirm = document.getElementById('importConfirm');
-  const addToLayout = document.getElementById('addToLayout');
 
     // --- Modal behaviors (initialize after DOM is ready) ---
     document.addEventListener('DOMContentLoaded', () => {
@@ -100,7 +130,6 @@
       const closeImport = document.getElementById('closeImport');
       const cancelImport = document.getElementById('cancelImport');
       const importConfirm = document.getElementById('importConfirm');
-      const addToLayout = document.getElementById('addToLayout');
       const modalPaste = document.getElementById('pasteArea');
 
       function showModal(){ if(!importModal) return; importModal.style.display='flex'; importModal.setAttribute('aria-hidden','false'); }
@@ -117,8 +146,6 @@
           let parsed;
           try{ parsed = parseText(txt); }catch(err){ showMessage(err.message, true); return; }
           // If Add to Layout is checked, try to merge item entries into current layout
-          if(addToLayout && addToLayout.checked){
-            try{
               let itemsToAdd = [];
               if(Array.isArray(parsed)) itemsToAdd = parsed;
               else if(parsed && Array.isArray(parsed.layouts) && parsed.layouts[0] && Array.isArray(parsed.layouts[0].items)) itemsToAdd = parsed.layouts[0].items;
@@ -129,8 +156,7 @@
               } else if(window.current){ window.current.items = itemsToAdd.slice(); }
               // refresh UI by dispatching a custom event the main script can listen for
               window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
-            }catch(e){ showMessage('Merge failed: '+e.message, true); return; }
-          }
+          
           hideModal();
         });
       }
