@@ -11,6 +11,7 @@ import os
 import requests
 import json
 import urllib.parse
+import re
 
 FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
@@ -71,7 +72,6 @@ def getEquipmentData():
                 f".where(bucket.Not('Category:Interface items'))"
                 f".where(bucket.Not('Category:Discontinued content'))"
                 f".where(bucket.Not('Category:Beta items'))"
-                # f".where('item_name','Raw lobster')"
                 f".orderBy('item_name', 'asc').run()"
             )
         }
@@ -117,7 +117,6 @@ def main():
     # Use an object rather than an array, so that we can't have duplicate items with the same page_name_sub
     data = {}
     required_imgs = []
-
     # Loop over the equipment data from the wiki
     for v in wiki_data:
         if v['page_name_sub'] in data:
@@ -133,9 +132,10 @@ def main():
             continue
 
         equipment = {
-            'name': v['page_name'],
+            'name': v['item_name'],
             'id': item_id,
             'image': '' if not v.get('image') else v.get('image')[-1].replace('File:', ''),
+            'imagepath': re.sub(r'[^a-zA-Z0-9\s._()-]', '_','' if not v.get('image') else v.get('image')[-1].replace('File:', '')),
         }
     
         if equipment['name'] in ITEMS_TO_SKIP:
@@ -170,10 +170,11 @@ def main():
         r = requests.get(WIKI_BASE + '/w/Special:Filepath/' + img, headers={
             'User-Agent': 'JZomDev Bank Tags Layout helper'
         })
+        imgName = re.sub(r'[^a-zA-Z0-9\s._()-]', '_', img)
         if r.ok:
-            with open(IMG_PATH + img, 'wb') as f:
+            with open(IMG_PATH + imgName, 'wb') as f:
                 f.write(r.content)
-                print('Saved image: ' + img)
+                print('Saved image: ' + imgName)
                 success_img_dls += 1
         else:
             print('Unable to save image: ' + img)
