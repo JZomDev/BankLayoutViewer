@@ -1,23 +1,12 @@
 [
   {
     "id": 1,
-    "title": "Starter Bank",
-    "author": "Alice",
-    "tags": ["starter","compact"],
-    "thumbnail": ""
-  },
-  {
-    "id": 2,
-    "title": "Pro Layout",
-    "author": "Bob",
-    "tags": ["pro","large"],
-    "thumbnail": ""
-  },
-  {
-    "id": 3,
-    "title": "Collector's Grid",
-    "author": "Carol",
-    "tags": ["collector","organized"],
-    "thumbnail": ""
+    "title": "New layout",
+    "author": "You",
+    "width": 8,
+    "height": 7,
+    "items": [
+      {"x":2,"y":1,"id":453,"qty":1}
+    ]
   }
 ]

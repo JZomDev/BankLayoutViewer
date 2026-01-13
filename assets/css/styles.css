@@ -1,19 +1,54 @@
 /* Basic styles for the demo page */
 :root{
-  --bg:#f6f7fb;
-  --panel:#ffffff;
-  --muted:#6b7280;
-  --accent:#2858ff;
+  --bg:#0f1615;
+  --panel:#17201f;
+  --muted:#9aa6a4;
+  --accent:#1fc2a0;
+  --accent-2:#2fb6a8;
 }
-html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#111}
-header{padding:28px 20px;background:linear-gradient(90deg,#ffffff, #f0f4ff);border-bottom:1px solid #e6e9f2}
-.lead{margin:6px 0;color:var(--muted)}
-main{max-width:980px;margin:28px auto;padding:0 18px}
-.panel{background:var(--panel);border-radius:8px;padding:18px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
-#tag-list{list-style:none;padding:0;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px}
-#tag-list li{background:#eef2ff;color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:600}
-#loading{color:var(--muted)}
-footer{max-width:980px;margin:16px auto;padding:0 18px;color:var(--muted);font-size:13px}
+html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#e6f0ef}
+.panel{background:var(--panel);border-radius:8px;padding:14px}
+
+/* Layout columns */
+.site-wrap{display:grid;grid-template-columns:260px 1fr 320px;gap:18px;padding:18px}
+.left-col{display:flex;flex-direction:column;gap:18px}
+.center-col{display:flex;flex-direction:column;gap:12px}
+.right-col{display:flex;flex-direction:column;gap:12px}
+
+/* Tag card (left) */
+.tag-card{display:flex;gap:12px;padding:12px;border-radius:8px;background:linear-gradient(180deg,#14201f,#1a2827)}
+.tag-card .icon{width:56px;height:56px;border-radius:8px;background:#23302f;display:flex;align-items:center;justify-content:center;font-size:22px}
+.tag-card label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.tag-card input{width:100%;padding:8px;border-radius:6px;border:1px solid #23302f;background:#0f1615;color:#e6f0ef}
+.tag-actions{display:flex;gap:8px;margin-top:8px}
+.small-btn{background:#16312f;color:var(--accent);padding:6px 8px;border-radius:6px;border:1px solid #21403e;text-decoration:none}
+.browse-link{display:block;margin-top:8px;color:var(--accent);font-size:13px}
+
+.search-block label{display:block;color:var(--muted);margin-bottom:6px}
+#itemSearch{width:100%;padding:8px;border-radius:6px;border:1px solid #23302f;background:#0f1615;color:#e6f0ef}
+
+.items-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.item-tile{background:#121918;border-radius:6px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.item-tile .thumb{width:48px;height:48px;background:#0e1413;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.item-tile .id{font-size:11px;color:var(--muted)}
+
+/* center grid */
+.tabs{display:flex;gap:8px}
+.tab{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-bottom:2px solid transparent}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.bank-grid-wrap{padding:12px}
+.bank-grid{display:grid;grid-template-columns:repeat(8,56px);grid-auto-rows:56px;gap:8px;background:linear-gradient(180deg,#0d1514,#141b1a);padding:12px;border-radius:8px}
+.cell{background:#1b2423;border-radius:4px;border:1px solid #121818;display:flex;align-items:center;justify-content:center;color:var(--muted);position:relative}
+.cell .qty{position:absolute;bottom:6px;left:6px;font-size:11px;color:var(--muted)}
+.cell .thumb{width:36px;height:36px;background:#2a3a39;border-radius:4px;display:flex;align-items:center;justify-content:center}
+
+/* right layouts */
+.layouts-header{display:flex;align-items:center;justify-content:space-between}
+.layouts-list{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:8px}
+.layouts-list li{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:8px;background:#0e1615}
+.layouts-list .meta{color:var(--muted);font-size:13px}
+
+footer{color:var(--muted);font-size:13px;padding:12px}
 
 /* Header and actions */
 .site-header{background:linear-gradient(90deg,#ffffff,#f7f9ff);border-bottom:1px solid #e6e9f2;padding:14px 0}

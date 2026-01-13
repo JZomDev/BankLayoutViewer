@@ -7,29 +7,52 @@
     <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <h1 class="brand">Bank Layouts Helper</h1>
-        <nav class="actions">
-          <a class="btn" href="editor.html">Editor</a>
-          <button id="export-btn">Export</button>
-          <button id="share-btn">Share</button>
-        </nav>
-      </div>
-      <div class="container header-search">
-        <input id="search" placeholder="Search layouts, tags, authors..." />
-      </div>
-    </header>
-
-    <main id="app">
-      <section class="panel">
-        <h2>Layouts</h2>
-        <div id="grid-area">
-          <p id="loading">Loading layouts…</p>
-          <div id="card-grid" class="card-grid" aria-live="polite"></div>
+    <div class="site-wrap">
+      <aside class="left-col panel">
+        <div class="tag-card">
+          <div class="icon">🪄</div>
+          <div class="tag-controls">
+            <label>Tag Name</label>
+            <input id="tagName" value="New layout">
+            <div class="tag-actions">
+              <a href="editor.html" class="small-btn">Import</a>
+              <button id="export-btn" class="small-btn">Export</button>
+              <button id="share-btn" class="small-btn">Share</button>
+            </div>
+            <a class="browse-link">Browse layouts</a>
+          </div>
         </div>
-      </section>
-    </main>
+
+        <div class="search-block">
+          <label>Item Search</label>
+          <input id="itemSearch" placeholder="search items...">
+        </div>
+
+        <div class="items-grid" id="itemsGrid">
+          <!-- item tiles rendered here -->
+        </div>
+      </aside>
+
+      <main class="center-col">
+        <div class="tabs">
+          <button class="tab active">Tag</button>
+          <button class="tab">Layout</button>
+        </div>
+        <div class="bank-grid-wrap panel">
+          <div id="layoutGrid" class="bank-grid" aria-live="polite"></div>
+        </div>
+      </main>
+
+      <aside class="right-col panel">
+        <div class="layouts-header">
+          <h3>Layouts</h3>
+          <button id="addLayout">+</button>
+        </div>
+        <ul id="layoutsList" class="layouts-list">
+          <!-- layouts will be listed here -->
+        </ul>
+      </aside>
+    </div>
 
     <footer>
       <small>Deploy this page to GitHub Pages (see README).</small>
