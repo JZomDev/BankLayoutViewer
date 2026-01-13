@@ -21,14 +21,6 @@
 
   function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  function previewJson(obj){
-    currentJson = obj;
-    try{
-      const pretty = JSON.stringify(obj, null, 2);
-      preview.innerHTML = `<pre>${escapeHtml(pretty)}</pre>`;
-    }catch(e){ showMessage('Could not render JSON: '+e.message, true); }
-  }
-
   function parseText(text){
     // Support only banktags CSV lines
     const t = text.trim();
@@ -38,16 +30,23 @@
     if(!lines[0].toLowerCase().startsWith('banktags')){
       throw new Error('Unsupported format, check your copy paste');
     }
-    const out = [];
+    const out = {
+        layoutName: 'Imported Layout',
+        items: []
+    };
     const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
     const splits = lines[0].split(',');
     if(splits.length < 7){
       throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
     }
     let startIndex = 0;
-    for(let i=3;i<splits.length;i++)
+    for(let i=0;i<splits.length;i++)
     {
         const content = splits[i].trim();
+        if (i == 2)
+        {
+            out.layoutName = splits[i].trim();
+        }
         if (content === 'layout')
         {
             startIndex = i + 1;
@@ -58,7 +57,8 @@
     for(let i=startIndex;i<splits.length - 1;i++)
     {
         const cellIndex = Number(splits[i].trim());
-        const externalId = splits[i+1].trim();
+        i = i + 1;
+        const externalId = splits[i].trim();
         if(isNaN(cellIndex)) continue;
         const x = cellIndex % cols;
         const y = Math.floor(cellIndex / cols);
@@ -71,37 +71,14 @@
             const n = Number(externalId);
             id = isNaN(n) ? externalId : n;
         }
-        out.push({ x, y, id, qty: 1 });
+
+        out.items.push({ x, y, id});
         
     }
-            return out;
+    return out;
 
   }
 
-  // File upload removed — paste JSON directly into the textarea.
-
-  if(loadBtn){
-    loadBtn.addEventListener('click', () => {
-    const txt = pasteArea.value.trim();
-    if(!txt){ showMessage('No JSON provided.', true); return; }
-    try{
-      const obj = parseText(txt);
-      previewJson(obj);
-    }catch(err){ showMessage(err.message, true); }
-    });
-  }
-
-  if(validateBtn){
-    validateBtn.addEventListener('click', () => {
-      if(!pasteArea.value.trim() && !currentJson){ showMessage('Nothing to validate.', true); return; }
-      try{
-        const obj = currentJson || parseText(pasteArea.value);
-        // Basic validation: accept array or object with `layouts` array
-        const ok = Array.isArray(obj) || (obj && Array.isArray(obj.layouts));
-        showMessage(ok ? 'Valid layout JSON.' : 'JSON does not look like expected layouts format.', !ok);
-      }catch(err){ showMessage(err.message, true); }
-    });
-  }
 
   if(downloadBtn){
     downloadBtn.addEventListener('click', () => {
@@ -158,12 +135,18 @@
           const txt = modalPaste ? modalPaste.value.trim() : (pasteArea ? pasteArea.value.trim() : '');
           if(!txt){ showMessage('No Text to import.', true); return; }
           let parsed;
-          try{ parsed = parseText(txt); }catch(err){ showMessage(err.message, true); return; }
+          let itemsLayout
+          let layoutName;
+          try{ 
+            parsed = parseText(txt);
+            itemsLayout = parsed.items;
+            layoutName = parsed.layoutName;
+           }catch(err){ showMessage(err.message, true); return; }
           // If Add to Layout is checked, try to merge item entries into current layout
               let itemsToAdd = [];
-              if(Array.isArray(parsed)) itemsToAdd = parsed;
-              else if(parsed && Array.isArray(parsed.layouts) && parsed.layouts[0] && Array.isArray(parsed.layouts[0].items)) itemsToAdd = parsed.layouts[0].items;
-              else { showMessage('Imported JSON not recognized for merge.', true); return; }
+              if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
+              else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
+              else { showMessage('Invalid Layout.', true); return; }
               // add items to current
               if(window.current && Array.isArray(window.current.items)){
                 itemsToAdd.forEach(it => { window.current.items.push(it); });

@@ -155,7 +155,7 @@
       const el = layoutGrid.querySelector(`[data-pos="${pos}"]`);
       if(el){
         const itemDef = items.find(x=>x.id===it.id) || {};
-        el.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" draggable="true"></div><div class="qty">${it.qty||''}</div>`;
+        el.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
         el.dataset.itemId = it.id;
         // mark image draggable (delegated handlers will manage behavior)
         const img = el.querySelector('img');
@@ -186,7 +186,7 @@
     current.items = current.items || [];
     current.items.push({ x,y, id: item.id, qty: 1 });
     // render item into target cell
-    targetCell.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" draggable="true"></div><div class="qty">1</div>`;
+    targetCell.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
     targetCell.dataset.itemId = item.id;
     attachDragHandlersToCells();
     renderLayoutsList();
@@ -293,7 +293,7 @@
       }
       current.items = current.items || [];
       current.items.push({ x,y, id: Number(itemId), qty: 1 });
-      targetCell.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" draggable="true"></div><div class="qty">1</div>`;
+      targetCell.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
       targetCell.dataset.itemId = Number(itemId);
       attachDragHandlersToCells();
       renderLayoutsList();
@@ -434,7 +434,7 @@
     const cells = Array.from(layoutGrid.querySelectorAll('.cell'));
     const empty = cells.find(c => !c.dataset.itemId && c.innerHTML.trim()==='');
     if(!empty){ alert('No available slot'); return; }
-    empty.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" draggable="true"></div><div class="qty">1</div>`;
+    empty.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
     empty.dataset.itemId = item.id;
     // compute x,y from dataset.pos and add to current.items
     const [x,y] = empty.dataset.pos.split(',').map(Number);
