@@ -112,6 +112,17 @@
           }catch(err){ console.warn('drop parse', err); }
         });
         // double-click to remove item in cell
+        cell.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            // ask user to confirm inserting a row below the clicked cell's row
+            const pos = cell.dataset.pos || '0,0';
+            const row = Number(pos.split(',')[1]);
+            if(!Number.isFinite(row)) return;
+            if(!confirm(`Insert a new row below row ${row}? Items on rows ${row+1} and below will shift down.`)) return;
+            insertRowBelow(row);
+        });
+        // double-click to remove item in cell
         cell.addEventListener('dblclick', () => {
           if(cell.dataset.itemId){
             // remove from current.items
@@ -227,6 +238,25 @@
       delete fromCell.dataset.itemId;
     }
     attachDragHandlersToCells();
+    renderLayoutsList();
+  }
+
+  function insertRowBelow(rowIndex){
+    if(!current) return;
+    const cols = 8;
+    const rows = 40;
+    current.items = current.items || [];
+    // shift items starting from bottom to avoid overwriting positions
+    const sorted = current.items.slice().sort((a,b) => (b.y - a.y) || (b.x - a.x));
+    sorted.forEach(it => {
+      if(it.y >= rowIndex + 1){
+        it.y = it.y + 1;
+      }
+    });
+    // drop any items that moved beyond the grid
+    current.items = current.items.filter(it => Number(it.y) < rows);
+    // re-render the layout and list
+    showLayout(current);
     renderLayoutsList();
   }
 
@@ -358,7 +388,7 @@
       if(Array.isArray(data) && data.length>0){
         // map to internal items array and build externalIdMap
         // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
-        items = data.map((it, idx) => ({ id: idx, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
+        items = data.map((it, idx) => ({ id: idx++, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
         for (let i=0;i<items.length;i++){
             // for (let j=0+1;j<data2.length;j++){
                 const indexData2 = data2.findIndex(x => x.placeholderId === items[i].externalId);
@@ -419,7 +449,7 @@
         // if choosing the left icon (no layout id), set the tag-card icon and update current
         if(choosingLayoutId === 'left-icon'){
           const iconEl = document.querySelector('.tag-card .icon');
-          if(iconEl){ iconEl.innerHTML = `<img src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
+          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${it.img}" alt="${it.name}" itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
           // record left icon id globally so exports use it when no layout thumb set
           try{ window.leftIconId = it.id; }catch(e){}
           if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
@@ -485,10 +515,10 @@
     const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
     const lines = [];
     // Determine the item id to place in the header (use current.thumbId, or left icon fallback)
-    const headerInternalId = (current && current.thumbId) || window.leftIconId || null;
-    const headerItemId = headerInternalId ? (externalIdMap[headerInternalId] || headerInternalId) : '';
+    
+    
     // header line: banktags,1,<tagName>,<itemid>,layout
-    const header = ['banktags','1', name.replace(/,/g,' '), String(headerItemId), 'layout'].join(',');
+    const header = ['banktags','1', name.replace(/,/g,' '), String(document.getElementById('layoutimage').getAttribute('itemid')), 'layout'].join(',');
     lines.push(header);
     // For each placed item, output a line in the format:
     // banktags,1,LayoutName,952,layout,<cellIndex>,<externalId>

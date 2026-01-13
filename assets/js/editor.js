@@ -173,7 +173,7 @@
                     if(imageName){
                       const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
                       const iconEl = document.querySelector('.tag-card .icon');
-                      if(iconEl){ iconEl.innerHTML = `<img src="${imgUrl}" alt="${found.name||''}" style="width:36px;height:36px;border-radius:6px">`; }
+                      if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="width:36px;height:36px;border-radius:6px">`; }
                       // compute internal id (index + 1) and set leftIconId and current thumb
                       try{ window.leftIconId = foundIdx + 1; }catch(e){}
                       if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
