@@ -12,6 +12,7 @@ import requests
 import json
 import urllib.parse
 import re
+import shutil
 
 FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
@@ -183,6 +184,23 @@ def main():
     print('Total images saved: ' + str(success_img_dls))
     print('Total images skipped (already exists): ' + str(skipped_img_dls))
     print('Total images failed to save: ' + str(failed_img_dls))
-
+    
+    # Download the itemsmin.js file into ../cdn/js/
+    try:
+        url = 'https://chisel.weirdgloop.org/moid/data_files/itemsmin.js'
+        local_filename = url.split('/')[-1]
+        target_dir = os.path.normpath(os.path.join(os.path.dirname(FILE_NAME), '..', 'js'))
+        os.makedirs(target_dir, exist_ok=True)
+        out_path = os.path.join(target_dir, local_filename)
+        print(f'Downloading {url} -> {out_path}')
+        with requests.get(url, stream=True, headers={'User-Agent': 'JZomDev Bank Tags Layout helper'}) as r:
+            if r.ok:
+                with open(out_path, 'wb') as f:
+                    shutil.copyfileobj(r.raw, f)
+                print('Saved', out_path)
+            else:
+                print('Failed to download', url, 'status', r.status_code)
+    except Exception as e:
+        print('Error downloading itemsmin.js:', e
 
 main()
