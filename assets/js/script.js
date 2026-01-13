@@ -146,22 +146,9 @@
         const itemDef = items.find(x=>x.id===it.id) || {};
         el.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" draggable="true"></div><div class="qty">${it.qty||''}</div>`;
         el.dataset.itemId = it.id;
-        // enable dragging from placed items
-        const img = el.querySelector('img[draggable]');
-        if(img){
-          img.addEventListener('dragstart', e => {
-            const payload = JSON.stringify({ id: it.id, from: el.dataset.pos });
-            try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
-            e.dataTransfer.effectAllowed = 'move';
-          });
-          // clicking the placed image should select the placed item for moving
-          img.addEventListener('click', e => {
-            e.stopPropagation();
-            clearSelection();
-            selected = { type: 'placed', id: it.id, fromPos: el.dataset.pos, cellEl: el };
-            el.classList.add('selected');
-          });
-        }
+        // mark image draggable (delegated handlers will manage behavior)
+        const img = el.querySelector('img');
+        if(img) img.setAttribute('draggable','true');
       }
     });
   }
@@ -300,18 +287,33 @@
 
   function attachDragHandlersToCells(){
     // attach dragstart on any placed item images
-    const placedImgs = layoutGrid.querySelectorAll('.cell img[draggable]');
-    placedImgs.forEach(img => {
-      const cell = img.closest('.cell');
-      const pos = cell && cell.dataset.pos;
-      img.addEventListener('dragstart', e => {
-        const itemId = cell.dataset.itemId ? Number(cell.dataset.itemId) : null;
-        const payload = JSON.stringify({ id: itemId, from: pos });
-        try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
-        e.dataTransfer.effectAllowed = 'move';
-      });
-    });
+    // ensure images are draggable (handlers are delegated on the container)
+    const placedImgs = layoutGrid.querySelectorAll('.cell img');
+    placedImgs.forEach(img => img.setAttribute('draggable','true'));
   }
+
+  // Delegate dragstart and click for placed items so handlers persist after DOM moves
+  layoutGrid.addEventListener('dragstart', e => {
+    const img = e.target.closest && e.target.closest('img');
+    if(!img) return;
+    const cell = img.closest && img.closest('.cell');
+    if(!cell) return;
+    const itemId = cell.dataset.itemId ? Number(cell.dataset.itemId) : null;
+    const payload = JSON.stringify({ id: itemId, from: cell.dataset.pos });
+    try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  layoutGrid.addEventListener('click', e => {
+    const img = e.target.closest && e.target.closest('img');
+    if(!img) return;
+    const cell = img.closest && img.closest('.cell');
+    if(!cell || !cell.dataset.itemId) return;
+    e.stopPropagation();
+    clearSelection();
+    selected = { type: 'placed', id: Number(cell.dataset.itemId), fromPos: cell.dataset.pos, cellEl: cell };
+    cell.classList.add('selected');
+  });
 
   async function load(){
     try{
@@ -332,12 +334,14 @@
     const cells = Array.from(layoutGrid.querySelectorAll('.cell'));
     const empty = cells.find(c => !c.dataset.itemId && c.innerHTML.trim()==='');
     if(!empty){ alert('No available slot'); return; }
-    empty.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}"></div><div class="qty">1</div>`;
+    empty.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" draggable="true"></div><div class="qty">1</div>`;
     empty.dataset.itemId = item.id;
     // compute x,y from dataset.pos and add to current.items
     const [x,y] = empty.dataset.pos.split(',').map(Number);
     current.items = current.items || [];
     current.items.push({x,y,id:item.id,qty:1});
+    // ensure drag and click handlers are attached to newly placed item
+    attachDragHandlersToCells();
     renderLayoutsList();
   }
 
