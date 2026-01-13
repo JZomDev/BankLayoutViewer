@@ -89,7 +89,7 @@
     try{ window.current = current; }catch(e){}
     // enforce a fixed grid size: 8 columns x 100 rows
     const cols = 8;
-    const rows = 100;
+    const rows = 40;
     layoutGrid.innerHTML = '';
     layoutGrid.style.gridTemplateColumns = `repeat(${cols},56px)`;
     for(let r=0;r<rows;r++){
@@ -351,15 +351,36 @@
     try{
       const r = await fetch('cdn/json/items.json', {cache:'no-store'});
       const data = await r.json();
+
+      const r2 = await fetch('cdn/js/itemsmin.js', {cache:'no-store'});
+      const data2 = await r2.json();
+
       if(Array.isArray(data) && data.length>0){
         // map to internal items array and build externalIdMap
         // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
-        items = data.map((it, idx) => ({ id: idx+1, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
+        items = data.map((it, idx) => ({ id: idx, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
+        for (let i=0;i<items.length;i++){
+            // for (let j=0+1;j<data2.length;j++){
+                const indexData2 = data2.findIndex(x => x.placeholderId === items[i].externalId);
+                if (indexData2 > -1)
+                {
+                    items[i].placeholderId = data2[indexData2].id;
+                }
+            // }
+        }
         externalIdMap = {};
-        items.forEach(it => { if(it.externalId !== undefined) externalIdMap[it.id] = it.externalId; });
+        externalPlaceHolderMap = {};
+        items.forEach(it => { if(it.externalId !== undefined)
+            { externalIdMap[it.id] = it.externalId; 
+            externalPlaceHolderMap[it.id] = it.placeholderId;
+            }
+
+        });
         // expose mappings on window
           try{ window.externalIdMap = externalIdMap; }catch(e){}
+          try{ window.externalPlaceHolderMap = externalPlaceHolderMap; }catch(e){}
           try{ window.reverseExternalIdMap = {}; Object.keys(externalIdMap).forEach(k => { window.reverseExternalIdMap[String(externalIdMap[k])] = Number(k); }); }catch(e){}
+          try{ window.externalPlaceHolderMap = {}; Object.keys(externalPlaceHolderMap).forEach(k => { window.externalPlaceHolderMap[String(externalPlaceHolderMap[k])] = Number(k); }); }catch(e){}
           // if the page has a default icon img, map it to leftIconId
           try{
             const iconImg = document.querySelector('.tag-card .icon img');
@@ -371,6 +392,7 @@
             }
           }catch(e){}
       }
+
     }catch(e){
       console.warn('Could not load cdn items:', e);
       // keep items empty or fallback to existing ones if desired
@@ -397,7 +419,7 @@
         // if choosing the left icon (no layout id), set the tag-card icon and update current
         if(choosingLayoutId === 'left-icon'){
           const iconEl = document.querySelector('.tag-card .icon');
-          if(iconEl){ iconEl.innerHTML = `<img src="${it.img}" alt="${it.name}" style="width:36px;height:36px;border-radius:6px">`; }
+          if(iconEl){ iconEl.innerHTML = `<img src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
           // record left icon id globally so exports use it when no layout thumb set
           try{ window.leftIconId = it.id; }catch(e){}
           if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
@@ -451,9 +473,10 @@
 
   // mapping from our internal item ids -> external codes (will be populated after loading items)
   let externalIdMap = {};
-
-  // expose mapping containers on window; they'll be populated by loadItems()
+  let externalPlaceHolderMap = {};
+    // expose mapping containers on window; they'll be populated by loadItems()
   try{ window.externalIdMap = externalIdMap; }catch(e){}
+  try{ window.externalPlaceHolderMap = externalPlaceHolderMap; }catch(e){}
   try{ window.reverseExternalIdMap = {}; }catch(e){}
 
   function buildExportText(){

@@ -73,6 +73,8 @@
         let id = null;
         if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(externalId)]){
             id = window.reverseExternalIdMap[String(externalId)];
+        } else if (window && window.externalPlaceHolderMap && window.externalPlaceHolderMap[String(externalId)]){
+           id = window.externalPlaceHolderMap[String(externalId)];
         } else {
             // fallback: try numeric
             const n = Number(externalId);
