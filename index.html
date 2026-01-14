@@ -3,7 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Bank Tags Helper</title>
+    <title>BankTags Helper — banktag layouts & bank layout viewer</title>
+    <meta name="description" content="Create, share and view banktag layouts for your bank. Save layouts, export/import and choose layout thumbnails.">
+    <meta name="keywords" content="banktag layouts, bank tags, bank layout viewer, bank layouts">
+    <link rel="canonical" href="https://jzomdev.github.io/BankTagsHelper/">
+    <!-- OpenGraph / Twitter -->
+    <meta property="og:title" content="RuneLite BankTags Helper — banktag layouts"/>
+    <meta property="og:description" content="Create, save and share banktag layouts. Import/export, choose thumbnails and edit rows."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://jzomdev.github.io/BankTagsHelper/"/>
+    <meta property="og:image" content="https://jzomdev.github.io/BankTagsHelper/cdn/items/Banana.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <!-- JSON-LD (structured data) -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebSite","name":"BankTags Helper","url":"https://jzomdev.github.io/BankTagsHelper/","description":"Create, save and share banktag layouts."}
+    </script>
     <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
@@ -48,13 +62,21 @@
       </main>
 
       <aside class="right-col panel">
-        <div class="layouts-header">
-          <h3>Layouts</h3>
-          <button id="addLayout">+</button>
+        <div class="instruction-panel">
+          <h3>How this works</h3>
+          <p>Import/Export RuneLite Bank Tag layouts into and from this page.</p>
+          <ul>
+            <li>Double-click items from the search results to add them into the layout.</li>
+            <li>Click and drag items from the search area to place them into a specific cell.</li>
+            <li>Right-click a cell to delete that row or insert a new row below it.</li>
+          </ul>
+          <p style="margin-top:8px;font-size:13px;color:var(--muted)">Support the project:
+            <a href="https://ko-fi.com/redrumze" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:var(--accent)">
+              <img src="https://cdn.ko-fi.com/cdn/kofi5.png?v=3" alt="Buy me a coffee" style="height:22px;display:inline-block;border-radius:4px;">
+            </a>
+          </p>
+          <p style="margin-top:6px;font-size:13px;color:var(--muted)">If you encounter issues or want a feature, create an issue in the <a href="https://github.com/JZomDev/BankLayoutViewer" target="_blank" rel="noopener" style="color:var(--accent)">project repository</a>.</p>
         </div>
-        <ul id="layoutsList" class="layouts-list">
-          <!-- layouts will be listed here -->
-        </ul>
       </aside>
     </div>
 

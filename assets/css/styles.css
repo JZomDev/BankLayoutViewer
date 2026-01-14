@@ -2,7 +2,7 @@
 :root{
   --bg:#0f1615;
   --panel:#17201f;
-  --cell-size:56px;
+  --cell-size:50px;
   --muted:#9aa6a4;
   --accent:#1fc2a0;
   --accent-2:#2fb6a8;
@@ -11,10 +11,15 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .panel{background:var(--panel);border-radius:8px;padding:14px}
 
 /* Layout columns */
-.site-wrap{display:grid;grid-template-columns:320px 1fr;gap:18px;padding:18px}
+.site-wrap{display:grid;grid-template-columns:320px 1fr 340px;gap:18px;padding:18px}
 .left-col{display:flex;flex-direction:column;gap:18px}
 .center-col{display:flex;flex-direction:column;gap:12px}
-.right-col{display:none}
+.right-col{display:block}
+
+.instruction-panel{background:transparent;padding:12px;border-radius:8px;margin-bottom:12px;color:var(--muted);font-size:14px}
+.instruction-panel h3{margin:0 0 8px 0;color:var(--accent)}
+.instruction-panel ul{padding-left:18px;margin:6px 0}
+.instruction-panel li{margin-bottom:6px}
 
 /* Tag card (left) */
 .tag-card{display:flex;gap:12px;padding:12px;border-radius:8px;background:linear-gradient(180deg,#14201f,#1a2827)}

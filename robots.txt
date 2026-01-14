@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jzomdev.github.io/BankTagsHelper/sitemap.xml

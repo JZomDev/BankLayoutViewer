@@ -2,7 +2,7 @@
 (function(){
   const layoutsUrl = 'data/layouts.json';
   const itemsGrid = document.getElementById('itemsGrid');
-  const layoutsList = document.getElementById('layoutsList');
+  // layouts list UI removed — persistence handled in `renderLayoutsList()`
   const layoutGrid = document.getElementById('layoutGrid');
   const itemSearch = document.getElementById('itemSearch');
 
@@ -159,36 +159,7 @@
   }
 
   function renderLayoutsList(){
-    layoutsList.innerHTML = '';
-    layouts.forEach(l => {
-      const li = document.createElement('li');
-      // determine thumbnail image
-      const thumbItem = items.find(it => it.id === l.thumbId) || items[0] || {};
-      const thumbSrc = l.thumbnail || (thumbItem && thumbItem.img) || '';
-      li.innerHTML = `<div class="layout-entry-left">
-          <img src="${thumbSrc}" class="layout-thumb" data-layout-id="${l.id}" alt="thumb">
-          <div>
-            <strong>${l.title}</strong>
-            <div class="meta">${l.author || '—'}</div>
-          </div>
-        </div>
-        <div>
-          <button data-id="${l.id}" class="use-btn">✔</button>
-          <button data-id="${l.id}" class="del-btn">⛔</button>
-        </div>`;
-      layoutsList.appendChild(li);
-    });
-    document.querySelectorAll('.use-btn').forEach(b=>b.addEventListener('click', e => {
-      const id = e.target.getAttribute('data-id');
-      const l = layouts.find(x=>String(x.id)===String(id));
-      if(l) showLayout(l);
-    }));
-    // thumbnail click handlers: open chooser modal
-    document.querySelectorAll('.layout-thumb').forEach(img => img.addEventListener('click', e => {
-      const id = e.target.getAttribute('data-layout-id');
-      openChooseModal && openChooseModal(Number(id));
-    }));
-    // persist layouts whenever the list is re-rendered
+    // layouts UI removed — persist layouts to storage only
     try{ if(window && typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts); }catch(e){}
   }
 
