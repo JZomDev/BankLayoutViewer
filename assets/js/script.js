@@ -13,6 +13,16 @@
   let current = null;
   let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl }
 
+  // Load persisted layouts from localStorage (if present).
+  try{
+    if(window && typeof window.loadLayoutsFromStorage === 'function'){
+      const persisted = window.loadLayoutsFromStorage();
+      if(Array.isArray(persisted) && persisted.length){
+        layouts = persisted;
+      }
+    }
+  }catch(e){}
+
   function renderItems(list){
     itemsGrid.innerHTML = '';
     const limited = Array.isArray(list) ? list.slice(0,20) : [];
@@ -81,6 +91,8 @@
       const id = e.target.getAttribute('data-layout-id');
       openChooseModal && openChooseModal(Number(id));
     }));
+    // persist layouts whenever the list is re-rendered
+    try{ if(window && typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts); }catch(e){}
   }
 
   function showLayout(l){
@@ -365,7 +377,11 @@
     try{
       const r = await fetch(layoutsUrl, {cache:'no-store'});
       const data = await r.json();
-      layouts = Array.isArray(data) ? data : (data.layouts || []);
+      // only use remote data if no persisted layouts exist
+      const fetched = Array.isArray(data) ? data : (data.layouts || []);
+      if(!Array.isArray(layouts) || layouts.length === 0){
+        layouts = fetched;
+      }
     }catch(e){ layouts = []; }
     // load item definitions from CDN JSON
     await loadItems();
