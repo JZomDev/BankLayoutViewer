@@ -71,6 +71,7 @@ def getEquipmentData():
                 f".where('item_id', '!=', bucket.Null())"
                 f".where('Category:Items')"
                 f".where(bucket.Not('Category:Interface items'))"
+                # f".where(bucket.Not('Category:Unobtainable items'))"
                 f".where(bucket.Not('Category:Discontinued content'))"
                 f".where(bucket.Not('Category:Beta items'))"
                 f".orderBy('item_name', 'asc').run()"
@@ -163,7 +164,10 @@ def main():
 
     # Fetch all the images from the wiki and store them for local serving
     for idx, img in enumerate(required_imgs):
-        if os.path.isfile(IMG_PATH + img):
+
+        imgName = re.sub(r'[^a-zA-Z0-9\s._()-]', '_', img)
+
+        if os.path.isfile(IMG_PATH + imgName):
             skipped_img_dls += 1
             continue
 
@@ -171,14 +175,13 @@ def main():
         r = requests.get(WIKI_BASE + '/w/Special:Filepath/' + img, headers={
             'User-Agent': 'JZomDev Bank Tags Layout helper'
         })
-        imgName = re.sub(r'[^a-zA-Z0-9\s._()-]', '_', img)
         if r.ok:
             with open(IMG_PATH + imgName, 'wb') as f:
                 f.write(r.content)
                 print('Saved image: ' + imgName)
                 success_img_dls += 1
         else:
-            print('Unable to save image: ' + img)
+            print('Unable to save image: ' + imgName)
             failed_img_dls += 1
 
     print('Total images saved: ' + str(success_img_dls))
@@ -196,11 +199,13 @@ def main():
         with requests.get(url, stream=True, headers={'User-Agent': 'JZomDev Bank Tags Layout helper'}) as r:
             if r.ok:
                 with open(out_path, 'wb') as f:
-                    shutil.copyfileobj(r.raw, f)
+                    f.write(r.content[6:])
                 print('Saved', out_path)
             else:
                 print('Failed to download', url, 'status', r.status_code)
     except Exception as e:
-        print('Error downloading itemsmin.js:', e
+        print('Error downloading itemsmin.js:', e)
+
+
 
 main()

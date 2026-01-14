@@ -9,7 +9,7 @@
 
   let layouts = [];
   let current = null;
-  let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl }
+  let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl: }
 
   // lazy-load controls
   let itemsLoaded = false;
@@ -552,7 +552,7 @@
 
   // Main table search function: performs fuzzy search against `items` and renders results.
   // Returns a Promise resolving to the filtered items array.
-  function maintable(query){
+  function FuzzySearch(query){
     const q = (query||'').trim();
     if(q.length < 3){ renderItems([]); return Promise.resolve([]); }
     return ensureItemsLoaded().then(() => {
@@ -563,7 +563,7 @@
         .map(s => s.it);
       renderItems(scored);
       return scored;
-    }).catch(err => { console.warn('maintable search failed', err); renderItems([]); return []; });
+    }).catch(err => { console.warn('FuzzySearch search failed', err); renderItems([]); return []; });
   }
 
   // Delegate dragstart and click for placed items so handlers persist after DOM moves
@@ -625,21 +625,38 @@
     // load items lazily in background when needed
     ensureItemsLoaded();
       if(Array.isArray(data) && data.length>0){
+        externalIdMap = {};
         // map to internal items array and build externalIdMap
         // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
-        items = data.map((it, idx) => ({ id: idx++, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
-        for (let i=0;i<items.length;i++){
-                const indexData2 = data2.findIndex(x => x.placeholderId === items[i].externalId);
-                if (indexData2 > -1)
-                {
-                    items[i].placeholderId = data2[indexData2].id;
-                }
-        }
-        externalIdMap = {};
-        externalPlaceHolderMap = {};
+
+        const skipIds = new Set([
+            6678, 
+        ]
+        
+        ); // example bad item IDs to skip
+
+        items = data.flatMap((it, idx) => {
+          const matchPlaceHolder = Array.isArray(data2) ? data2.find(x => x.placeholderId === it.id) : null;
+          const matchName = Array.isArray(data2) ? data2.find(x => x.id === it.id) : null;
+
+          if(skipIds.has(it.id))
+          {
+            return []; 
+          }
+
+          return {
+            id: idx,
+            name:  matchName ?  matchName.name : it.name || String(it.id || ('item-'+(idx+1))),
+            img: 'cdn/items/' + encodeURIComponent(it.imagepath || ''),
+            externalId: it.id,
+            placeholderId: matchPlaceHolder ? matchPlaceHolder.id : undefined
+          };
+        });
+
         items.forEach(it => { if(it.externalId !== undefined)
-            { externalIdMap[it.id] = it.externalId; 
-            externalPlaceHolderMap[it.id] = it.placeholderId;
+            { 
+                externalIdMap[it.id] = it.externalId; 
+                externalPlaceHolderMap[it.id] = it.placeholderId;
             }
 
         });
@@ -658,7 +675,7 @@
               if(found) window.leftIconId = found.id;
             }
           }catch(e){}
-      }
+        }
 
     }catch(e){
       console.warn('Could not load cdn items:', e);
@@ -824,7 +841,7 @@
 
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim();
-    maintable(q);
+    FuzzySearch(q);
   });
 
   // wire choose modal controls after DOM ready
