@@ -2,6 +2,7 @@
 :root{
   --bg:#0f1615;
   --panel:#17201f;
+  --cell-size:56px;
   --muted:#9aa6a4;
   --accent:#1fc2a0;
   --accent-2:#2fb6a8;
@@ -29,8 +30,8 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 
 .items-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;box-sizing:border-box}
 .item-tile{background:#121918;border-radius:6px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-sizing:border-box}
-.item-tile img{width:36px;height:36px}
-.item-tile .thumb{width:40px;height:40px;background:#0e1413;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.item-tile img{width:auto;height:auto;max-width:100%;max-height:100%}
+.item-tile .thumb{display:flex;align-items:center;justify-content:center;color:var(--muted);min-width:40px;min-height:40px;padding:6px;background:#0e1413;border-radius:6px}
 .item-tile .id{font-size:11px;color:var(--muted)}
 .item-tile .name{font-size:11px;margin-top:4px;color:#e6f0ef;text-align:center}
 .item-tile.selected{outline:2px solid rgba(47,182,168,0.18);box-shadow:0 4px 12px rgba(0,0,0,0.4) inset}
@@ -40,9 +41,13 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .tab{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-bottom:2px solid transparent}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .bank-grid-wrap{padding:12px}
-.bank-grid{display:grid;grid-template-columns:repeat(8,56px);grid-auto-rows:56px;gap:8px;background:linear-gradient(180deg,#0d1514,#141b1a);padding:12px;border-radius:8px}
-.cell{background:#1b2423;border-radius:4px;border:1px solid #121818;display:flex;align-items:center;justify-content:center;color:var(--muted);position:relative}
-.cell.thumb{width:36px;height:36px;background:#2a3a39;border-radius:4px;display:flex;align-items:center;justify-content:center}
+.bank-grid{display:grid;grid-template-columns:repeat(8,var(--cell-size));grid-auto-rows:var(--cell-size);gap:8px;background:linear-gradient(180deg,#0d1514,#141b1a);padding:12px;border-radius:8px}
+.cell{background:#1b2423;border-radius:4px;border:1px solid #121818;display:flex;align-items:center;justify-content:center;color:var(--muted);position:relative;padding:0;box-sizing:border-box}
+.cell.thumb{display:flex;align-items:center;justify-content:center;background:#2a3a39;border-radius:4px;min-width:36px;min-height:36px;padding:6px;box-sizing:border-box}
+
+/* make the inner thumb fill the cell while keeping padding */
+.cell .thumb{width:calc(var(--cell-size) - 12px);height:calc(var(--cell-size) - 12px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cell .thumb img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
 
 /* drag state */
 .cell.drag-over{outline:2px dashed var(--accent-2);box-shadow:0 0 0 4px rgba(47,182,168,0.06) inset}
@@ -59,7 +64,7 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 /* chooser modal (reuse modal classes) */
 #chooseItemsGrid{max-height:320px;overflow:auto}
 .choose-item-tile{padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-.choose-item-tile img{width:40px;height:40px}
+.choose-item-tile img{width:auto;height:auto;max-width:100%;max-height:100%}
 .choose-item-tile.selected{outline:2px solid var(--accent)}
 
 footer{color:var(--muted);font-size:13px;padding:12px}

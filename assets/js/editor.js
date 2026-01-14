@@ -167,13 +167,13 @@
                 const data = await r.json();
                 if(Array.isArray(data)){
                   const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
-                  if(foundIdx > -1){
+                    if(foundIdx > -1){
                     const found = data[foundIdx];
                     const imageName = found.imagepath || found.image || '';
                     if(imageName){
                       const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
                       const iconEl = document.querySelector('.tag-card .icon');
-                      if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="width:36px;height:36px;border-radius:6px">`; }
+                      if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
                       // compute internal id (index + 1) and set leftIconId and current thumb
                       try{ window.leftIconId = foundIdx + 1; }catch(e){}
                       if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
@@ -194,12 +194,20 @@
               else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
               else { showMessage('Invalid Layout.', true); return; }
               // add items to current — replace existing items (clear board) instead of merging
-              if(window.current){
-                window.current.items = itemsToAdd.slice();
-              } else {
-                // ensure there's a current object for the UI to render
-                window.current = { items: itemsToAdd.slice() };
+            // Reset/clear current layout size and items first
+            window.current.items = [];
+            window.current.height = 8;
+            // now import items
+            window.current.items = itemsToAdd.slice();
+            // grow to fit imported items: if items use more rows than current height, expand +1 row
+            if(window.current.items.length){
+              let maxY = 0;
+              window.current.items.forEach(it => { if(typeof it.y === 'number' && it.y > maxY) maxY = it.y; });
+              const requiredRows = maxY + 1;
+              if(requiredRows >= window.current.height){
+                window.current.height = requiredRows + 1;
               }
+            }
               // refresh UI by dispatching a custom event the main script can listen for
               window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
           

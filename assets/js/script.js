@@ -188,11 +188,18 @@
     current = l;
     // expose current layout to other scripts (import modal)
     try{ window.current = current; }catch(e){}
-    // enforce a fixed grid size: 8 columns x 100 rows
     const cols = 8;
-    const rows = 40;
+    // determine rows from layout height, default to 8
+    let rows = (typeof l.height !== 'undefined' && l.height !== null) ? Number(l.height) : 8;
+    // if items exceed the specified height, grow to fit + 1 extra row at bottom
+    if(Array.isArray(l.items) && l.items.length){
+      const maxY = l.items.reduce((m,it) => Math.max(m, Number(it && it.y) || 0), -1);
+      if(maxY + 1 > rows) rows = maxY + 1 + 1;
+    }
+    // store computed height back to layout
+    l.height = rows;
     layoutGrid.innerHTML = '';
-    layoutGrid.style.gridTemplateColumns = `repeat(${cols},56px)`;
+    layoutGrid.style.gridTemplateColumns = `repeat(${cols},var(--cell-size))`;
     for(let r=0;r<rows;r++){
       for(let c=0;c<cols;c++){
         const cell = document.createElement('div');
@@ -264,7 +271,7 @@
       const el = layoutGrid.querySelector(`[data-pos="${pos}"]`);
       if(el){
         const itemDef = items.find(x=>x.id===it.id) || {};
-        el.innerHTML = `<div class="thumb"><img loading="lazy" src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
+        el.innerHTML = `<div class="thumb"><img loading="lazy" src="${itemDef.img||''}" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
         el.dataset.itemId = it.id;
         // mark image draggable (delegated handlers will manage behavior)
         const img = el.querySelector('img');
@@ -295,7 +302,7 @@
     current.items = current.items || [];
     current.items.push({ x,y, id: item.id, qty: 1 });
     // render item into target cell
-    targetCell.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
+    targetCell.innerHTML = `<div class="thumb"><img src="${item.img}" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
     targetCell.dataset.itemId = item.id;
     attachDragHandlersToCells();
     renderLayoutsList();
@@ -342,7 +349,9 @@
   function insertRowBelow(rowIndex){
     if(!current) return;
     const cols = 8;
-    const rows = 40;
+    const rows = (current && current.height) ? Number(current.height) : 8;
+    // increase layout height to accommodate new row
+    current.height = (current.height || 8) + 1;
     current.items = current.items || [];
     // shift items starting from bottom to avoid overwriting positions
     const sorted = current.items.slice().sort((a,b) => (b.y - a.y) || (b.x - a.x));
@@ -351,8 +360,8 @@
         it.y = it.y + 1;
       }
     });
-    // drop any items that moved beyond the grid
-    current.items = current.items.filter(it => Number(it.y) < rows);
+    // drop any items that moved beyond the new grid height
+    current.items = current.items.filter(it => Number(it.y) < Number(current.height));
     // re-render the layout and list
     showLayout(current);
     renderLayoutsList();
@@ -361,7 +370,7 @@
 
   function deleteRow(rowIndex){
     if(!current) return;
-    const rows = 40;
+    const rows = (current && current.height) ? Number(current.height) : 8;
     current.items = current.items || [];
     // remove items on the target row
     current.items = current.items.filter(it => Number(it.y) !== Number(rowIndex));
@@ -369,8 +378,10 @@
     current.items.forEach(it => {
       if(it.y > rowIndex) it.y = it.y - 1;
     });
-    // ensure all items remain within bounds
-    current.items = current.items.filter(it => Number(it.y) >= 0 && Number(it.y) < rows);
+    // decrease layout height but keep at least 8 rows
+    current.height = Math.max(8, rows - 1);
+    // ensure all items remain within bounds (using new height)
+    current.items = current.items.filter(it => Number(it.y) >= 0 && Number(it.y) < Number(current.height));
     // re-render and persist
     showLayout(current);
     renderLayoutsList();
@@ -440,7 +451,7 @@
       }
       current.items = current.items || [];
       current.items.push({ x,y, id: Number(itemId), qty: 1 });
-      targetCell.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
+      targetCell.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
       targetCell.dataset.itemId = Number(itemId);
       attachDragHandlersToCells();
       renderLayoutsList();
@@ -491,7 +502,7 @@
     // load item definitions from CDN JSON
     await loadItems();
     if(layouts.length===0){
-      layouts = [ {id:1,title:'New layout',author:'You',width:8,height:100,items:[]} ];
+      layouts = [ {id:1,title:'New layout',author:'You',width:8,height:8,items:[]} ];
     }
     renderLayoutsList();
     renderItems(items);
@@ -575,7 +586,7 @@
         // if choosing the left icon (no layout id), set the tag-card icon and update current
         if(choosingLayoutId === 'left-icon'){
           const iconEl = document.querySelector('.tag-card .icon');
-          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
+          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="border-radius:6px">`; }
           // record left icon id globally so exports use it when no layout thumb set
           try{ window.leftIconId = it.id; }catch(e){}
           if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
@@ -614,7 +625,7 @@
     const cells = Array.from(layoutGrid.querySelectorAll('.cell'));
     const empty = cells.find(c => !c.dataset.itemId && c.innerHTML.trim()==='');
     if(!empty){ alert('No available slot'); return; }
-    empty.innerHTML = `<div class="thumb"><img src="${item.img}" style="width:36px;height:36px" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
+    empty.innerHTML = `<div class="thumb"><img src="${item.img}" alt="${item.name}" title="${item.name}" draggable="true"></div>`;
     empty.dataset.itemId = item.id;
     // compute x,y from dataset.pos and add to current.items
     const [x,y] = empty.dataset.pos.split(',').map(Number);
@@ -693,6 +704,8 @@
       if(!confirm('Clear all items from the current layout?')) return;
       // clear data
       current.items = [];
+      // reset layout height to default (8 rows)
+      current.height = 8;
       // clear DOM cells
       const cells = layoutGrid.querySelectorAll('.cell');
       cells.forEach(c => { c.innerHTML = ''; delete c.dataset.itemId; });
