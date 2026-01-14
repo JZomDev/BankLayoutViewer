@@ -21,11 +21,13 @@
     if(typeof loadItems !== 'function') return Promise.resolve(false);
     itemsLoadingPromise = loadItems().then(() => {
       itemsLoaded = true;
-      try{ renderItems(items); renderLayoutsList(); if(current) showLayout(current); }catch(e){}
+      try{ renderLayoutsList(); if(current) showLayout(current); }catch(e){}
       return true;
     }).catch(err => { console.warn('items load failed', err); });
     return itemsLoadingPromise;
   }
+
+  try{ window.ensureItemsLoaded = ensureItemsLoaded; }catch(e){}
 
   // --- Context menu for grid cells (replace confirm prompts) ---
   function createCellContextMenu(){
@@ -561,7 +563,7 @@
       layouts = [ {id:1,title:'New layout',author:'You',width:8,height:8,items:[]} ];
     }
     renderLayoutsList();
-    renderItems(items);
+    renderItems([]);
     showLayout(layouts[0]);
     // hide loading overlay if present
     try{ const ov = document.getElementById('loadingOverlay'); if(ov) { ov.style.display = 'none'; ov.setAttribute('aria-hidden','true'); } }catch(e){}
