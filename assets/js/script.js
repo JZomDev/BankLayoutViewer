@@ -196,6 +196,21 @@
     current = l;
     // expose current layout to other scripts (import modal)
     try{ window.current = current; }catch(e){}
+    // update the tag-card icon to reflect this layout's thumbnail if present
+    try{
+      const iconEl = document.querySelector('.tag-card .icon');
+      if(iconEl){
+        if(current && current.thumbnail){
+          iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${current.thumbnail}" alt="layout thumb" itemid="${current.thumbId||''}" style="border-radius:6px">`;
+        } else if(current && current.thumbId && Array.isArray(items) && items.length){
+          const found = items.find(it => Number(it.id) === Number(current.thumbId));
+          if(found && found.img) iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${found.img}" alt="layout thumb" itemid="${found.externalId||found.id||''}" style="border-radius:6px">`;
+        } else if(window && typeof window.leftIconId !== 'undefined' && Array.isArray(items) && items.length){
+          const left = items.find(it => Number(it.id) === Number(window.leftIconId));
+          if(left && left.img) iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${left.img}" alt="layout thumb" itemid="${left.externalId||left.id||''}" style="border-radius:6px">`;
+        }
+      }
+    }catch(e){}
     const cols = 8;
     // determine rows from layout height, default to 8
     let rows = (typeof l.height !== 'undefined' && l.height !== null) ? Number(l.height) : 8;
@@ -515,6 +530,8 @@
     renderLayoutsList();
     renderItems(items);
     showLayout(layouts[0]);
+    // hide loading overlay if present
+    try{ const ov = document.getElementById('loadingOverlay'); if(ov) { ov.style.display = 'none'; ov.setAttribute('aria-hidden','true'); } }catch(e){}
   }
 
   async function loadItems(){
@@ -571,6 +588,7 @@
     }catch(e){
       console.warn('Could not load cdn items:', e);
       // keep items empty or fallback to existing ones if desired
+      try{ const ov = document.getElementById('loadingOverlay'); if(ov) { ov.style.display = 'none'; ov.setAttribute('aria-hidden','true'); } }catch(_){ }
     }
   }
 
@@ -717,6 +735,14 @@
       // clear DOM cells
       const cells = layoutGrid.querySelectorAll('.cell');
       cells.forEach(c => { c.innerHTML = ''; delete c.dataset.itemId; });
+      // reset layout thumbnail/icon to default banana
+      try{
+        const iconEl = document.querySelector('.tag-card .icon');
+        if(iconEl){
+          iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="cdn/items/Banana.png" alt="banana" itemid="1963" style="border-radius:6px">`;
+        }
+        if(current){ current.thumbnail = 'cdn/items/Banana.png'; current.thumbId = 1963; }
+      }catch(e){}
       renderLayoutsList();
     });
   }
