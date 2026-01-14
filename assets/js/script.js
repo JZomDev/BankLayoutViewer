@@ -86,15 +86,23 @@
     const menu = document.getElementById('cell-context-menu');
     if(!menu) return;
     menu.dataset.row = String(row);
-    // position menu near cursor with small offset
-    const x = event.clientX + 6;
-    const y = event.clientY + 6;
-    // prevent overflow
+    // position menu near cursor using fixed positioning so it aligns with viewport coords
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    menu.style.position = 'fixed';
     menu.style.display = 'block';
-    menu.style.left = Math.min(x, vw - 180) + 'px';
-    menu.style.top = Math.min(y, vh - 120) + 'px';
+    // temporarily place at 0,0 to measure size
+    menu.style.left = '0px';
+    menu.style.top = '0px';
+    const rect = menu.getBoundingClientRect();
+    const x = event.clientX + 6;
+    const y = event.clientY + 6;
+    let left = x;
+    let top = y;
+    if(left + rect.width > vw) left = Math.max(6, vw - rect.width - 6);
+    if(top + rect.height > vh) top = Math.max(6, vh - rect.height - 6);
+    menu.style.left = left + 'px';
+    menu.style.top = top + 'px';
   }
 
   function hideCellContextMenu(){
