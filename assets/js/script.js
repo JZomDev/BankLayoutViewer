@@ -13,6 +13,95 @@
   let current = null;
   let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl }
 
+  // lazy-load controls
+  let itemsLoaded = false;
+  let itemsLoadingPromise = null;
+
+  function ensureItemsLoaded(){
+    if(itemsLoaded) return Promise.resolve(true);
+    if(itemsLoadingPromise) return itemsLoadingPromise;
+    if(typeof loadItems !== 'function') return Promise.resolve(false);
+    itemsLoadingPromise = loadItems().then(() => {
+      itemsLoaded = true;
+      try{ renderItems(items); renderLayoutsList(); if(current) showLayout(current); }catch(e){}
+      return true;
+    }).catch(err => { console.warn('items load failed', err); });
+    return itemsLoadingPromise;
+  }
+
+  // --- Context menu for grid cells (replace confirm prompts) ---
+  function createCellContextMenu(){
+    if(document.getElementById('cell-context-menu')) return;
+    const menu = document.createElement('div');
+    menu.id = 'cell-context-menu';
+    menu.style.position = 'absolute';
+    menu.style.display = 'none';
+    menu.style.background = '#0b1211';
+    menu.style.color = '#e6f0ef';
+    menu.style.border = '1px solid rgba(255,255,255,0.06)';
+    menu.style.padding = '6px';
+    menu.style.borderRadius = '6px';
+    menu.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
+    menu.style.zIndex = 9999;
+    menu.style.minWidth = '160px';
+    menu.tabIndex = -1;
+
+    const insertBtn = document.createElement('div');
+    insertBtn.className = 'cm-item';
+    insertBtn.textContent = 'Insert row below';
+    insertBtn.style.padding = '8px 10px';
+    insertBtn.style.cursor = 'pointer';
+    insertBtn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const row = Number(menu.dataset.row);
+      if(Number.isFinite(row)) insertRowBelow(row);
+      hideCellContextMenu();
+    });
+
+    const delBtn = document.createElement('div');
+    delBtn.className = 'cm-item';
+    delBtn.textContent = 'Delete row';
+    delBtn.style.padding = '8px 10px';
+    delBtn.style.cursor = 'pointer';
+    delBtn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const row = Number(menu.dataset.row);
+      if(Number.isFinite(row)) deleteRow(row);
+      hideCellContextMenu();
+    });
+
+    menu.appendChild(insertBtn);
+    menu.appendChild(delBtn);
+    document.body.appendChild(menu);
+
+    // hide on outside click
+    document.addEventListener('click', hideCellContextMenu);
+    window.addEventListener('resize', hideCellContextMenu);
+    window.addEventListener('scroll', hideCellContextMenu, true);
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') hideCellContextMenu(); });
+  }
+
+  function showCellContextMenu(event, row){
+    createCellContextMenu();
+    const menu = document.getElementById('cell-context-menu');
+    if(!menu) return;
+    menu.dataset.row = String(row);
+    // position menu near cursor with small offset
+    const x = event.clientX + 6;
+    const y = event.clientY + 6;
+    // prevent overflow
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    menu.style.display = 'block';
+    menu.style.left = Math.min(x, vw - 180) + 'px';
+    menu.style.top = Math.min(y, vh - 120) + 'px';
+  }
+
+  function hideCellContextMenu(){
+    const menu = document.getElementById('cell-context-menu');
+    if(menu) menu.style.display = 'none';
+  }
+
   // Load persisted layouts from localStorage (if present).
   try{
     if(window && typeof window.loadLayoutsFromStorage === 'function'){
@@ -32,7 +121,7 @@
       const tile = document.createElement('div');
       tile.className = 'item-tile';
       tile.innerHTML = `
-        <img src="${it.img}" alt="${it.name}">
+        <img loading="lazy" src="${it.img}" alt="${it.name}">
         <div class="name">${it.name}</div>
         <div class="id" style="display:none">${it.id}</div>
       `;
@@ -123,16 +212,13 @@
             handleDrop(data, cell);
           }catch(err){ console.warn('drop parse', err); }
         });
-        // double-click to remove item in cell
         cell.addEventListener('contextmenu', function(event) {
             event.preventDefault();
             event.stopPropagation();
-            // ask user to confirm inserting a row below the clicked cell's row
             const pos = cell.dataset.pos || '0,0';
             const row = Number(pos.split(',')[1]);
             if(!Number.isFinite(row)) return;
-            if(!confirm(`Insert a new row below row ${row}? Items on rows ${row+1} and below will shift down.`)) return;
-            insertRowBelow(row);
+            showCellContextMenu(event, row);
         });
         // double-click to remove item in cell
         cell.addEventListener('dblclick', () => {
@@ -178,7 +264,7 @@
       const el = layoutGrid.querySelector(`[data-pos="${pos}"]`);
       if(el){
         const itemDef = items.find(x=>x.id===it.id) || {};
-        el.innerHTML = `<div class="thumb"><img src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
+        el.innerHTML = `<div class="thumb"><img loading="lazy" src="${itemDef.img||''}" style="width:36px;height:36px" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
         el.dataset.itemId = it.id;
         // mark image draggable (delegated handlers will manage behavior)
         const img = el.querySelector('img');
@@ -270,6 +356,25 @@
     // re-render the layout and list
     showLayout(current);
     renderLayoutsList();
+    try{ if(window && typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts); }catch(e){}
+  }
+
+  function deleteRow(rowIndex){
+    if(!current) return;
+    const rows = 40;
+    current.items = current.items || [];
+    // remove items on the target row
+    current.items = current.items.filter(it => Number(it.y) !== Number(rowIndex));
+    // shift items below the removed row up by 1
+    current.items.forEach(it => {
+      if(it.y > rowIndex) it.y = it.y - 1;
+    });
+    // ensure all items remain within bounds
+    current.items = current.items.filter(it => Number(it.y) >= 0 && Number(it.y) < rows);
+    // re-render and persist
+    showLayout(current);
+    renderLayoutsList();
+    try{ if(window && typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts); }catch(e){}
   }
 
   function handleDrop(data, targetCell){
@@ -397,10 +502,15 @@
     try{
       const r = await fetch('cdn/json/items.json', {cache:'no-store'});
       const data = await r.json();
-
+      // only use remote data if no persisted layouts exist
+      const fetched = Array.isArray(data) ? data : (data.layouts || []);
+      if(!Array.isArray(layouts) || layouts.length === 0){
+        layouts = fetched;
+      }
       const r2 = await fetch('cdn/js/itemsmin.js', {cache:'no-store'});
       const data2 = await r2.json();
-
+    // load items lazily in background when needed
+    ensureItemsLoaded();
       if(Array.isArray(data) && data.length>0){
         // map to internal items array and build externalIdMap
         // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
@@ -460,12 +570,12 @@
       if(!it || !it.img || String(it.img).trim() === '') return;
       const tile = document.createElement('div');
       tile.className = 'choose-item-tile';
-      tile.innerHTML = `<img src="${it.img}" alt="${it.name}"><div class="name">${it.name}</div>`;
+      tile.innerHTML = `<img loading="lazy" src="${it.img}" alt="${it.name}"><div class="name">${it.name}</div>`;
       tile.addEventListener('click', () => {
         // if choosing the left icon (no layout id), set the tag-card icon and update current
         if(choosingLayoutId === 'left-icon'){
           const iconEl = document.querySelector('.tag-card .icon');
-          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${it.img}" alt="${it.name}" itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
+          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="width:36px;height:36px;border-radius:6px">`; }
           // record left icon id globally so exports use it when no layout thumb set
           try{ window.leftIconId = it.id; }catch(e){}
           if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
@@ -489,8 +599,10 @@
     choosingLayoutId = layoutId;
     const m = chooseModal(); if(!m) return;
     const search = chooseSearchEl(); if(search) search.value = '';
-    renderChooseItems(items);
-    m.style.display = 'flex'; m.setAttribute('aria-hidden','false');
+    ensureItemsLoaded().then(() => {
+      renderChooseItems(items);
+      m.style.display = 'flex'; m.setAttribute('aria-hidden','false');
+    });
   }
 
   function closeChooseModal(){
@@ -589,10 +701,12 @@
   }
 
   itemSearch && itemSearch.addEventListener('input', e => {
-    const q = (e.target.value||'').trim().toLowerCase();
-    if(q.length < 3){ renderItems([]); return; }
-    const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
-    renderItems(filtered);
+    ensureItemsLoaded().then(() => {
+      const q = (e.target.value||'').trim().toLowerCase();
+      if(q.length < 3){ renderItems([]); return; }
+      const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
+      renderItems(filtered);
+    });
   });
 
   // wire choose modal controls after DOM ready
