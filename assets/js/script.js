@@ -524,6 +524,48 @@
     placedImgs.forEach(img => img.setAttribute('draggable','true'));
   }
 
+  // Fuzzy match scoring for item names. Returns a numeric score (>0 means match).
+  function fuzzyScore(name, query){
+    if(!query) return 0;
+    name = String(name||'').toLowerCase();
+    query = String(query||'').toLowerCase();
+    if(name.length === 0) return 0;
+    // exact/substring match -> high score
+    if(name.indexOf(query) !== -1) return 100 + (query.length / Math.max(1, name.length));
+    // subsequence scoring: require characters in order
+    let qi = 0;
+    let score = 0;
+    let consec = 0;
+    for(let i=0;i<name.length && qi<query.length;i++){
+      if(name[i] === query[qi]){
+        qi++;
+        consec++;
+        score += 1 + (consec * 0.5);
+      } else {
+        consec = 0;
+      }
+    }
+    if(qi !== query.length) return 0; // not all query chars matched in order
+    // normalize by name length to prefer shorter better matches
+    return (score / name.length) * 10;
+  }
+
+  // Main table search function: performs fuzzy search against `items` and renders results.
+  // Returns a Promise resolving to the filtered items array.
+  function maintable(query){
+    const q = (query||'').trim();
+    if(q.length < 3){ renderItems([]); return Promise.resolve([]); }
+    return ensureItemsLoaded().then(() => {
+      const scored = (items||[]).map(it => ({ it, score: fuzzyScore(it.name||'', q) }))
+        .filter(s => s.score > 0)
+        .sort((a,b) => b.score - a.score)
+        .slice(0,20)
+        .map(s => s.it);
+      renderItems(scored);
+      return scored;
+    }).catch(err => { console.warn('maintable search failed', err); renderItems([]); return []; });
+  }
+
   // Delegate dragstart and click for placed items so handlers persist after DOM moves
   layoutGrid.addEventListener('dragstart', e => {
     const img = e.target.closest && e.target.closest('img');
@@ -587,13 +629,11 @@
         // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
         items = data.map((it, idx) => ({ id: idx++, name: it.name || String(it.id || ('item-'+(idx+1))), img: 'cdn/items/'+encodeURIComponent(it.imagepath || ''), externalId: it.id }));
         for (let i=0;i<items.length;i++){
-            // for (let j=0+1;j<data2.length;j++){
                 const indexData2 = data2.findIndex(x => x.placeholderId === items[i].externalId);
                 if (indexData2 > -1)
                 {
                     items[i].placeholderId = data2[indexData2].id;
                 }
-            // }
         }
         externalIdMap = {};
         externalPlaceHolderMap = {};
@@ -783,12 +823,8 @@
   }
 
   itemSearch && itemSearch.addEventListener('input', e => {
-    ensureItemsLoaded().then(() => {
-      const q = (e.target.value||'').trim().toLowerCase();
-      if(q.length < 3){ renderItems([]); return; }
-      const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
-      renderItems(filtered);
-    });
+    const q = (e.target.value||'').trim();
+    maintable(q);
   });
 
   // wire choose modal controls after DOM ready
