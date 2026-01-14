@@ -1,4 +1,3 @@
-// Client that fetches sample layouts and renders a card grid.
 (function(){
   const layoutsUrl = 'data/layouts.json';
   const itemsGrid = document.getElementById('itemsGrid');
@@ -6,7 +5,6 @@
   const layoutGrid = document.getElementById('layoutGrid');
   const itemSearch = document.getElementById('itemSearch');
 
-  // Items will be loaded from cdn/json/items.json and images from cdn/items/
   let items = [];
 
   let layouts = [];
@@ -105,12 +103,12 @@
     menu.style.top = top + 'px';
   }
 
+  
   function hideCellContextMenu(){
     const menu = document.getElementById('cell-context-menu');
     if(menu) menu.style.display = 'none';
   }
 
-  // Load persisted layouts from localStorage (if present).
   try{
     if(window && typeof window.loadLayoutsFromStorage === 'function'){
       const persisted = window.loadLayoutsFromStorage();
@@ -124,8 +122,7 @@
     itemsGrid.innerHTML = '';
     const limited = Array.isArray(list) ? list.slice(0,20) : [];
     limited.forEach(it => {
-      // skip items without a CDN image
-      if(!it || !it.img || String(it.img).trim() === '') return;
+        if(!it || !it.img || String(it.img).trim() === '') return;
       const tile = document.createElement('div');
       tile.className = 'item-tile';
       tile.innerHTML = `
@@ -134,12 +131,10 @@
         <div class="id" style="display:none">${it.id}</div>
       `;
       tile.addEventListener('click', () => {
-        // select this palette item for placement
         clearSelection();
         selected = { type: 'palette', id: it.id, item: it, tileEl: tile };
         tile.classList.add('selected');
       });
-      // allow dragging palette items into grid
       const img = tile.querySelector('img');
       if(img){
         img.setAttribute('draggable','true');
@@ -150,7 +145,6 @@
         });
       }
       tile.addEventListener('dblclick', () => {
-        // double-click places the item into the first available slot
         clearSelection();
         placeItem(it);
       });
@@ -183,14 +177,11 @@
       }
     }catch(e){}
     const cols = 8;
-    // determine rows from layout height, default to 8
     let rows = (typeof l.height !== 'undefined' && l.height !== null) ? Number(l.height) : 8;
-    // if items exceed the specified height, grow to fit + 1 extra row at bottom
     if(Array.isArray(l.items) && l.items.length){
       const maxY = l.items.reduce((m,it) => Math.max(m, Number(it && it.y) || 0), -1);
       if(maxY + 1 > rows) rows = maxY + 1 + 1;
     }
-    // store computed height back to layout
     l.height = rows;
     layoutGrid.innerHTML = '';
     layoutGrid.style.gridTemplateColumns = `repeat(${cols},var(--cell-size))`;
@@ -199,7 +190,7 @@
         const cell = document.createElement('div');
         cell.className = 'cell';
         cell.dataset.pos = `${c},${r}`;
-        // drag handlers
+        
         cell.addEventListener('dragover', e => { e.preventDefault(); cell.classList.add('drag-over'); });
         cell.addEventListener('dragenter', e => { e.preventDefault(); cell.classList.add('drag-over'); });
         cell.addEventListener('dragleave', () => cell.classList.remove('drag-over'));
@@ -221,10 +212,9 @@
             if(!Number.isFinite(row)) return;
             showCellContextMenu(event, row);
         });
-        // double-click to remove item in cell
         cell.addEventListener('dblclick', () => {
           if(cell.dataset.itemId){
-            // remove from current.items
+            
             if(current && Array.isArray(current.items)){
               const posKey = cell.dataset.pos;
               const idx = current.items.findIndex(x=>`${x.x},${x.y}` === posKey);
@@ -235,22 +225,22 @@
             renderLayoutsList();
           }
         });
-        // click handler for selection/placement
+        
         cell.addEventListener('click', () => {
-          // if a palette item is selected, place it at this cell
+          
           if(selected && selected.type === 'palette'){
             placeAt(selected.item, cell);
             clearSelection();
             return;
           }
-          // if clicking a populated cell, select it for moving
+          
           if(cell.dataset.itemId){
             clearSelection();
             selected = { type: 'placed', id: Number(cell.dataset.itemId), fromPos: cell.dataset.pos, cellEl: cell };
             cell.classList.add('selected');
             return;
           }
-          // if clicking an empty cell while a placed item is selected, move the selected item here
+          
           if(selected && selected.type === 'placed' && !cell.dataset.itemId){
             moveItem(selected.fromPos, cell.dataset.pos);
             clearSelection();
@@ -267,14 +257,86 @@
         const itemDef = items.find(x=>x.id===it.id) || {};
         el.innerHTML = `<div class="thumb"><img loading="lazy" src="${itemDef.img||''}" alt="${itemDef.name||''}" title="${itemDef.name||''}" draggable="true"></div>`;
         el.dataset.itemId = it.id;
-        // mark image draggable (delegated handlers will manage behavior)
+        
         const img = el.querySelector('img');
         if(img) img.setAttribute('draggable','true');
       }
     });
   }
-
-  // Listen for import events to refresh the UI when editor merges items
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   window.addEventListener('bank-layouts:imported', (e) => {
     if(window.current) showLayout(window.current);
   });
