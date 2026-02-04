@@ -15,6 +15,28 @@
   let itemsLoaded = false;
   let itemsLoadingPromise = null;
 
+  // shared CDN items cache
+  let itemsJsonCache = null;
+  let itemsJsonPromise = null;
+
+  function getItemsJsonData(){
+    if(itemsJsonCache) return Promise.resolve(itemsJsonCache);
+    if(itemsJsonPromise) return itemsJsonPromise;
+    itemsJsonPromise = fetch('cdn/json/items.json', {cache:'no-store'})
+      .then(r => r.json())
+      .then(data => {
+        itemsJsonCache = Array.isArray(data) ? data : (data.layouts || []);
+        return itemsJsonCache;
+      })
+      .catch(err => {
+        itemsJsonPromise = null;
+        throw err;
+      });
+    return itemsJsonPromise;
+  }
+
+  try{ window.getItemsJsonData = getItemsJsonData; }catch(e){}
+
   function ensureItemsLoaded(){
     if(itemsLoaded) return Promise.resolve(true);
     if(itemsLoadingPromise) return itemsLoadingPromise;
@@ -613,8 +635,7 @@
 
   async function loadItems(){
     try{
-      const r = await fetch('cdn/json/items.json', {cache:'no-store'});
-      const data = await r.json();
+      const data = await getItemsJsonData();
       // only use remote data if no persisted layouts exist
       const fetched = Array.isArray(data) ? data : (data.layouts || []);
       if(!Array.isArray(layouts) || layouts.length === 0){
@@ -622,8 +643,6 @@
       }
       const r2 = await fetch('cdn/js/itemsmin.js', {cache:'no-store'});
       const data2 = await r2.json();
-    // load items lazily in background when needed
-    ensureItemsLoaded();
       if(Array.isArray(data) && data.length>0){
         externalIdMap = {};
         // map to internal items array and build externalIdMap

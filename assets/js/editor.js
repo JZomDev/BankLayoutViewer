@@ -158,28 +158,26 @@
           
           if(layoutIcon){
             try{
-              
-              const r = await fetch('cdn/json/items.json', {cache:'no-store'});
-              if(r && r.ok){
-                const data = await r.json();
-                if(Array.isArray(data)){
-                  const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
-                    if(foundIdx > -1){
-                    const found = data[foundIdx];
-                    const imageName = found.imagepath || found.image || '';
-                    if(imageName){
-                      const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
-                      const iconEl = document.querySelector('.tag-card .icon');
-                      if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
-                      
-                      try{ window.leftIconId = foundIdx + 1; }catch(e){}
-                      if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
-                    }
-                  } else {
+              const data = (window.getItemsJsonData
+                ? await window.getItemsJsonData()
+                : await (await fetch('cdn/json/items.json', {cache:'no-store'})).json());
+              if(Array.isArray(data)){
+                const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
+                  if(foundIdx > -1){
+                  const found = data[foundIdx];
+                  const imageName = found.imagepath || found.image || '';
+                  if(imageName){
+                    const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
+                    const iconEl = document.querySelector('.tag-card .icon');
+                    if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
                     
-                    if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
-                      try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
-                    }
+                    try{ window.leftIconId = foundIdx + 1; }catch(e){}
+                    if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
+                  }
+                } else {
+                  
+                  if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
+                    try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
                   }
                 }
               }
