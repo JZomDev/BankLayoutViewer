@@ -172,7 +172,12 @@
                     if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
                     
                     try{ window.leftIconId = foundIdx + 1; }catch(e){}
-                    if(window.current){ window.current.thumbId = foundIdx + 1; window.current.thumbnail = imgUrl; try{ window.current = window.current; }catch(e){} }
+                    if(window.current)
+                      {
+                       window.current.thumbId = found.id;
+                       window.current.thumbnail = imgUrl; 
+                       try{ window.current = window.current; }catch(e){} 
+                      }
                   }
                 } else {
                   
