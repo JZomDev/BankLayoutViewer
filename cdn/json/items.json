@@ -864,6 +864,24 @@
     "imagepath": "Acatzin_s axe.png"
   },
   {
+    "name": "Accordion",
+    "id": 31365,
+    "image": "Accordion.png",
+    "imagepath": "Accordion.png"
+  },
+  {
+    "name": "Accordion",
+    "id": 31368,
+    "image": "Accordion (pipe).png",
+    "imagepath": "Accordion (pipe).png"
+  },
+  {
+    "name": "Accordion",
+    "id": 31367,
+    "image": "Accordion (hole).png",
+    "imagepath": "Accordion (hole).png"
+  },
+  {
     "name": "Accumulation charm",
     "id": 30682,
     "image": "Accumulation charm.png",
@@ -4866,6 +4884,54 @@
     "imagepath": "Archery ticket.png"
   },
   {
+    "name": "Archibald",
+    "id": 33163,
+    "image": "Archibald (Dragon).png",
+    "imagepath": "Archibald (Dragon).png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33157,
+    "image": "Archibald (Diamonds).png",
+    "imagepath": "Archibald (Diamonds).png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33159,
+    "image": "Archibald (Chick).png",
+    "imagepath": "Archibald (Chick).png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33155,
+    "image": "Archibald (Bunny).png",
+    "imagepath": "Archibald (Bunny).png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33161,
+    "image": "Archibald (Melted).png",
+    "imagepath": "Archibald (Melted).png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33149,
+    "image": "Archibald.png",
+    "imagepath": "Archibald.png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33151,
+    "image": "Archibald.png",
+    "imagepath": "Archibald.png"
+  },
+  {
+    "name": "Archibald",
+    "id": 33153,
+    "image": "Archibald (Grid).png",
+    "imagepath": "Archibald (Grid).png"
+  },
+  {
     "name": "Arclight",
     "id": 19675,
     "image": "Arclight.png",
@@ -6358,6 +6424,12 @@
     "id": 19601,
     "image": "Ballista spring.png",
     "imagepath": "Ballista spring.png"
+  },
+  {
+    "name": "Ballistic attractor schematic",
+    "id": 33143,
+    "image": "Ballistic attractor schematic.png",
+    "imagepath": "Ballistic attractor schematic.png"
   },
   {
     "name": "Balloon structure",
@@ -22848,12 +22920,6 @@
     "imagepath": "Corrupted shards 10.png"
   },
   {
-    "name": "Corrupted shark",
-    "id": 31174,
-    "image": "Corrupted shark.png",
-    "imagepath": "Corrupted shark.png"
-  },
-  {
     "name": "Corrupted spike",
     "id": 23831,
     "image": "Corrupted spike.png",
@@ -32028,6 +32094,18 @@
     "imagepath": "Egg and tomato.png"
   },
   {
+    "name": "Egg box",
+    "id": 33147,
+    "image": "Egg box.png",
+    "imagepath": "Egg box.png"
+  },
+  {
+    "name": "Egg box",
+    "id": 33148,
+    "image": "Egg box.png",
+    "imagepath": "Egg box.png"
+  },
+  {
     "name": "Egg potato",
     "id": 7056,
     "image": "Egg potato.png",
@@ -34626,6 +34704,18 @@
     "imagepath": "Fighting boots.png"
   },
   {
+    "name": "File",
+    "id": 31381,
+    "image": "File (Rocking Out, full).png",
+    "imagepath": "File (Rocking Out_ full).png"
+  },
+  {
+    "name": "File",
+    "id": 31379,
+    "image": "File (Rocking Out, empty).png",
+    "imagepath": "File (Rocking Out_ empty).png"
+  },
+  {
     "name": "Filled plant pot",
     "id": 5354,
     "image": "Filled plant pot.png",
@@ -35152,6 +35242,12 @@
     "id": 6206,
     "image": "Fishlike thing.png",
     "imagepath": "Fishlike thing.png"
+  },
+  {
+    "name": "Fishy prison uniform top",
+    "id": 31357,
+    "image": "Fishy prison uniform top.png",
+    "imagepath": "Fishy prison uniform top.png"
   },
   {
     "name": "Fishy salvage",
@@ -36292,12 +36388,6 @@
     "id": 4668,
     "image": "Garlic powder.png",
     "imagepath": "Garlic powder.png"
-  },
-  {
-    "name": "Gary",
-    "id": 33088,
-    "image": "Gary (item).png",
-    "imagepath": "Gary (item).png"
   },
   {
     "name": "Gas mask",
@@ -40544,8 +40634,8 @@
   {
     "name": "Guthixian paint",
     "id": 32106,
-    "image": "",
-    "imagepath": ""
+    "image": "Guthixian paint.png",
+    "imagepath": "Guthixian paint.png"
   },
   {
     "name": "Guthixian temple teleport",
@@ -43470,10 +43560,34 @@
     "imagepath": "Initiate sallet.png"
   },
   {
+    "name": "Ink bottle",
+    "id": 31345,
+    "image": "Ink bottle.png",
+    "imagepath": "Ink bottle.png"
+  },
+  {
+    "name": "Ink bottle",
+    "id": 31349,
+    "image": "Ink bottle (empty).png",
+    "imagepath": "Ink bottle (empty).png"
+  },
+  {
     "name": "Inky paint",
     "id": 32093,
     "image": "Inky paint.png",
     "imagepath": "Inky paint.png"
+  },
+  {
+    "name": "Inky paper",
+    "id": 31347,
+    "image": "Inky paper.png",
+    "imagepath": "Inky paper.png"
+  },
+  {
+    "name": "Inky quill",
+    "id": 31377,
+    "image": "Inky quill.png",
+    "imagepath": "Inky quill.png"
   },
   {
     "name": "Inoculation bracelet",
@@ -52902,12 +53016,6 @@
     "imagepath": "Nose peg.png"
   },
   {
-    "name": "Not meat",
-    "id": 29098,
-    "image": "Not meat.png",
-    "imagepath": "Not meat.png"
-  },
-  {
     "name": "Note",
     "id": 4598,
     "image": "Note (numbers).png",
@@ -52918,6 +53026,12 @@
     "id": 4597,
     "image": "Note (Fibonacci).png",
     "imagepath": "Note (Fibonacci).png"
+  },
+  {
+    "name": "Note",
+    "id": 31343,
+    "image": "Note (Rocking Out).png",
+    "imagepath": "Note (Rocking Out).png"
   },
   {
     "name": "Notes",
@@ -55098,6 +55212,12 @@
     "imagepath": "Papaya tree seed 5.png"
   },
   {
+    "name": "Paper",
+    "id": 31399,
+    "image": "Paper (Rocking Out).png",
+    "imagepath": "Paper (Rocking Out).png"
+  },
+  {
     "name": "Papyrus",
     "id": 970,
     "image": "Papyrus.png",
@@ -56212,6 +56332,12 @@
     "id": 9723,
     "image": "Pipe (Elemental Workshop II).png",
     "imagepath": "Pipe (Elemental Workshop II).png"
+  },
+  {
+    "name": "Pipe",
+    "id": 31363,
+    "image": "Pipe (Rocking Out).png",
+    "imagepath": "Pipe (Rocking Out).png"
   },
   {
     "name": "Pipe ring",
@@ -57594,6 +57720,18 @@
     "imagepath": "Prison key (Troll Stronghold).png"
   },
   {
+    "name": "Prison uniform top",
+    "id": 31353,
+    "image": "Prison uniform top.png",
+    "imagepath": "Prison uniform top.png"
+  },
+  {
+    "name": "Prison uniform trousers",
+    "id": 31355,
+    "image": "Prison uniform trousers.png",
+    "imagepath": "Prison uniform trousers.png"
+  },
+  {
     "name": "Prisoner's letter",
     "id": 28412,
     "image": "Prisoner's letter.png",
@@ -58216,6 +58354,12 @@
     "id": 3213,
     "image": "Quicklime.png",
     "imagepath": "Quicklime.png"
+  },
+  {
+    "name": "Quill",
+    "id": 31375,
+    "image": "Quill (Rocking Out).png",
+    "imagepath": "Quill (Rocking Out).png"
   },
   {
     "name": "R sigil",
@@ -64878,6 +65022,12 @@
     "imagepath": "Scribbled note.png"
   },
   {
+    "name": "Scribbled notes",
+    "id": 33146,
+    "image": "Scribbled notes.png",
+    "imagepath": "Scribbled notes.png"
+  },
+  {
     "name": "Scroll",
     "id": 7968,
     "image": "Scroll (Royal Trouble).png",
@@ -68638,6 +68788,12 @@
     "id": 3185,
     "image": "Small zombie monkey bones.png",
     "imagepath": "Small zombie monkey bones.png"
+  },
+  {
+    "name": "Smashed bottle",
+    "id": 31351,
+    "image": "Smashed bottle.png",
+    "imagepath": "Smashed bottle.png"
   },
   {
     "name": "Smashed glass",
@@ -75252,6 +75408,12 @@
     "imagepath": "Tin (strange).png"
   },
   {
+    "name": "Tin cup",
+    "id": 31359,
+    "image": "Tin cup.png",
+    "imagepath": "Tin cup.png"
+  },
+  {
     "name": "Tin ore",
     "id": 438,
     "image": "Tin ore.png",
@@ -78600,6 +78762,18 @@
     "imagepath": "V_s shield.png"
   },
   {
+    "name": "Vacuum pump",
+    "id": 31371,
+    "image": "Vacuum pump.png",
+    "imagepath": "Vacuum pump.png"
+  },
+  {
+    "name": "Vacuum pump and gull",
+    "id": 31373,
+    "image": "Vacuum pump and gull.png",
+    "imagepath": "Vacuum pump and gull.png"
+  },
+  {
     "name": "Vale offerings",
     "id": 31054,
     "image": "Vale offerings 1000.png",
@@ -78790,6 +78964,18 @@
     "id": 2281,
     "image": "Vegetable batta.png",
     "imagepath": "Vegetable batta.png"
+  },
+  {
+    "name": "Veiled kraken ink sac",
+    "id": 33145,
+    "image": "Veiled kraken ink sac.png",
+    "imagepath": "Veiled kraken ink sac.png"
+  },
+  {
+    "name": "Veiled kraken tentacle",
+    "id": 33144,
+    "image": "Veiled kraken tentacle.png",
+    "imagepath": "Veiled kraken tentacle.png"
   },
   {
     "name": "Venator bow",
@@ -83176,6 +83362,12 @@
     "id": 10861,
     "image": "Tea flask (animation item).png",
     "imagepath": "Tea flask (animation item).png"
+  },
+  {
+    "name": "null <sup><span style=\"cursor:help; border-bottom:1px dotted\" title=\"The name of this entity is not defined in the game.\">[?]</span></sup>[[Category:Pages with null name]]",
+    "id": 31337,
+    "image": "Mysterious medallion.png",
+    "imagepath": "Mysterious medallion.png"
   },
   {
     "name": "null <sup><span style=\"cursor:help; border-bottom:1px dotted\" title=\"The name of this entity is not defined in the game.\">[?]</span></sup>[[Category:Pages with null name]]",
