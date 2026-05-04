@@ -270,12 +270,6 @@
     "imagepath": "3rd age mage hat.png"
   },
   {
-    "name": "3rd age mage hat",
-    "id": 27183,
-    "image": "3rd age mage hat (Last Man Standing).png",
-    "imagepath": "3rd age mage hat (Last Man Standing).png"
-  },
-  {
     "name": "3rd age pickaxe",
     "id": 20014,
     "image": "3rd age pickaxe.png",
@@ -306,22 +300,10 @@
     "imagepath": "3rd age range coif.png"
   },
   {
-    "name": "3rd age range coif",
-    "id": 27201,
-    "image": "3rd age range coif (Last Man Standing).png",
-    "imagepath": "3rd age range coif (Last Man Standing).png"
-  },
-  {
     "name": "3rd age range legs",
     "id": 10332,
     "image": "3rd age range legs.png",
     "imagepath": "3rd age range legs.png"
-  },
-  {
-    "name": "3rd age range legs",
-    "id": 27200,
-    "image": "3rd age range legs (Last Man Standing).png",
-    "imagepath": "3rd age range legs (Last Man Standing).png"
   },
   {
     "name": "3rd age range top",
@@ -330,34 +312,16 @@
     "imagepath": "3rd age range top.png"
   },
   {
-    "name": "3rd age range top",
-    "id": 27199,
-    "image": "3rd age range top (Last Man Standing).png",
-    "imagepath": "3rd age range top (Last Man Standing).png"
-  },
-  {
     "name": "3rd age robe",
     "id": 10340,
     "image": "3rd age robe.png",
     "imagepath": "3rd age robe.png"
   },
   {
-    "name": "3rd age robe",
-    "id": 20577,
-    "image": "3rd age robe (Last Man Standing).png",
-    "imagepath": "3rd age robe (Last Man Standing).png"
-  },
-  {
     "name": "3rd age robe top",
     "id": 10338,
     "image": "3rd age robe top.png",
     "imagepath": "3rd age robe top.png"
-  },
-  {
-    "name": "3rd age robe top",
-    "id": 20576,
-    "image": "3rd age robe top (Last Man Standing).png",
-    "imagepath": "3rd age robe top (Last Man Standing).png"
   },
   {
     "name": "3rd age vambraces",
@@ -2970,12 +2934,6 @@
     "imagepath": "Ancestral hat.png"
   },
   {
-    "name": "Ancestral hat",
-    "id": 25518,
-    "image": "Ancestral hat (Last Man Standing).png",
-    "imagepath": "Ancestral hat (Last Man Standing).png"
-  },
-  {
     "name": "Ancestral key",
     "id": 6792,
     "image": "Ancestral key.png",
@@ -2988,22 +2946,10 @@
     "imagepath": "Ancestral robe bottom.png"
   },
   {
-    "name": "Ancestral robe bottom",
-    "id": 27194,
-    "image": "Ancestral robe bottom (Last Man Standing).png",
-    "imagepath": "Ancestral robe bottom (Last Man Standing).png"
-  },
-  {
     "name": "Ancestral robe top",
     "id": 21021,
     "image": "Ancestral robe top.png",
     "imagepath": "Ancestral robe top.png"
-  },
-  {
-    "name": "Ancestral robe top",
-    "id": 27193,
-    "image": "Ancestral robe top (Last Man Standing).png",
-    "imagepath": "Ancestral robe top (Last Man Standing).png"
   },
   {
     "name": "Ancestral robes set",
@@ -4680,6 +4626,12 @@
     "imagepath": "Aranea boots.png"
   },
   {
+    "name": "Aranea boots",
+    "id": 33202,
+    "image": "Aranea boots (Last Man Standing).png",
+    "imagepath": "Aranea boots (Last Man Standing).png"
+  },
+  {
     "name": "Araxyte fang",
     "id": 29799,
     "image": "Araxyte fang.png",
@@ -5484,6 +5436,18 @@
     "imagepath": "Arthur portrait.png"
   },
   {
+    "name": "Asgarnia echo orb",
+    "id": 30393,
+    "image": "Asgarnia echo orb (Raging Echoes League).png",
+    "imagepath": "Asgarnia echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Asgarnia echo orb",
+    "id": 30393,
+    "image": "Asgarnia echo orb (Demonic Pacts League).png",
+    "imagepath": "Asgarnia echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "Asgarnian ale",
     "id": 1905,
     "image": "Asgarnian ale.png",
@@ -6004,6 +5968,12 @@
     "id": 31097,
     "image": "Avernic treads (max).png",
     "imagepath": "Avernic treads (max).png"
+  },
+  {
+    "name": "Avernic treads (max)",
+    "id": 33172,
+    "image": "Avernic treads (max) (Last Man Standing).png",
+    "imagepath": "Avernic treads (max) (Last Man Standing).png"
   },
   {
     "name": "Avernic treads (pe)",
@@ -6816,12 +6786,6 @@
     "imagepath": "Bandos tassets.png"
   },
   {
-    "name": "Bandos tassets",
-    "id": 23646,
-    "image": "Bandos tassets (Last Man Standing).png",
-    "imagepath": "Bandos tassets (Last Man Standing).png"
-  },
-  {
     "name": "Bandos tassets (or)",
     "id": 26719,
     "image": "Bandos tassets (or).png",
@@ -7006,6 +6970,12 @@
     "id": 10129,
     "image": "Barb-tail harpoon.png",
     "imagepath": "Barb-tail harpoon.png"
+  },
+  {
+    "name": "Barbarian arm",
+    "id": 33221,
+    "image": "Barbarian arm.png",
+    "imagepath": "Barbarian arm.png"
   },
   {
     "name": "Barbarian rod",
@@ -12300,6 +12270,12 @@
     "imagepath": "Bow of faerdhinen (c) (deadman).png"
   },
   {
+    "name": "Bow of faerdhinen (c)",
+    "id": 27187,
+    "image": "Bow of faerdhinen (c) (Last Man Standing).png",
+    "imagepath": "Bow of faerdhinen (c) (Last Man Standing).png"
+  },
+  {
     "name": "Bow of faerdhinen (inactive)",
     "id": 25862,
     "image": "Bow of faerdhinen (inactive).png",
@@ -14142,6 +14118,12 @@
     "imagepath": "Burning claws.png"
   },
   {
+    "name": "Burning claws",
+    "id": 33200,
+    "image": "Burning claws (Last Man Standing).png",
+    "imagepath": "Burning claws (Last Man Standing).png"
+  },
+  {
     "name": "Burnt anglerfish",
     "id": 13443,
     "image": "Burnt anglerfish.png",
@@ -14590,6 +14572,12 @@
     "id": 28248,
     "image": "Butch.png",
     "imagepath": "Butch.png"
+  },
+  {
+    "name": "Butler's bell",
+    "id": 33237,
+    "image": "Butler's bell.png",
+    "imagepath": "Butler_s bell.png"
   },
   {
     "name": "Butler's tray",
@@ -15852,6 +15840,18 @@
     "imagepath": "Cemetery teleport (tablet).png"
   },
   {
+    "name": "Centurion cuirass (broken)",
+    "id": 26695,
+    "image": "Centurion cuirass (broken).png",
+    "imagepath": "Centurion cuirass (broken).png"
+  },
+  {
+    "name": "Centurion cuirass (l)",
+    "id": 26722,
+    "image": "Centurion cuirass (l).png",
+    "imagepath": "Centurion cuirass (l).png"
+  },
+  {
     "name": "Ceramic remains",
     "id": 694,
     "image": "Ceramic remains.png",
@@ -15868,12 +15868,6 @@
     "id": 3114,
     "image": "Certificate (Death Plateau).png",
     "imagepath": "Certificate (Death Plateau).png"
-  },
-  {
-    "name": "Chain",
-    "id": 22414,
-    "image": "Chain (A Taste of Hope).png",
-    "imagepath": "Chain (A Taste of Hope).png"
   },
   {
     "name": "Chain",
@@ -17044,6 +17038,12 @@
     "id": 12789,
     "image": "Clue box.png",
     "imagepath": "Clue box.png"
+  },
+  {
+    "name": "Clue contract",
+    "id": 33235,
+    "image": "Clue contract.png",
+    "imagepath": "Clue contract.png"
   },
   {
     "name": "Clue geode (beginner)",
@@ -25950,6 +25950,12 @@
     "imagepath": "Crystal body (deadman).png"
   },
   {
+    "name": "Crystal body",
+    "id": 33166,
+    "image": "Crystal body (Last Man Standing).png",
+    "imagepath": "Crystal body (Last Man Standing).png"
+  },
+  {
     "name": "Crystal body (attuned)",
     "id": 23890,
     "image": "Crystal body (attuned).png",
@@ -26116,6 +26122,12 @@
     "id": 23921,
     "image": "Crystal crown (Meilyr).png",
     "imagepath": "Crystal crown (Meilyr).png"
+  },
+  {
+    "name": "Crystal dagger (perfected)",
+    "id": 30340,
+    "image": "Crystal dagger (perfected).png",
+    "imagepath": "Crystal dagger (perfected).png"
   },
   {
     "name": "Crystal dust",
@@ -26286,6 +26298,12 @@
     "imagepath": "Crystal helm (deadman).png"
   },
   {
+    "name": "Crystal helm",
+    "id": 33170,
+    "image": "Crystal helm (Last Man Standing).png",
+    "imagepath": "Crystal helm (Last Man Standing).png"
+  },
+  {
     "name": "Crystal helm (attuned)",
     "id": 23887,
     "image": "Crystal helm (attuned).png",
@@ -26424,6 +26442,12 @@
     "imagepath": "Crystal legs (deadman).png"
   },
   {
+    "name": "Crystal legs",
+    "id": 33168,
+    "image": "Crystal legs (Last Man Standing).png",
+    "imagepath": "Crystal legs (Last Man Standing).png"
+  },
+  {
     "name": "Crystal legs (attuned)",
     "id": 23893,
     "image": "Crystal legs (attuned).png",
@@ -26512,12 +26536,6 @@
     "id": 23935,
     "image": "Crystal of crwys.png",
     "imagepath": "Crystal of crwys.png"
-  },
-  {
-    "name": "Crystal of echoes",
-    "id": 25104,
-    "image": "Crystal of echoes.png",
-    "imagepath": "Crystal of echoes.png"
   },
   {
     "name": "Crystal of hefin",
@@ -28434,10 +28452,154 @@
     "imagepath": "Demon_s heart.png"
   },
   {
+    "name": "Demonic axe ornament kit",
+    "id": 33305,
+    "image": "Demonic axe ornament kit.png",
+    "imagepath": "Demonic axe ornament kit.png"
+  },
+  {
+    "name": "Demonic boots (t1)",
+    "id": 33269,
+    "image": "Demonic boots (t1).png",
+    "imagepath": "Demonic boots (t1).png"
+  },
+  {
+    "name": "Demonic boots (t2)",
+    "id": 33281,
+    "image": "Demonic boots (t2).png",
+    "imagepath": "Demonic boots (t2).png"
+  },
+  {
+    "name": "Demonic boots (t3)",
+    "id": 33293,
+    "image": "Demonic boots (t3).png",
+    "imagepath": "Demonic boots (t3).png"
+  },
+  {
+    "name": "Demonic hood (t1)",
+    "id": 33260,
+    "image": "Demonic hood (t1).png",
+    "imagepath": "Demonic hood (t1).png"
+  },
+  {
+    "name": "Demonic hood (t2)",
+    "id": 33272,
+    "image": "Demonic hood (t2).png",
+    "imagepath": "Demonic hood (t2).png"
+  },
+  {
+    "name": "Demonic hood (t3)",
+    "id": 33284,
+    "image": "Demonic hood (t3).png",
+    "imagepath": "Demonic hood (t3).png"
+  },
+  {
     "name": "Demonic incantations",
     "id": 25798,
     "image": "Demonic incantations.png",
     "imagepath": "Demonic incantations.png"
+  },
+  {
+    "name": "Demonic pacts adamant trophy",
+    "id": 33349,
+    "image": "Demonic pacts adamant trophy.png",
+    "imagepath": "Demonic pacts adamant trophy.png"
+  },
+  {
+    "name": "Demonic pacts banner",
+    "id": 33299,
+    "image": "Demonic pacts banner.png",
+    "imagepath": "Demonic pacts banner.png"
+  },
+  {
+    "name": "Demonic pacts bronze trophy",
+    "id": 33357,
+    "image": "Demonic pacts bronze trophy.png",
+    "imagepath": "Demonic pacts bronze trophy.png"
+  },
+  {
+    "name": "Demonic pacts demon butler scroll",
+    "id": 33368,
+    "image": "Demonic pacts demon butler scroll.png",
+    "imagepath": "Demonic pacts demon butler scroll.png"
+  },
+  {
+    "name": "Demonic pacts dragon trophy",
+    "id": 33345,
+    "image": "Demonic pacts dragon trophy.png",
+    "imagepath": "Demonic pacts dragon trophy.png"
+  },
+  {
+    "name": "Demonic pacts iron trophy",
+    "id": 33355,
+    "image": "Demonic pacts iron trophy.png",
+    "imagepath": "Demonic pacts iron trophy.png"
+  },
+  {
+    "name": "Demonic pacts mithril trophy",
+    "id": 33351,
+    "image": "Demonic pacts mithril trophy.png",
+    "imagepath": "Demonic pacts mithril trophy.png"
+  },
+  {
+    "name": "Demonic pacts rune trophy",
+    "id": 33347,
+    "image": "Demonic pacts rune trophy.png",
+    "imagepath": "Demonic pacts rune trophy.png"
+  },
+  {
+    "name": "Demonic pacts steel trophy",
+    "id": 33353,
+    "image": "Demonic pacts steel trophy.png",
+    "imagepath": "Demonic pacts steel trophy.png"
+  },
+  {
+    "name": "Demonic pacts throne scroll",
+    "id": 33362,
+    "image": "Demonic pacts throne scroll.png",
+    "imagepath": "Demonic pacts throne scroll.png"
+  },
+  {
+    "name": "Demonic robe bottom (t1)",
+    "id": 33266,
+    "image": "Demonic robe bottom (t1).png",
+    "imagepath": "Demonic robe bottom (t1).png"
+  },
+  {
+    "name": "Demonic robe bottom (t2)",
+    "id": 33278,
+    "image": "Demonic robe bottom (t2).png",
+    "imagepath": "Demonic robe bottom (t2).png"
+  },
+  {
+    "name": "Demonic robe bottom (t3)",
+    "id": 33290,
+    "image": "Demonic robe bottom (t3).png",
+    "imagepath": "Demonic robe bottom (t3).png"
+  },
+  {
+    "name": "Demonic robe top (t1)",
+    "id": 33263,
+    "image": "Demonic robe top (t1).png",
+    "imagepath": "Demonic robe top (t1).png"
+  },
+  {
+    "name": "Demonic robe top (t2)",
+    "id": 33275,
+    "image": "Demonic robe top (t2).png",
+    "imagepath": "Demonic robe top (t2).png"
+  },
+  {
+    "name": "Demonic robe top (t3)",
+    "id": 33287,
+    "image": "Demonic robe top (t3).png",
+    "imagepath": "Demonic robe top (t3).png"
+  },
+  {
+    "name": "Demonic sceptre",
+    "id": 33296,
+    "image": "Demonic sceptre.png",
+    "imagepath": "Demonic sceptre.png"
   },
   {
     "name": "Demonic sigil",
@@ -28452,6 +28614,30 @@
     "imagepath": "Demonic sigil mould.png"
   },
   {
+    "name": "Demonic skin contract",
+    "id": 33302,
+    "image": "Demonic skin contract.png",
+    "imagepath": "Demonic skin contract.png"
+  },
+  {
+    "name": "Demonic slayer helmet",
+    "id": 33340,
+    "image": "Demonic slayer helmet (radiant).png",
+    "imagepath": "Demonic slayer helmet (radiant).png"
+  },
+  {
+    "name": "Demonic slayer helmet",
+    "id": 33338,
+    "image": "Demonic slayer helmet.png",
+    "imagepath": "Demonic slayer helmet.png"
+  },
+  {
+    "name": "Demonic staff ornament kit",
+    "id": 33308,
+    "image": "Demonic staff ornament kit.png",
+    "imagepath": "Demonic staff ornament kit.png"
+  },
+  {
     "name": "Demonic tallow",
     "id": 30800,
     "image": "Demonic tallow.png",
@@ -28462,6 +28648,12 @@
     "id": 6749,
     "image": "Demonic tome.png",
     "imagepath": "Demonic tome.png"
+  },
+  {
+    "name": "Demonic trident ornament kit",
+    "id": 33311,
+    "image": "Demonic trident ornament kit.png",
+    "imagepath": "Demonic trident ornament kit.png"
   },
   {
     "name": "Dense essence block",
@@ -28534,6 +28726,18 @@
     "id": 4611,
     "image": "Desert disguise.png",
     "imagepath": "Desert disguise.png"
+  },
+  {
+    "name": "Desert echo orb",
+    "id": 30394,
+    "image": "Desert echo orb (Raging Echoes League).png",
+    "imagepath": "Desert echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Desert echo orb",
+    "id": 30394,
+    "image": "Desert echo orb (Demonic Pacts League).png",
+    "imagepath": "Desert echo orb (Demonic Pacts League).png"
   },
   {
     "name": "Desert goat horn",
@@ -30876,6 +31080,12 @@
     "imagepath": "Dragonfire shield (uncharged).png"
   },
   {
+    "name": "Dragonfire shield",
+    "id": 33186,
+    "image": "Dragonfire shield (Last Man Standing).png",
+    "imagepath": "Dragonfire shield (Last Man Standing).png"
+  },
+  {
     "name": "Dragonfire ward",
     "id": 22002,
     "image": "Dragonfire ward.png",
@@ -31198,6 +31408,12 @@
     "id": 1468,
     "image": "Dry sticks.png",
     "imagepath": "Dry sticks.png"
+  },
+  {
+    "name": "Drygore blowpipe (empty)",
+    "id": 30373,
+    "image": "Drygore blowpipe (empty).png",
+    "imagepath": "Drygore blowpipe (empty).png"
   },
   {
     "name": "Dual macuahuitl",
@@ -32478,6 +32694,12 @@
     "imagepath": "Elidinis_ ward (f).png"
   },
   {
+    "name": "Elidinis' ward (f)",
+    "id": 33176,
+    "image": "Elidinis' ward (f) (Last Man Standing).png",
+    "imagepath": "Elidinis_ ward (f) (Last Man Standing).png"
+  },
+  {
     "name": "Elidinis' ward (or)",
     "id": 27253,
     "image": "Elidinis' ward (or).png",
@@ -33122,8 +33344,8 @@
   {
     "name": "Enchanted key",
     "id": 6754,
-    "image": "Enchanted key (item).png",
-    "imagepath": "Enchanted key (item).png"
+    "image": "Enchanted key.png",
+    "imagepath": "Enchanted key.png"
   },
   {
     "name": "Enchanted lyre",
@@ -33774,12 +33996,6 @@
     "imagepath": "Eternal boots.png"
   },
   {
-    "name": "Eternal boots",
-    "id": 23644,
-    "image": "Eternal boots (Last Man Standing).png",
-    "imagepath": "Eternal boots (Last Man Standing).png"
-  },
-  {
     "name": "Eternal brazier schematic",
     "id": 32403,
     "image": "Eternal brazier schematic.png",
@@ -33856,6 +34072,12 @@
     "id": 7477,
     "image": "Evil chicken's egg.png",
     "imagepath": "Evil chicken_s egg.png"
+  },
+  {
+    "name": "Evil eye",
+    "id": 33227,
+    "image": "Evil eye.png",
+    "imagepath": "Evil eye.png"
   },
   {
     "name": "Excalibur",
@@ -34360,6 +34582,12 @@
     "id": 27219,
     "image": "Fang (Tombs of Amascut).png",
     "imagepath": "Fang (Tombs of Amascut).png"
+  },
+  {
+    "name": "Fang of the hound",
+    "id": 33249,
+    "image": "Fang of the hound.png",
+    "imagepath": "Fang of the hound.png"
   },
   {
     "name": "Fangs of venenatis",
@@ -35304,6 +35532,18 @@
     "imagepath": "Flash powder.png"
   },
   {
+    "name": "Flask of fervour",
+    "id": 33239,
+    "image": "Flask of fervour.png",
+    "imagepath": "Flask of fervour.png"
+  },
+  {
+    "name": "Flask of fervour",
+    "id": 33241,
+    "image": "Flask of fervour (empty).png",
+    "imagepath": "Flask of fervour (empty).png"
+  },
+  {
     "name": "Flattened hide",
     "id": 6171,
     "image": "Flattened hide.png",
@@ -35766,6 +36006,18 @@
     "imagepath": "Fremennik cyan cloak.png"
   },
   {
+    "name": "Fremennik echo orb",
+    "id": 30395,
+    "image": "Fremennik echo orb (Raging Echoes League).png",
+    "imagepath": "Fremennik echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Fremennik echo orb",
+    "id": 30395,
+    "image": "Fremennik echo orb (Demonic Pacts League).png",
+    "imagepath": "Fremennik echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "Fremennik gloves",
     "id": 3799,
     "image": "Fremennik gloves.png",
@@ -35806,12 +36058,6 @@
     "id": 23246,
     "image": "Fremennik kilt.png",
     "imagepath": "Fremennik kilt.png"
-  },
-  {
-    "name": "Fremennik kilt",
-    "id": 27177,
-    "image": "Fremennik kilt (Last Man Standing).png",
-    "imagepath": "Fremennik kilt (Last Man Standing).png"
   },
   {
     "name": "Fremennik pink cloak",
@@ -36622,12 +36868,6 @@
     "id": 22324,
     "image": "Ghrazi rapier.png",
     "imagepath": "Ghrazi rapier.png"
-  },
-  {
-    "name": "Ghrazi rapier",
-    "id": 23628,
-    "image": "Ghrazi rapier (Last Man Standing).png",
-    "imagepath": "Ghrazi rapier (Last Man Standing).png"
   },
   {
     "name": "Ghrim's book",
@@ -40104,12 +40344,6 @@
     "imagepath": "Guardian fragments.png"
   },
   {
-    "name": "Guardian horn",
-    "id": 28769,
-    "image": "Guardian horn.png",
-    "imagepath": "Guardian horn.png"
-  },
-  {
     "name": "Guardian's eye",
     "id": 26820,
     "image": "Guardian's eye.png",
@@ -40240,12 +40474,6 @@
     "id": 4724,
     "image": "Guthan's helm.png",
     "imagepath": "Guthan_s helm.png"
-  },
-  {
-    "name": "Guthan's helm",
-    "id": 23638,
-    "image": "Guthan's helm (Last Man Standing).png",
-    "imagepath": "Guthan_s helm (Last Man Standing).png"
   },
   {
     "name": "Guthan's helm 0",
@@ -40484,12 +40712,6 @@
   {
     "name": "Guthix halo",
     "id": 12639,
-    "image": "Guthix halo.png",
-    "imagepath": "Guthix halo.png"
-  },
-  {
-    "name": "Guthix halo",
-    "id": 27163,
     "image": "Guthix halo.png",
     "imagepath": "Guthix halo.png"
   },
@@ -42702,8 +42924,26 @@
     "imagepath": "Iban_s staff.png"
   },
   {
+    "name": "Iban's staff",
+    "id": 33330,
+    "image": "Iban's staff (orn).png",
+    "imagepath": "Iban_s staff (orn).png"
+  },
+  {
+    "name": "Iban's staff (o)",
+    "id": 33333,
+    "image": "Iban's staff (o) (broken).png",
+    "imagepath": "Iban_s staff (o) (broken).png"
+  },
+  {
     "name": "Iban's staff (u)",
     "id": 12658,
+    "image": "Iban's staff (u).png",
+    "imagepath": "Iban_s staff (u).png"
+  },
+  {
+    "name": "Iban's staff (u) (o)",
+    "id": 33332,
     "image": "Iban's staff (u).png",
     "imagepath": "Iban_s staff (u).png"
   },
@@ -43182,6 +43422,18 @@
     "imagepath": "Imperial ros_.png"
   },
   {
+    "name": "Impish ritual kit",
+    "id": 33359,
+    "image": "Impish ritual kit.png",
+    "imagepath": "Impish ritual kit.png"
+  },
+  {
+    "name": "Impish whistle",
+    "id": 33365,
+    "image": "Impish whistle.png",
+    "imagepath": "Impish whistle.png"
+  },
+  {
     "name": "Impling jar",
     "id": 11260,
     "image": "Impling jar.png",
@@ -43476,6 +43728,12 @@
     "imagepath": "Infernal shale.png"
   },
   {
+    "name": "Infernal tecpatl",
+    "id": 33243,
+    "image": "Infernal tecpatl.png",
+    "imagepath": "Infernal tecpatl.png"
+  },
+  {
     "name": "Infinite money bag",
     "id": 27440,
     "image": "Infinite money bag.png",
@@ -43486,12 +43744,6 @@
     "id": 6920,
     "image": "Infinity boots.png",
     "imagepath": "Infinity boots.png"
-  },
-  {
-    "name": "Infinity boots",
-    "id": 27170,
-    "image": "Infinity boots (Last Man Standing).png",
-    "imagepath": "Infinity boots (Last Man Standing).png"
   },
   {
     "name": "Infinity bottoms",
@@ -43608,22 +43860,10 @@
     "imagepath": "Inquisitor_s great helm.png"
   },
   {
-    "name": "Inquisitor's great helm",
-    "id": 27195,
-    "image": "Inquisitor's great helm (Last Man Standing).png",
-    "imagepath": "Inquisitor_s great helm (Last Man Standing).png"
-  },
-  {
     "name": "Inquisitor's hauberk",
     "id": 24420,
     "image": "Inquisitor's hauberk.png",
     "imagepath": "Inquisitor_s hauberk.png"
-  },
-  {
-    "name": "Inquisitor's hauberk",
-    "id": 27196,
-    "image": "Inquisitor's hauberk (Last Man Standing).png",
-    "imagepath": "Inquisitor_s hauberk (Last Man Standing).png"
   },
   {
     "name": "Inquisitor's mace",
@@ -43632,22 +43872,10 @@
     "imagepath": "Inquisitor_s mace.png"
   },
   {
-    "name": "Inquisitor's mace",
-    "id": 27198,
-    "image": "Inquisitor's mace (Last Man Standing).png",
-    "imagepath": "Inquisitor_s mace (Last Man Standing).png"
-  },
-  {
     "name": "Inquisitor's plateskirt",
     "id": 24421,
     "image": "Inquisitor's plateskirt.png",
     "imagepath": "Inquisitor_s plateskirt.png"
-  },
-  {
-    "name": "Inquisitor's plateskirt",
-    "id": 27197,
-    "image": "Inquisitor's plateskirt (Last Man Standing).png",
-    "imagepath": "Inquisitor_s plateskirt (Last Man Standing).png"
   },
   {
     "name": "Insect repellent",
@@ -45072,6 +45300,18 @@
     "imagepath": "Kalphite princess.png"
   },
   {
+    "name": "Kandarin echo orb",
+    "id": 30396,
+    "image": "Kandarin echo orb (Raging Echoes League).png",
+    "imagepath": "Kandarin echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Kandarin echo orb",
+    "id": 30396,
+    "image": "Kandarin echo orb (Demonic Pacts League).png",
+    "imagepath": "Kandarin echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "Kandarin headgear 1",
     "id": 13137,
     "image": "Kandarin headgear 1.png",
@@ -45834,6 +46074,12 @@
     "imagepath": "King worm.png"
   },
   {
+    "name": "King's barrage",
+    "id": 33251,
+    "image": "King's barrage.png",
+    "imagepath": "King_s barrage.png"
+  },
+  {
     "name": "King's message",
     "id": 3206,
     "image": "King's message.png",
@@ -45856,6 +46102,18 @@
     "id": 1495,
     "image": "Klank's gauntlets.png",
     "imagepath": "Klank_s gauntlets.png"
+  },
+  {
+    "name": "Knapsack",
+    "id": 33218,
+    "image": "Knapsack.png",
+    "imagepath": "Knapsack.png"
+  },
+  {
+    "name": "Knapsack",
+    "id": 33220,
+    "image": "Knapsack (closed).png",
+    "imagepath": "Knapsack (closed).png"
   },
   {
     "name": "Knife",
@@ -46054,6 +46312,18 @@
     "id": 28790,
     "image": "Kourend castle teleport (tablet).png",
     "imagepath": "Kourend castle teleport (tablet).png"
+  },
+  {
+    "name": "Kourend echo orb",
+    "id": 30400,
+    "image": "Kourend echo orb (Raging Echoes League).png",
+    "imagepath": "Kourend echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Kourend echo orb",
+    "id": 30400,
+    "image": "Kourend echo orb (Demonic Pacts League).png",
+    "imagepath": "Kourend echo orb (Demonic Pacts League).png"
   },
   {
     "name": "Kourend map",
@@ -47388,6 +47658,18 @@
     "imagepath": "Lit torch.png"
   },
   {
+    "name": "Lithic sceptre",
+    "id": 33255,
+    "image": "Lithic sceptre.png",
+    "imagepath": "Lithic sceptre.png"
+  },
+  {
+    "name": "Lithic sceptre (uncharged)",
+    "id": 33257,
+    "image": "Lithic sceptre (uncharged).png",
+    "imagepath": "Lithic sceptre (uncharged).png"
+  },
+  {
     "name": "Lithkren vault notes",
     "id": 25704,
     "image": "Lithkren vault notes.png",
@@ -48450,6 +48732,12 @@
     "imagepath": "Magus ring.png"
   },
   {
+    "name": "Magus ring",
+    "id": 33180,
+    "image": "Magus ring (Last Man Standing).png",
+    "imagepath": "Magus ring (Last Man Standing).png"
+  },
+  {
     "name": "Magus vestige",
     "id": 28281,
     "image": "Magus vestige.png",
@@ -48862,6 +49150,12 @@
     "id": 26744,
     "image": "Maoma's med helm (l).png",
     "imagepath": "Maoma_s med helm (l).png"
+  },
+  {
+    "name": "Map of alacrity",
+    "id": 33233,
+    "image": "Map of alacrity.png",
+    "imagepath": "Map of alacrity.png"
   },
   {
     "name": "Map part",
@@ -49356,6 +49650,12 @@
     "imagepath": "Masori body (f).png"
   },
   {
+    "name": "Masori body (f)",
+    "id": 33190,
+    "image": "Masori body (f) (Last Man Standing).png",
+    "imagepath": "Masori body (f) (Last Man Standing).png"
+  },
+  {
     "name": "Masori chaps",
     "id": 27232,
     "image": "Masori chaps.png",
@@ -49366,6 +49666,12 @@
     "id": 27241,
     "image": "Masori chaps (f).png",
     "imagepath": "Masori chaps (f).png"
+  },
+  {
+    "name": "Masori chaps (f)",
+    "id": 33192,
+    "image": "Masori chaps (f) (Last Man Standing).png",
+    "imagepath": "Masori chaps (f) (Last Man Standing).png"
   },
   {
     "name": "Masori crafting kit",
@@ -50146,6 +50452,12 @@
     "id": 7793,
     "image": "Mining tome (red).png",
     "imagepath": "Mining tome (red).png"
+  },
+  {
+    "name": "Minion whistle",
+    "id": 28769,
+    "image": "Minion whistle.png",
+    "imagepath": "Minion whistle.png"
   },
   {
     "name": "Minnow",
@@ -51654,6 +51966,18 @@
     "imagepath": "Mort_ton teleport.png"
   },
   {
+    "name": "Morytania echo orb",
+    "id": 30397,
+    "image": "Morytania echo orb (Raging Echoes League).png",
+    "imagepath": "Morytania echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Morytania echo orb",
+    "id": 30397,
+    "image": "Morytania echo orb (Demonic Pacts League).png",
+    "imagepath": "Morytania echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "Morytania legs 1",
     "id": 13112,
     "image": "Morytania legs 1.png",
@@ -52644,6 +52968,12 @@
     "imagepath": "Nature tiara.png"
   },
   {
+    "name": "Nature's recurve",
+    "id": 33245,
+    "image": "Nature's recurve.png",
+    "imagepath": "Nature_s recurve.png"
+  },
+  {
     "name": "Navy cavalier",
     "id": 12325,
     "image": "Navy cavalier.png",
@@ -53098,6 +53428,12 @@
     "id": 29796,
     "image": "Noxious halberd.png",
     "imagepath": "Noxious halberd.png"
+  },
+  {
+    "name": "Noxious halberd",
+    "id": 33178,
+    "image": "Noxious halberd (Last Man Standing).png",
+    "imagepath": "Noxious halberd (Last Man Standing).png"
   },
   {
     "name": "Noxious point",
@@ -54880,6 +55216,12 @@
     "id": 26219,
     "image": "Osmumten's fang.png",
     "imagepath": "Osmumten_s fang.png"
+  },
+  {
+    "name": "Osmumten's fang",
+    "id": 33174,
+    "image": "Osmumten's fang (Last Man Standing).png",
+    "imagepath": "Osmumten_s fang (Last Man Standing).png"
   },
   {
     "name": "Osmumten's fang (or)",
@@ -57978,6 +58320,12 @@
     "imagepath": "Purging staff.png"
   },
   {
+    "name": "Purging staff",
+    "id": 33184,
+    "image": "Purging staff (Last Man Standing).png",
+    "imagepath": "Purging staff (Last Man Standing).png"
+  },
+  {
     "name": "Purifying sigil",
     "id": 30793,
     "image": "Purifying sigil.png",
@@ -58662,6 +59010,12 @@
     "imagepath": "Raging echoes top (t3).png"
   },
   {
+    "name": "Raids megarare voucher",
+    "id": 30402,
+    "image": "Raids megarare voucher.png",
+    "imagepath": "Raids megarare voucher.png"
+  },
+  {
     "name": "Railing",
     "id": 14,
     "image": "Railing.png",
@@ -58872,12 +59226,6 @@
     "imagepath": "Rangers_ tunic.png"
   },
   {
-    "name": "Rangers' tunic",
-    "id": 27179,
-    "image": "Rangers' tunic (Last Man Standing).png",
-    "imagepath": "Rangers_ tunic (Last Man Standing).png"
-  },
-  {
     "name": "Ranging cape",
     "id": 9756,
     "image": "Ranging cape.png",
@@ -58916,8 +59264,8 @@
   {
     "name": "Ranging potion(1)",
     "id": 23557,
-    "image": "Ranging potion(1).png",
-    "imagepath": "Ranging potion(1).png"
+    "image": "Ranging potion(1) (Last Man Standing).png",
+    "imagepath": "Ranging potion(1) (Last Man Standing).png"
   },
   {
     "name": "Ranging potion(2)",
@@ -58928,8 +59276,8 @@
   {
     "name": "Ranging potion(2)",
     "id": 23555,
-    "image": "Ranging potion(2).png",
-    "imagepath": "Ranging potion(2).png"
+    "image": "Ranging potion(2) (Last Man Standing).png",
+    "imagepath": "Ranging potion(2) (Last Man Standing).png"
   },
   {
     "name": "Ranging potion(3)",
@@ -58940,8 +59288,8 @@
   {
     "name": "Ranging potion(3)",
     "id": 23553,
-    "image": "Ranging potion(3).png",
-    "imagepath": "Ranging potion(3).png"
+    "image": "Ranging potion(3) (Last Man Standing).png",
+    "imagepath": "Ranging potion(3) (Last Man Standing).png"
   },
   {
     "name": "Ranging potion(4)",
@@ -58952,8 +59300,8 @@
   {
     "name": "Ranging potion(4)",
     "id": 23551,
-    "image": "Ranging potion(4).png",
-    "imagepath": "Ranging potion(4).png"
+    "image": "Ranging potion(4) (Last Man Standing).png",
+    "imagepath": "Ranging potion(4) (Last Man Standing).png"
   },
   {
     "name": "Ranis' head",
@@ -63768,10 +64116,10 @@
     "imagepath": "Sagacious spectacles.png"
   },
   {
-    "name": "Sage's greaves",
-    "id": 28771,
-    "image": "Sage's greaves.png",
-    "imagepath": "Sage_s greaves.png"
+    "name": "Sage's axe",
+    "id": 28773,
+    "image": "Sage's axe.png",
+    "imagepath": "Sage_s axe.png"
   },
   {
     "name": "Saika's hood",
@@ -64124,8 +64472,8 @@
   {
     "name": "Sanfew serum(1)",
     "id": 23565,
-    "image": "Sanfew serum(1).png",
-    "imagepath": "Sanfew serum(1).png"
+    "image": "Sanfew serum(1) (Last Man Standing).png",
+    "imagepath": "Sanfew serum(1) (Last Man Standing).png"
   },
   {
     "name": "Sanfew serum(2)",
@@ -64136,8 +64484,8 @@
   {
     "name": "Sanfew serum(2)",
     "id": 23563,
-    "image": "Sanfew serum(2).png",
-    "imagepath": "Sanfew serum(2).png"
+    "image": "Sanfew serum(2) (Last Man Standing).png",
+    "imagepath": "Sanfew serum(2) (Last Man Standing).png"
   },
   {
     "name": "Sanfew serum(3)",
@@ -64148,8 +64496,8 @@
   {
     "name": "Sanfew serum(3)",
     "id": 23561,
-    "image": "Sanfew serum(3).png",
-    "imagepath": "Sanfew serum(3).png"
+    "image": "Sanfew serum(3) (Last Man Standing).png",
+    "imagepath": "Sanfew serum(3) (Last Man Standing).png"
   },
   {
     "name": "Sanfew serum(4)",
@@ -64160,8 +64508,8 @@
   {
     "name": "Sanfew serum(4)",
     "id": 23559,
-    "image": "Sanfew serum(4).png",
-    "imagepath": "Sanfew serum(4).png"
+    "image": "Sanfew serum(4) (Last Man Standing).png",
+    "imagepath": "Sanfew serum(4) (Last Man Standing).png"
   },
   {
     "name": "Sanguine dust",
@@ -64430,8 +64778,8 @@
   {
     "name": "Saradomin brew(1)",
     "id": 23581,
-    "image": "Saradomin brew(1).png",
-    "imagepath": "Saradomin brew(1).png"
+    "image": "Saradomin brew(1) (Last Man Standing).png",
+    "imagepath": "Saradomin brew(1) (Last Man Standing).png"
   },
   {
     "name": "Saradomin brew(2)",
@@ -64442,8 +64790,8 @@
   {
     "name": "Saradomin brew(2)",
     "id": 23579,
-    "image": "Saradomin brew(2).png",
-    "imagepath": "Saradomin brew(2).png"
+    "image": "Saradomin brew(2) (Last Man Standing).png",
+    "imagepath": "Saradomin brew(2) (Last Man Standing).png"
   },
   {
     "name": "Saradomin brew(3)",
@@ -64454,8 +64802,8 @@
   {
     "name": "Saradomin brew(3)",
     "id": 23577,
-    "image": "Saradomin brew(3).png",
-    "imagepath": "Saradomin brew(3).png"
+    "image": "Saradomin brew(3) (Last Man Standing).png",
+    "imagepath": "Saradomin brew(3) (Last Man Standing).png"
   },
   {
     "name": "Saradomin brew(4)",
@@ -64466,8 +64814,8 @@
   {
     "name": "Saradomin brew(4)",
     "id": 23575,
-    "image": "Saradomin brew(4).png",
-    "imagepath": "Saradomin brew(4).png"
+    "image": "Saradomin brew(4) (Last Man Standing).png",
+    "imagepath": "Saradomin brew(4) (Last Man Standing).png"
   },
   {
     "name": "Saradomin cape",
@@ -64562,12 +64910,6 @@
   {
     "name": "Saradomin halo",
     "id": 12637,
-    "image": "Saradomin halo.png",
-    "imagepath": "Saradomin halo.png"
-  },
-  {
-    "name": "Saradomin halo",
-    "id": 27165,
     "image": "Saradomin halo.png",
     "imagepath": "Saradomin halo.png"
   },
@@ -65250,6 +65592,12 @@
     "imagepath": "Sealed vase.png"
   },
   {
+    "name": "Searing boots",
+    "id": 28771,
+    "image": "Searing boots.png",
+    "imagepath": "Searing boots.png"
+  },
+  {
     "name": "Searing page",
     "id": 28931,
     "image": "Searing page.png",
@@ -65428,12 +65776,6 @@
     "id": 11770,
     "image": "Seers ring (i).png",
     "imagepath": "Seers ring (i).png"
-  },
-  {
-    "name": "Seers ring (i)",
-    "id": 23624,
-    "image": "Seers ring (i) (Last Man Standing).png",
-    "imagepath": "Seers ring (i) (Last Man Standing).png"
   },
   {
     "name": "Selected iron",
@@ -65806,6 +66148,12 @@
     "id": 10858,
     "image": "Shadow sword.png",
     "imagepath": "Shadow sword.png"
+  },
+  {
+    "name": "Shadowflame quadrant",
+    "id": 33253,
+    "image": "Shadowflame quadrant.png",
+    "imagepath": "Shadowflame quadrant.png"
   },
   {
     "name": "Shaikahan bonemeal",
@@ -69420,6 +69768,12 @@
     "imagepath": "Soul rune (Barbarian Assault).png"
   },
   {
+    "name": "Soul shard",
+    "id": 33231,
+    "image": "Soul shard.png",
+    "imagepath": "Soul shard.png"
+  },
+  {
     "name": "Soul talisman",
     "id": 1460,
     "image": "Soul talisman.png",
@@ -69442,6 +69796,12 @@
     "id": 28338,
     "image": "Soulreaper axe.png",
     "imagepath": "Soulreaper axe.png"
+  },
+  {
+    "name": "Soulreaper axe (o)",
+    "id": 33335,
+    "image": "Soulreaper axe (o).png",
+    "imagepath": "Soulreaper axe (o).png"
   },
   {
     "name": "Soup",
@@ -70422,12 +70782,6 @@
     "imagepath": "Spiked manacles.png"
   },
   {
-    "name": "Spiked manacles",
-    "id": 27178,
-    "image": "Spiked manacles (Last Man Standing).png",
-    "imagepath": "Spiked manacles (Last Man Standing).png"
-  },
-  {
     "name": "Spiked/pois. egg",
     "id": 10536,
     "image": "Spiked+pois. egg.png",
@@ -70970,8 +71324,8 @@
   {
     "name": "Stamina potion(1)",
     "id": 23589,
-    "image": "Stamina potion(1).png",
-    "imagepath": "Stamina potion(1).png"
+    "image": "Stamina potion(1) (Last Man Standing).png",
+    "imagepath": "Stamina potion(1) (Last Man Standing).png"
   },
   {
     "name": "Stamina potion(2)",
@@ -70982,8 +71336,8 @@
   {
     "name": "Stamina potion(2)",
     "id": 23587,
-    "image": "Stamina potion(2).png",
-    "imagepath": "Stamina potion(2).png"
+    "image": "Stamina potion(2) (Last Man Standing).png",
+    "imagepath": "Stamina potion(2) (Last Man Standing).png"
   },
   {
     "name": "Stamina potion(3)",
@@ -70994,8 +71348,8 @@
   {
     "name": "Stamina potion(3)",
     "id": 23585,
-    "image": "Stamina potion(3).png",
-    "imagepath": "Stamina potion(3).png"
+    "image": "Stamina potion(3) (Last Man Standing).png",
+    "imagepath": "Stamina potion(3) (Last Man Standing).png"
   },
   {
     "name": "Stamina potion(4)",
@@ -71006,8 +71360,8 @@
   {
     "name": "Stamina potion(4)",
     "id": 23583,
-    "image": "Stamina potion(4).png",
-    "imagepath": "Stamina potion(4).png"
+    "image": "Stamina potion(4) (Last Man Standing).png",
+    "imagepath": "Stamina potion(4) (Last Man Standing).png"
   },
   {
     "name": "Star amulet",
@@ -73160,8 +73514,8 @@
   {
     "name": "Super combat potion(1)",
     "id": 23549,
-    "image": "Super combat potion(1).png",
-    "imagepath": "Super combat potion(1).png"
+    "image": "Super combat potion(1) (Last Man Standing).png",
+    "imagepath": "Super combat potion(1) (Last Man Standing).png"
   },
   {
     "name": "Super combat potion(2)",
@@ -73172,8 +73526,8 @@
   {
     "name": "Super combat potion(2)",
     "id": 23547,
-    "image": "Super combat potion(2).png",
-    "imagepath": "Super combat potion(2).png"
+    "image": "Super combat potion(2) (Last Man Standing).png",
+    "imagepath": "Super combat potion(2) (Last Man Standing).png"
   },
   {
     "name": "Super combat potion(3)",
@@ -73184,8 +73538,8 @@
   {
     "name": "Super combat potion(3)",
     "id": 23545,
-    "image": "Super combat potion(3).png",
-    "imagepath": "Super combat potion(3).png"
+    "image": "Super combat potion(3) (Last Man Standing).png",
+    "imagepath": "Super combat potion(3) (Last Man Standing).png"
   },
   {
     "name": "Super combat potion(4)",
@@ -73196,8 +73550,8 @@
   {
     "name": "Super combat potion(4)",
     "id": 23543,
-    "image": "Super combat potion(4).png",
-    "imagepath": "Super combat potion(4).png"
+    "image": "Super combat potion(4) (Last Man Standing).png",
+    "imagepath": "Super combat potion(4) (Last Man Standing).png"
   },
   {
     "name": "Super def. mix(1)",
@@ -73400,8 +73754,8 @@
   {
     "name": "Super restore(1)",
     "id": 23573,
-    "image": "Super restore(1).png",
-    "imagepath": "Super restore(1).png"
+    "image": "Super restore(1) (Last Man Standing).png",
+    "imagepath": "Super restore(1) (Last Man Standing).png"
   },
   {
     "name": "Super restore(2)",
@@ -73412,8 +73766,8 @@
   {
     "name": "Super restore(2)",
     "id": 23571,
-    "image": "Super restore(2).png",
-    "imagepath": "Super restore(2).png"
+    "image": "Super restore(2) (Last Man Standing).png",
+    "imagepath": "Super restore(2) (Last Man Standing).png"
   },
   {
     "name": "Super restore(3)",
@@ -73424,8 +73778,8 @@
   {
     "name": "Super restore(3)",
     "id": 23569,
-    "image": "Super restore(3).png",
-    "imagepath": "Super restore(3).png"
+    "image": "Super restore(3) (Last Man Standing).png",
+    "imagepath": "Super restore(3) (Last Man Standing).png"
   },
   {
     "name": "Super restore(4)",
@@ -73436,8 +73790,8 @@
   {
     "name": "Super restore(4)",
     "id": 23567,
-    "image": "Super restore(4).png",
-    "imagepath": "Super restore(4).png"
+    "image": "Super restore(4) (Last Man Standing).png",
+    "imagepath": "Super restore(4) (Last Man Standing).png"
   },
   {
     "name": "Super str. mix(1)",
@@ -75456,6 +75810,18 @@
     "imagepath": "Tiny tempor.png"
   },
   {
+    "name": "Tirannwn echo orb",
+    "id": 30398,
+    "image": "Tirannwn echo orb (Raging Echoes League).png",
+    "imagepath": "Tirannwn echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Tirannwn echo orb",
+    "id": 30398,
+    "image": "Tirannwn echo orb (Demonic Pacts League).png",
+    "imagepath": "Tirannwn echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "To-do list",
     "id": 11203,
     "image": "To-do list.png",
@@ -75870,12 +76236,6 @@
     "imagepath": "Torag_s helm.png"
   },
   {
-    "name": "Torag's helm",
-    "id": 23637,
-    "image": "Torag's helm (Last Man Standing).png",
-    "imagepath": "Torag_s helm (Last Man Standing).png"
-  },
-  {
     "name": "Torag's helm 0",
     "id": 4956,
     "image": "Torag's helm 0.png",
@@ -76186,6 +76546,12 @@
     "id": 30304,
     "image": "Torva platelegs (unobtainable item).png",
     "imagepath": "Torva platelegs (unobtainable item).png"
+  },
+  {
+    "name": "Torva platelegs",
+    "id": 33194,
+    "image": "Torva platelegs (Last Man Standing).png",
+    "imagepath": "Torva platelegs (Last Man Standing).png"
   },
   {
     "name": "Torva platelegs (damaged)",
@@ -76752,6 +77118,12 @@
     "imagepath": "Translation manual.png"
   },
   {
+    "name": "Transmutation ledger",
+    "id": 33229,
+    "image": "Transmutation ledger.png",
+    "imagepath": "Transmutation ledger.png"
+  },
+  {
     "name": "Transportation incantations",
     "id": 13537,
     "image": "Transportation incantations.png",
@@ -76968,10 +77340,28 @@
     "imagepath": "Trident of the seas (e).png"
   },
   {
+    "name": "Trident of the seas (e) (o)",
+    "id": 33326,
+    "image": "Trident of the seas (e) (o).png",
+    "imagepath": "Trident of the seas (e) (o).png"
+  },
+  {
     "name": "Trident of the seas (full)",
     "id": 11905,
     "image": "Trident of the seas (full).png",
     "imagepath": "Trident of the seas (full).png"
+  },
+  {
+    "name": "Trident of the seas (full) (o)",
+    "id": 33323,
+    "image": "Trident of the seas (full) (o).png",
+    "imagepath": "Trident of the seas (full) (o).png"
+  },
+  {
+    "name": "Trident of the seas (o)",
+    "id": 33322,
+    "image": "Trident of the seas (o).png",
+    "imagepath": "Trident of the seas (o).png"
   },
   {
     "name": "Trident of the swamp",
@@ -76984,6 +77374,18 @@
     "id": 22292,
     "image": "Trident of the swamp (e).png",
     "imagepath": "Trident of the swamp (e).png"
+  },
+  {
+    "name": "Trident of the swamp (e) (o)",
+    "id": 33318,
+    "image": "Trident of the swamp (e) (o).png",
+    "imagepath": "Trident of the swamp (e) (o).png"
+  },
+  {
+    "name": "Trident of the swamp (o)",
+    "id": 33314,
+    "image": "Trident of the swamp (o).png",
+    "imagepath": "Trident of the swamp (o).png"
   },
   {
     "name": "Trimmed fur",
@@ -77406,6 +77808,12 @@
     "imagepath": "Twisted buckler.png"
   },
   {
+    "name": "Twisted buckler",
+    "id": 33188,
+    "image": "Twisted buckler (Last Man Standing).png",
+    "imagepath": "Twisted buckler (Last Man Standing).png"
+  },
+  {
     "name": "Twisted cane",
     "id": 24395,
     "image": "Twisted cane.png",
@@ -77814,6 +78222,12 @@
     "imagepath": "Ultor ring.png"
   },
   {
+    "name": "Ultor ring",
+    "id": 33182,
+    "image": "Ultor ring (Last Man Standing).png",
+    "imagepath": "Ultor ring (Last Man Standing).png"
+  },
+  {
     "name": "Ultor vestige",
     "id": 28285,
     "image": "Ultor vestige.png",
@@ -77874,6 +78288,18 @@
     "imagepath": "Uncharged toxic trident (e).png"
   },
   {
+    "name": "Uncharged toxic trident (e)",
+    "id": 33320,
+    "image": "Uncharged toxic trident (e) (o).png",
+    "imagepath": "Uncharged toxic trident (e) (o).png"
+  },
+  {
+    "name": "Uncharged toxic trident (o)",
+    "id": 33316,
+    "image": "Uncharged toxic trident (o).png",
+    "imagepath": "Uncharged toxic trident (o).png"
+  },
+  {
     "name": "Uncharged trident",
     "id": 11908,
     "image": "Uncharged trident.png",
@@ -77884,6 +78310,12 @@
     "id": 22290,
     "image": "Uncharged trident (e).png",
     "imagepath": "Uncharged trident (e).png"
+  },
+  {
+    "name": "Uncharged trident (e) (o)",
+    "id": 33328,
+    "image": "Uncharged trident (e) (o).png",
+    "imagepath": "Uncharged trident (e) (o).png"
   },
   {
     "name": "Uncleaned find",
@@ -78750,6 +79182,12 @@
     "imagepath": "V sigil (e).png"
   },
   {
+    "name": "V's helm",
+    "id": 33247,
+    "image": "V's helm.png",
+    "imagepath": "V_s helm.png"
+  },
+  {
     "name": "V's shield",
     "id": 24265,
     "image": "V's shield.png",
@@ -78862,6 +79300,18 @@
     "id": 28973,
     "image": "Varlamore crest.png",
     "imagepath": "Varlamore crest.png"
+  },
+  {
+    "name": "Varlamore echo orb",
+    "id": 30401,
+    "image": "Varlamore echo orb (Raging Echoes League).png",
+    "imagepath": "Varlamore echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Varlamore echo orb",
+    "id": 30401,
+    "image": "Varlamore echo orb (Demonic Pacts League).png",
+    "imagepath": "Varlamore echo orb (Demonic Pacts League).png"
   },
   {
     "name": "Varlamore envoy",
@@ -79056,12 +79506,6 @@
     "imagepath": "Verac_s brassard.png"
   },
   {
-    "name": "Verac's brassard",
-    "id": 27190,
-    "image": "Verac's brassard (Last Man Standing).png",
-    "imagepath": "Verac_s brassard (Last Man Standing).png"
-  },
-  {
     "name": "Verac's brassard 0",
     "id": 4992,
     "image": "Verac's brassard 0.png",
@@ -79096,12 +79540,6 @@
     "id": 4755,
     "image": "Verac's flail.png",
     "imagepath": "Verac_s flail.png"
-  },
-  {
-    "name": "Verac's flail",
-    "id": 27189,
-    "image": "Verac's flail (Last Man Standing).png",
-    "imagepath": "Verac_s flail (Last Man Standing).png"
   },
   {
     "name": "Verac's flail 0",
@@ -79140,12 +79578,6 @@
     "imagepath": "Verac_s helm.png"
   },
   {
-    "name": "Verac's helm",
-    "id": 23636,
-    "image": "Verac's helm (Last Man Standing).png",
-    "imagepath": "Verac_s helm (Last Man Standing).png"
-  },
-  {
     "name": "Verac's helm 0",
     "id": 4980,
     "image": "Verac's helm 0.png",
@@ -79180,12 +79612,6 @@
     "id": 4759,
     "image": "Verac's plateskirt.png",
     "imagepath": "Verac_s plateskirt.png"
-  },
-  {
-    "name": "Verac's plateskirt",
-    "id": 23635,
-    "image": "Verac's plateskirt (Last Man Standing).png",
-    "imagepath": "Verac_s plateskirt (Last Man Standing).png"
   },
   {
     "name": "Verac's plateskirt 0",
@@ -79614,10 +80040,22 @@
     "imagepath": "Virtus robe bottom.png"
   },
   {
+    "name": "Virtus robe bottom",
+    "id": 33198,
+    "image": "Virtus robe bottom (Last Man Standing).png",
+    "imagepath": "Virtus robe bottom (Last Man Standing).png"
+  },
+  {
     "name": "Virtus robe top",
     "id": 26243,
     "image": "Virtus robe top.png",
     "imagepath": "Virtus robe top.png"
+  },
+  {
+    "name": "Virtus robe top",
+    "id": 33196,
+    "image": "Virtus robe top (Last Man Standing).png",
+    "imagepath": "Virtus robe top (Last Man Standing).png"
   },
   {
     "name": "Vodka",
@@ -81258,6 +81696,18 @@
     "imagepath": "Wilderness crabs teleport.png"
   },
   {
+    "name": "Wilderness echo orb",
+    "id": 30399,
+    "image": "Wilderness echo orb (Raging Echoes League).png",
+    "imagepath": "Wilderness echo orb (Raging Echoes League).png"
+  },
+  {
+    "name": "Wilderness echo orb",
+    "id": 30399,
+    "image": "Wilderness echo orb (Demonic Pacts League).png",
+    "imagepath": "Wilderness echo orb (Demonic Pacts League).png"
+  },
+  {
     "name": "Wilderness sword 1",
     "id": 13108,
     "image": "Wilderness sword 1.png",
@@ -81562,12 +82012,6 @@
     "id": 2579,
     "image": "Wizard boots.png",
     "imagepath": "Wizard boots.png"
-  },
-  {
-    "name": "Wizard boots",
-    "id": 27162,
-    "image": "Wizard boots (Last Man Standing).png",
-    "imagepath": "Wizard boots (Last Man Standing).png"
   },
   {
     "name": "Wizard hat",
@@ -82820,12 +83264,6 @@
   {
     "name": "Zamorak halo",
     "id": 12638,
-    "image": "Zamorak halo.png",
-    "imagepath": "Zamorak halo.png"
-  },
-  {
-    "name": "Zamorak halo",
-    "id": 27164,
     "image": "Zamorak halo.png",
     "imagepath": "Zamorak halo.png"
   },
