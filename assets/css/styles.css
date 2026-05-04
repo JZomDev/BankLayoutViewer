@@ -12,9 +12,26 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 
 /* Layout columns */
 .site-wrap{display:grid;grid-template-columns:320px 1fr 340px;gap:18px;padding:18px}
-.left-col{display:flex;flex-direction:column;gap:18px}
+.left-col {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 36px);
+  overflow-y: auto;
+  margin-right: 18px;
+  min-height: 100vh;
+}
 .center-col{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.right-col{display:block}
+.right-col {
+  width: 340px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 36px);
+  overflow-y: auto;
+  margin-left: 18px;
+  min-height: 100vh;
+}
 
 .instruction-panel{background:transparent;padding:12px;border-radius:8px;margin-bottom:12px;color:var(--muted);font-size:14px}
 .instruction-panel h3{margin:0 0 8px 0;color:var(--accent)}
