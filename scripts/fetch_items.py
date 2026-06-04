@@ -68,10 +68,15 @@ def getEquipmentData():
                 f"bucket('infobox_item')"
                 f".select({fields_csv})"
                 f".limit(500).offset({offset})"
-                f".where('item_id', '!=', bucket.Null())"
+                # must be an item
                 f".where('Category:Items')"
+                # must have an id and a name
+                f".where('item_id', '!=', bucket.Null())"
+                f".where('item_name', '!=', bucket.Null())"
+                # can't be interface items, unobtainable items, discontinued content, or beta items
                 f".where(bucket.Not('Category:Interface items'))"
-                # f".where(bucket.Not('Category:Unobtainable items'))"
+                f".where(bucket.Not('Category:Unobtainable items'))"
+                f".where(bucket.Not('Category:Pages using information from game APIs or cache'))"
                 f".where(bucket.Not('Category:Discontinued content'))"
                 f".where(bucket.Not('Category:Beta items'))"
                 f".orderBy('item_name', 'asc').run()"
