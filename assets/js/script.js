@@ -149,8 +149,9 @@
         if(!it || !it.img || String(it.img).trim() === '') return;
       const tile = document.createElement('div');
       tile.className = 'item-tile';
+      tile.setAttribute('draggable', 'true');
       tile.innerHTML = `
-        <img loading="lazy" src="${it.img}" alt="${it.name}">
+        <img loading="lazy" src="${it.img}" alt="${it.name}" draggable="false">
         <div class="name">${it.name}</div>
         <div class="id" style="display:none">${it.id}</div>
       `;
@@ -159,15 +160,11 @@
         selected = { type: 'palette', id: it.id, item: it, tileEl: tile };
         tile.classList.add('selected');
       });
-      const img = tile.querySelector('img');
-      if(img){
-        img.setAttribute('draggable','true');
-        img.addEventListener('dragstart', e => {
-          const payload = JSON.stringify({ id: it.id });
-          try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
-          e.dataTransfer.effectAllowed = 'copy';
-        });
-      }
+      tile.addEventListener('dragstart', e => {
+        const payload = JSON.stringify({ id: it.id });
+        try{ e.dataTransfer.setData('application/json', payload); }catch(_){ e.dataTransfer.setData('text/plain', payload); }
+        e.dataTransfer.effectAllowed = 'copy';
+      });
       tile.addEventListener('dblclick', () => {
         clearSelection();
         placeItem(it);
@@ -785,9 +782,11 @@
     });
   }
 
+  let itemSearchTimeout;
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim();
-    FuzzySearch(q);
+    clearTimeout(itemSearchTimeout);
+    itemSearchTimeout = setTimeout(() => FuzzySearch(q), 350);
   });
 
   // wire choose modal controls after DOM ready
