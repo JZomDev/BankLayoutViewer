@@ -82,6 +82,23 @@ class SanityTests(unittest.TestCase):
             fetch_items.check_image_failures(failed=200, attempted=1000)
 
 
+class ImageNameTests(unittest.TestCase):
+    def test_html_escapes_in_the_wiki_image_name_are_decoded(self):
+        row = {'image': ['File:Perseriya&#39;s medallion.png']}
+        self.assertEqual(fetch_items.image_name(row), "Perseriya's medallion.png")
+
+    def test_file_prefix_is_dropped_and_the_last_image_is_used(self):
+        row = {'image': ['File:Old.png', 'File:New.png']}
+        self.assertEqual(fetch_items.image_name(row), 'New.png')
+
+    def test_missing_image_is_an_empty_string(self):
+        self.assertEqual(fetch_items.image_name({}), '')
+        self.assertEqual(fetch_items.image_name({'image': []}), '')
+
+    def test_local_file_name_replaces_unsafe_characters(self):
+        self.assertEqual(fetch_items.image_path("Perseriya's medallion.png"), 'Perseriya_s medallion.png')
+
+
 class DownloadItemsminTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
