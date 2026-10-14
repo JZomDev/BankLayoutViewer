@@ -7,6 +7,7 @@
 
     Written for Python 3.9.
 """
+import argparse
 import os
 import requests
 import json
@@ -16,6 +17,7 @@ import time
 from pathlib import Path
 
 import item_meta
+import item_updates
 
 FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
@@ -160,13 +162,12 @@ def getEquipmentData():
     return equipment
 
 
-def main():
+def main(max_updates=None):
     # Grab the equipment info using Bucket
     wiki_data = getEquipmentData()
 
     # Use an object rather than an array, so that we can't have duplicate items with the same page_name_sub
     data = {}
-    required_imgs = []
     # Loop over the equipment data from the wiki
     for v in wiki_data:
         if v['page_name_sub'] in data:
@@ -193,18 +194,26 @@ def main():
         # Set the current equipment item to the calc's equipment list
         data[v['page_name_sub']] = equipment
 
-        if not equipment['image'] == '':
-            required_imgs.append(equipment['image'])
-
     new_data = list(data.values())
 
     print('Total equipment: ' + str(len(new_data)))
     check_item_count(len(new_data))
-    new_data.sort(key=lambda d: d.get('name'))
+
+    old_data = []
+    if os.path.isfile(FILE_NAME):
+        with open(FILE_NAME, encoding='utf-8') as f:
+            old_data = json.load(f)
+    limited = item_updates.limit_updates(old_data, new_data, max_updates)
+    if max_updates is not None:
+        print(f'Updating {limited.applied} items (limit {max_updates}); {limited.pending} more wait for a later run')
 
     with open(FILE_NAME, 'w') as f:
         print('Saving to JSON at file: ' + FILE_NAME)
-        json.dump(new_data, f, ensure_ascii=False, indent=2)
+        json.dump(limited.items, f, ensure_ascii=False, indent=2)
+
+    # With a limit, only the items changed in this run get images; otherwise every item is checked
+    image_source = new_data if max_updates is None else limited.changed
+    required_imgs = [e['image'] for e in image_source if e['image']]
 
     success_img_dls = 0
     failed_img_dls = 0
@@ -244,5 +253,15 @@ def main():
     item_meta.write_item_meta()
 
 
+def positive_int(text):
+    value = int(text)
+    if value < 1:
+        raise argparse.ArgumentTypeError('must be at least 1')
+    return value
+
+
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Fetch OSRS item data and images from the wiki.')
+    parser.add_argument('--max-updates', type=positive_int, default=None,
+                        help='change at most this many items in items.json this run (default: no limit)')
+    main(parser.parse_args().max_updates)
