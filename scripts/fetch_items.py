@@ -8,6 +8,7 @@
     Written for Python 3.9.
 """
 import argparse
+import html
 import os
 import requests
 import json
@@ -81,6 +82,18 @@ def get(url, **kwargs):
             if attempt == RETRIES - 1:
                 raise
             time.sleep(2 ** attempt)
+
+
+def image_name(row):
+    """The wiki file name for a bucket row. The API returns it HTML-escaped (&#39; for an apostrophe)."""
+    if not row.get('image'):
+        return ''
+    return html.unescape(row['image'][-1]).replace('File:', '')
+
+
+def image_path(name):
+    """The name the image is saved under in cdn/items."""
+    return re.sub(r'[^a-zA-Z0-9\s._()-]', '_', name)
 
 
 def check_item_count(count):
@@ -185,8 +198,8 @@ def main(max_updates=None):
         equipment = {
             'name': v['item_name'],
             'id': item_id,
-            'image': '' if not v.get('image') else v.get('image')[-1].replace('File:', ''),
-            'imagepath': re.sub(r'[^a-zA-Z0-9\s._()-]', '_','' if not v.get('image') else v.get('image')[-1].replace('File:', '')),
+            'image': image_name(v),
+            'imagepath': image_path(image_name(v)),
         }
 
         if equipment['name'] in ITEMS_TO_SKIP:
@@ -223,7 +236,7 @@ def main(max_updates=None):
     # Fetch all the images from the wiki and store them for local serving
     for idx, img in enumerate(required_imgs):
 
-        imgName = re.sub(r'[^a-zA-Z0-9\s._()-]', '_', img)
+        imgName = image_path(img)
 
         if os.path.isfile(IMG_PATH + imgName):
             skipped_img_dls += 1
