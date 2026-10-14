@@ -12,7 +12,6 @@ import requests
 import json
 import urllib.parse
 import re
-import shutil
 
 FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
@@ -63,7 +62,7 @@ def getEquipmentData():
     while True:
         print('Fetching equipment info: ' + str(offset))
         innerQuery = {
-            'query': 
+            'query':
             (
                 f"bucket('infobox_item')"
                 f".select({fields_csv})"
@@ -144,7 +143,7 @@ def main():
             'image': '' if not v.get('image') else v.get('image')[-1].replace('File:', ''),
             'imagepath': re.sub(r'[^a-zA-Z0-9\s._()-]', '_','' if not v.get('image') else v.get('image')[-1].replace('File:', '')),
         }
-    
+
         if equipment['name'] in ITEMS_TO_SKIP:
             continue
         # Set the current equipment item to the calc's equipment list
@@ -192,7 +191,7 @@ def main():
     print('Total images saved: ' + str(success_img_dls))
     print('Total images skipped (already exists): ' + str(skipped_img_dls))
     print('Total images failed to save: ' + str(failed_img_dls))
-    
+
     # Download the itemsmin.js file into ../cdn/js/
     try:
         url = 'https://chisel.weirdgloop.org/moid/data_files/itemsmin.js'
