@@ -12,6 +12,8 @@ import requests
 import json
 import urllib.parse
 import re
+import time
+from pathlib import Path
 
 import item_meta
 
@@ -19,6 +21,15 @@ FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
 API_BASE = WIKI_BASE + '/api.php'
 IMG_PATH = '../cdn/items/'
+ITEMSMIN_URL = 'https://chisel.weirdgloop.org/moid/data_files/itemsmin.js'
+HEADERS = {'User-Agent': 'JZomDev Bank Tags Layout helper'}
+
+TIMEOUT = 30  # seconds, for every request
+RETRIES = 3
+# Safety nets so a bad wiki response cannot overwrite good data with a partial list.
+MIN_ITEMS = 10000  # the wiki returns about 14k today
+MAX_IMAGE_FAIL_RATIO = 0.05
+MIN_IMAGE_SAMPLE = 50  # attempts before the failure ratio means anything
 
 BUCKET_API_FIELDS = [
     'page_name',
@@ -57,6 +68,47 @@ ITEMS_TO_SKIP = [
     'Zaryte bow'
 ]
 
+def get(url, **kwargs):
+    """requests.get with a timeout, retries with backoff, and an exception on HTTP errors."""
+    for attempt in range(RETRIES):
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, **kwargs)
+            r.raise_for_status()
+            return r
+        except requests.RequestException:
+            if attempt == RETRIES - 1:
+                raise
+            time.sleep(2 ** attempt)
+
+
+def check_item_count(count):
+    if count < MIN_ITEMS:
+        raise RuntimeError(f'Only {count} items fetched (expected at least {MIN_ITEMS}); not overwriting {FILE_NAME}')
+
+
+def check_image_failures(failed, attempted):
+    if attempted >= MIN_IMAGE_SAMPLE and failed / attempted > MAX_IMAGE_FAIL_RATIO:
+        raise RuntimeError(f'{failed} of {attempted} image downloads failed; the wiki is probably down')
+
+
+def download_itemsmin(url, out_path):
+    """Downloads itemsmin.js, checks it parses, and replaces out_path only if it does."""
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    print(f'Downloading {url} -> {out_path}')
+    body = get(url).content[6:]  # the file starts with a 6-byte prefix that is not JSON
+    try:
+        parsed = json.loads(body)
+    except ValueError as e:
+        raise RuntimeError(f'{url} did not contain JSON after dropping the first 6 bytes: {e}')
+    if not isinstance(parsed, list) or not parsed:
+        raise RuntimeError(f'{url} did not contain a non-empty list')
+    tmp = out_path.with_name(out_path.name + '.tmp')
+    tmp.write_bytes(body)
+    tmp.replace(out_path)
+    print('Saved', out_path)
+
+
 def getEquipmentData():
     equipment = []
     offset = 0
@@ -91,20 +143,10 @@ def getEquipmentData():
 
         # print('Query: ' + str(innerQuery.get('query')))
 
-        r = requests.get(API_BASE + '?' + urllib.parse.urlencode(query), headers={
-            'User-Agent': 'JZomDev Bank Tags Layout helper'
-        })
-
-        if (r.status_code != 200):
-            print("Error fetching data from wiki API: " + str(r.status_code))
-            break
-
-        data = r.json()
+        data = get(API_BASE + '?' + urllib.parse.urlencode(query)).json()
 
         if 'bucket' not in data:
-            print("No bucket data found!")
-            # No results?
-            break
+            raise RuntimeError('No bucket data in the wiki API response: ' + str(data)[:200])
 
         equipment = equipment + data['bucket']
 
@@ -157,6 +199,7 @@ def main():
     new_data = list(data.values())
 
     print('Total equipment: ' + str(len(new_data)))
+    check_item_count(len(new_data))
     new_data.sort(key=lambda d: d.get('name'))
 
     with open(FILE_NAME, 'w') as f:
@@ -178,43 +221,28 @@ def main():
             continue
 
         print(f'({idx}/{len(required_imgs)}) Fetching image: {img}')
-        r = requests.get(WIKI_BASE + '/w/Special:Filepath/' + img, headers={
-            'User-Agent': 'JZomDev Bank Tags Layout helper'
-        })
-        if r.ok:
-            with open(IMG_PATH + imgName, 'wb') as f:
-                f.write(r.content)
-                print('Saved image: ' + imgName)
-                success_img_dls += 1
-        else:
-            print('Unable to save image: ' + imgName)
+        try:
+            r = get(WIKI_BASE + '/w/Special:Filepath/' + img)
+        except requests.RequestException as e:
+            print(f'Unable to save image: {imgName} ({e})')
             failed_img_dls += 1
+            check_image_failures(failed_img_dls, success_img_dls + failed_img_dls)
+            continue
+        with open(IMG_PATH + imgName, 'wb') as f:
+            f.write(r.content)
+        print('Saved image: ' + imgName)
+        success_img_dls += 1
 
     print('Total images saved: ' + str(success_img_dls))
     print('Total images skipped (already exists): ' + str(skipped_img_dls))
     print('Total images failed to save: ' + str(failed_img_dls))
 
-    # Download the itemsmin.js file into ../cdn/js/
-    try:
-        url = 'https://chisel.weirdgloop.org/moid/data_files/itemsmin.js'
-        local_filename = url.split('/')[-1]
-        target_dir = os.path.normpath(os.path.join(os.path.dirname(FILE_NAME), '..', 'js'))
-        os.makedirs(target_dir, exist_ok=True)
-        out_path = os.path.join(target_dir, local_filename)
-        print(f'Downloading {url} -> {out_path}')
-        with requests.get(url, stream=True, headers={'User-Agent': 'JZomDev Bank Tags Layout helper'}) as r:
-            if r.ok:
-                with open(out_path, 'wb') as f:
-                    f.write(r.content[6:])
-                print('Saved', out_path)
-            else:
-                print('Failed to download', url, 'status', r.status_code)
-    except Exception as e:
-        print('Error downloading itemsmin.js:', e)
+    # Download the itemsmin.js file into ../cdn/js/. A failure stops the run so item_meta never reads a stale copy.
+    download_itemsmin(ITEMSMIN_URL, os.path.join(os.path.dirname(FILE_NAME), '..', 'js', 'itemsmin.js'))
 
     # The page loads this small lookup instead of itemsmin.js
     item_meta.write_item_meta()
 
 
-
-main()
+if __name__ == '__main__':
+    main()
