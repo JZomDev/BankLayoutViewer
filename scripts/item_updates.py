@@ -19,7 +19,7 @@ class Limited(NamedTuple):
     pending: int   # item ids still waiting for a later run
 
 
-def _record(entry):
+def record_key(entry):
     return json.dumps({k: entry.get(k) for k in FIELDS}, sort_keys=True)
 
 
@@ -29,15 +29,15 @@ def _group(entry):
 
 
 def limit_updates(old, new, max_updates):
-    old_records = {_record(e) for e in old}
-    new_records = {_record(e) for e in new}
-    added = [e for e in new if _record(e) not in old_records]
-    removed = [e for e in old if _record(e) not in new_records]
+    old_records = {record_key(e) for e in old}
+    new_records = {record_key(e) for e in new}
+    added = [e for e in new if record_key(e) not in old_records]
+    removed = [e for e in old if record_key(e) not in new_records]
 
     groups = sorted({_group(e) for e in added + removed})
     taken = set(groups if max_updates is None else groups[:max_updates])
 
-    kept = [e for e in old if _group(e) not in taken or _record(e) in new_records]
+    kept = [e for e in old if _group(e) not in taken or record_key(e) in new_records]
     changed = [e for e in added if _group(e) in taken]
     # with nothing held back the result is exactly the fetched list, so ties keep the wiki's order
     items = sorted(new if not len(taken) < len(groups) else kept + changed, key=lambda e: e.get('name') or '')
