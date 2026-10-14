@@ -4,3 +4,4 @@ __pycache__/
 .idea/
 .vscode/
 CLAUDE.local.md
+tests/.node/

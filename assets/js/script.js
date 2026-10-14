@@ -8,6 +8,8 @@
   let items = [];
 
   let layouts = [];
+  let layoutsFromStorage = false;
+  const IDS_MIGRATED_KEY = 'banktags:ids-are-game-ids';
   let current = null;
   let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl: }
 
@@ -22,7 +24,7 @@
   function getItemsJsonData(){
     if(itemsJsonCache) return Promise.resolve(itemsJsonCache);
     if(itemsJsonPromise) return itemsJsonPromise;
-    itemsJsonPromise = fetch('cdn/json/items.json', {cache:'no-store'})
+    itemsJsonPromise = fetch('cdn/json/items.json')
       .then(r => r.json())
       .then(data => {
         itemsJsonCache = Array.isArray(data) ? data : (data.layouts || []);
@@ -138,6 +140,7 @@
       const persisted = window.loadLayoutsFromStorage();
       if(Array.isArray(persisted) && persisted.length){
         layouts = persisted;
+        layoutsFromStorage = true;
       }
     }
   }catch(e){}
@@ -557,6 +560,18 @@
     try{ const ov = document.getElementById('loadingOverlay'); if(ov) { ov.style.display = 'none'; ov.setAttribute('aria-hidden','true'); } }catch(e){}
   }
 
+  // Layouts saved before game ids were used stored array positions; convert them once.
+  function migrateSavedLayouts(data){
+    try{
+      if(localStorage.getItem(IDS_MIGRATED_KEY) === '1') return;
+      if(layoutsFromStorage && typeof window.migrateLayoutIds === 'function'){
+        window.migrateLayoutIds(layouts, data, items);
+        if(typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts);
+      }
+      localStorage.setItem(IDS_MIGRATED_KEY, '1');
+    }catch(e){ console.warn('layout id migration failed', e); }
+  }
+
   async function loadItems(){
     try{
       const data = await getItemsJsonData();
@@ -565,7 +580,7 @@
       if(!Array.isArray(layouts) || layouts.length === 0){
         layouts = fetched;
       }
-      const r2 = await fetch('cdn/js/itemsmin.js', {cache:'no-store'});
+      const r2 = await fetch('cdn/js/itemsmin.js');
       const data2 = await r2.json();
       if(Array.isArray(data) && data.length>0){
         externalIdMap = {};
@@ -578,23 +593,24 @@
         
         ); // example bad item IDs to skip
 
+        // item ids are the stable game ids; skip entries without one and keep the first of any duplicate
+        const seenIds = new Set();
         items = data.flatMap((it, idx) => {
+          if(!Number.isInteger(it.id) || skipIds.has(it.id) || seenIds.has(it.id)) return [];
+          seenIds.add(it.id);
           const matchPlaceHolder = Array.isArray(data2) ? data2.find(x => x.placeholderId === it.id) : null;
           const matchName = Array.isArray(data2) ? data2.find(x => x.id === it.id) : null;
 
-          if(skipIds.has(it.id))
-          {
-            return []; 
-          }
-
           return {
-            id: idx,
+            id: it.id,
             name:  matchName ?  matchName.name : it.name || String(it.id || ('item-'+(idx+1))),
             img: 'cdn/items/' + encodeURIComponent(it.imagepath || ''),
             externalId: it.id,
             placeholderId: matchPlaceHolder ? matchPlaceHolder.id : undefined
           };
         });
+
+        migrateSavedLayouts(data);
 
         items.forEach(it => { if(it.externalId !== undefined)
             { 
