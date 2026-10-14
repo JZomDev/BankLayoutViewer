@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import sys
 import tempfile
@@ -97,6 +99,29 @@ class ImageNameTests(unittest.TestCase):
 
     def test_local_file_name_replaces_unsafe_characters(self):
         self.assertEqual(fetch_items.image_path("Perseriya's medallion.png"), 'Perseriya_s medallion.png')
+
+
+class MainLoggingTests(unittest.TestCase):
+    def test_only_items_not_already_in_items_json_are_logged_as_processing(self):
+        def wiki_row(page, name, item_id):
+            return {'page_name_sub': page, 'item_name': name, 'item_id': [str(item_id)], 'image': []}
+
+        known = {'name': 'Known item', 'id': 1, 'image': '', 'imagepath': ''}
+        with tempfile.TemporaryDirectory() as tmp:
+            items_path = Path(tmp) / 'items.json'
+            items_path.write_text(json.dumps([known]))
+            rows = [wiki_row('Known item', 'Known item', 1), wiki_row('New item', 'New item', 2)]
+            out = io.StringIO()
+            with mock.patch.object(fetch_items, 'FILE_NAME', str(items_path)), \
+                    mock.patch.object(fetch_items, 'getEquipmentData', return_value=rows), \
+                    mock.patch.object(fetch_items, 'check_item_count'), \
+                    mock.patch.object(fetch_items, 'download_itemsmin'), \
+                    mock.patch.object(fetch_items.item_meta, 'write_item_meta'), \
+                    contextlib.redirect_stdout(out):
+                fetch_items.main()
+        log = out.getvalue()
+        self.assertIn('Processing New item', log)
+        self.assertNotIn('Processing Known item', log)
 
 
 class DownloadItemsminTests(unittest.TestCase):

@@ -181,18 +181,21 @@ def main(max_updates=None):
 
     # Use an object rather than an array, so that we can't have duplicate items with the same page_name_sub
     data = {}
+    old_data = []
+    if os.path.isfile(FILE_NAME):
+        with open(FILE_NAME, encoding='utf-8') as f:
+            old_data = json.load(f)
+    known = {item_updates.record_key(e) for e in old_data}
     # Loop over the equipment data from the wiki
     for v in wiki_data:
         if v['page_name_sub'] in data:
             continue
 
-        print(f"Processing {v['page_name_sub']}")
-
         try:
             item_id = int(v.get('item_id')[0]) if v.get('item_id') else None
         except ValueError:
             # Item has an invalid ID, do not show it here as it's probably historical or something.
-            print("Skipping - invalid item ID (not an int)")
+            print(f"Skipping {v['page_name_sub']} - invalid item ID (not an int)")
             continue
 
         equipment = {
@@ -204,6 +207,9 @@ def main(max_updates=None):
 
         if equipment['name'] in ITEMS_TO_SKIP:
             continue
+        # items already in items.json are unchanged news, so only log the new and changed ones
+        if item_updates.record_key(equipment) not in known:
+            print(f"Processing {v['page_name_sub']}")
         # Set the current equipment item to the calc's equipment list
         data[v['page_name_sub']] = equipment
 
@@ -212,10 +218,6 @@ def main(max_updates=None):
     print('Total equipment: ' + str(len(new_data)))
     check_item_count(len(new_data))
 
-    old_data = []
-    if os.path.isfile(FILE_NAME):
-        with open(FILE_NAME, encoding='utf-8') as f:
-            old_data = json.load(f)
     limited = item_updates.limit_updates(old_data, new_data, max_updates)
     if max_updates is not None:
         print(f'Updating {limited.applied} items (limit {max_updates}); {limited.pending} more wait for a later run')
