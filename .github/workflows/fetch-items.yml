@@ -23,6 +23,8 @@ jobs:
         working-directory: scripts
         run: python fetch_items.py --max-updates 50
       - name: Open a PR with the changes
+        env:
+          GH_TOKEN: ${{ secrets.FETCH_ITEMS_TOKEN }}
         run: |
           if [ -z "$(git status --porcelain cdn)" ]; then
             echo "No changes."
