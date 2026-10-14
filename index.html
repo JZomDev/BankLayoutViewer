@@ -54,10 +54,15 @@
 
       <main class="center-col">
         <div class="tabs">
-            <button class="tab active">Layout</button>
+            <button class="tab active" data-tab="layout">Layout</button>
+            <button class="tab" data-tab="stored">Stored layouts</button>
         </div>
-        <div class="bank-grid-wrap panel">
+        <div id="layoutPanel" class="bank-grid-wrap panel">
           <div id="layoutGrid" class="bank-grid" aria-live="polite"></div>
+        </div>
+        <div id="storedPanel" class="panel stored-panel" hidden>
+          <div id="storedList" class="stored-list"></div>
+          <div id="storedPreview" class="stored-preview" hidden></div>
         </div>
       </main>
 
@@ -84,8 +89,10 @@
     <script src="assets/js/helpers/migrate.js"></script>
     <script src="assets/js/helpers/build-items.js"></script>
     <script src="assets/js/helpers/banktag-parse.js"></script>
+    <script src="assets/js/helpers/stored-list.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/editor.js"></script>
+    <script src="assets/js/stored-layouts.js"></script>
     <!-- Import modal -->
     <div id="importModal" class="modal" aria-hidden="true" style="display:none">
       <div class="modal-backdrop"></div>

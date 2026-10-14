@@ -602,6 +602,7 @@
         externalIdMap = {};
         // 6678 is a known bad item id
         items = window.buildItems(data, meta, new Set([6678]));
+        window.itemsById = new Map(items.map(it => [it.id, it]));
 
         migrateSavedLayouts(data);
 
