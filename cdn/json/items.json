@@ -2382,10 +2382,10 @@
     "imagepath": "Ale yeast.png"
   },
   {
-    "name": "Aluft aloft box",
+    "name": "Aluft Aloft box",
     "id": 9477,
-    "image": "Aluft aloft box.png",
-    "imagepath": "Aluft aloft box.png"
+    "image": "Aluft Aloft box.png",
+    "imagepath": "Aluft Aloft box.png"
   },
   {
     "name": "Ambrosia (1)",
@@ -7818,6 +7818,12 @@
     "imagepath": "Betty_s notes.png"
   },
   {
+    "name": "Big Book of Bangs",
+    "id": 3230,
+    "image": "Big Book of Bangs.png",
+    "imagepath": "Big Book of Bangs.png"
+  },
+  {
     "name": "Big banana",
     "id": 27221,
     "image": "Big banana.png",
@@ -7840,12 +7846,6 @@
     "id": 532,
     "image": "Big bones.png",
     "imagepath": "Big bones.png"
-  },
-  {
-    "name": "Big book of bangs",
-    "id": 3230,
-    "image": "Big book of bangs.png",
-    "imagepath": "Big book of bangs.png"
   },
   {
     "name": "Big fishing net",
@@ -11310,6 +11310,12 @@
     "imagepath": "Book of _H.A.M_.png"
   },
   {
+    "name": "Book of Arcane Knowledge",
+    "id": 13513,
+    "image": "Book of Arcane Knowledge.png",
+    "imagepath": "Book of Arcane Knowledge.png"
+  },
+  {
     "name": "Book of Balance",
     "id": 3844,
     "image": "Book of Balance.png",
@@ -11404,12 +11410,6 @@
     "id": 13155,
     "image": "Book of War page set.png",
     "imagepath": "Book of War page set.png"
-  },
-  {
-    "name": "Book of arcane knowledge",
-    "id": 13513,
-    "image": "Book of arcane knowledge.png",
-    "imagepath": "Book of arcane knowledge.png"
   },
   {
     "name": "Book of folklore",
@@ -15078,10 +15078,10 @@
     "imagepath": "Capacitor (broken).png"
   },
   {
-    "name": "Cape of legends",
+    "name": "Cape of Legends",
     "id": 1052,
-    "image": "Cape of legends.png",
-    "imagepath": "Cape of legends.png"
+    "image": "Cape of Legends.png",
+    "imagepath": "Cape of Legends.png"
   },
   {
     "name": "Cape of skulls",
@@ -41328,6 +41328,18 @@
     "imagepath": "Hollow reed.png"
   },
   {
+    "name": "Holy Scythe of Vitur",
+    "id": 25736,
+    "image": "Holy Scythe of Vitur.png",
+    "imagepath": "Holy Scythe of Vitur.png"
+  },
+  {
+    "name": "Holy Scythe of Vitur (uncharged)",
+    "id": 25738,
+    "image": "Holy Scythe of Vitur (uncharged).png",
+    "imagepath": "Holy Scythe of Vitur (uncharged).png"
+  },
+  {
     "name": "Holy blessing",
     "id": 20220,
     "image": "Holy blessing.png",
@@ -41416,18 +41428,6 @@
     "id": 25733,
     "image": "Holy sanguinesti staff (uncharged).png",
     "imagepath": "Holy sanguinesti staff (uncharged).png"
-  },
-  {
-    "name": "Holy scythe of vitur",
-    "id": 25736,
-    "image": "Holy scythe of vitur.png",
-    "imagepath": "Holy scythe of vitur.png"
-  },
-  {
-    "name": "Holy scythe of vitur (uncharged)",
-    "id": 25738,
-    "image": "Holy scythe of vitur (uncharged).png",
-    "imagepath": "Holy scythe of vitur (uncharged).png"
   },
   {
     "name": "Holy sheet",
@@ -53724,6 +53724,12 @@
     "imagepath": "Oily pearl fishing rod.png"
   },
   {
+    "name": "Old Man's coffin",
+    "id": 22588,
+    "image": "Old Man's coffin.png",
+    "imagepath": "Old Man_s coffin.png"
+  },
+  {
     "name": "Old boot",
     "id": 685,
     "image": "Old boot.png",
@@ -53782,12 +53788,6 @@
     "id": 31121,
     "image": "Old letter.png",
     "imagepath": "Old letter.png"
-  },
-  {
-    "name": "Old man's coffin",
-    "id": 22588,
-    "image": "Old man's coffin.png",
-    "imagepath": "Old man_s coffin.png"
   },
   {
     "name": "Old man's message",
@@ -55584,12 +55584,6 @@
     "imagepath": "Pestle and mortar (The Gauntlet).png"
   },
   {
-    "name": "Pet Chaos Elemental",
-    "id": 11995,
-    "image": "Pet Chaos Elemental.png",
-    "imagepath": "Pet Chaos Elemental.png"
-  },
-  {
     "name": "Pet Corporeal Critter",
     "id": 22318,
     "image": "Pet Corporeal Critter.png",
@@ -55750,6 +55744,12 @@
     "id": 1568,
     "image": "Pet cat (overgrown, white).png",
     "imagepath": "Pet cat (overgrown_ white).png"
+  },
+  {
+    "name": "Pet chaos elemental",
+    "id": 11995,
+    "image": "Pet chaos elemental.png",
+    "imagepath": "Pet chaos elemental.png"
   },
   {
     "name": "Pet dark core",
@@ -56994,6 +56994,12 @@
     "imagepath": "Potion note.png"
   },
   {
+    "name": "Potion of Sealegs",
+    "id": 21531,
+    "image": "Potion of Sealegs.png",
+    "imagepath": "Potion of Sealegs.png"
+  },
+  {
     "name": "Potion of power(1)",
     "id": 25206,
     "image": "Potion of power(1).png",
@@ -57016,12 +57022,6 @@
     "id": 25203,
     "image": "Potion of power(4).png",
     "imagepath": "Potion of power(4).png"
-  },
-  {
-    "name": "Potion of sealegs",
-    "id": 21531,
-    "image": "Potion of sealegs.png",
-    "imagepath": "Potion of sealegs.png"
   },
   {
     "name": "Pottery",
@@ -61428,10 +61428,10 @@
     "imagepath": "Robert bust.png"
   },
   {
-    "name": "Robin hood hat",
+    "name": "Robin Hood hat",
     "id": 2581,
-    "image": "Robin hood hat.png",
-    "imagepath": "Robin hood hat.png"
+    "image": "Robin Hood hat.png",
+    "imagepath": "Robin Hood hat.png"
   },
   {
     "name": "Rock",
@@ -62058,16 +62058,16 @@
     "imagepath": "Rotten turnip.png"
   },
   {
-    "name": "Royal accord of twill",
+    "name": "Royal Accord of Twill",
     "id": 21758,
-    "image": "Royal accord of twill.png",
-    "imagepath": "Royal accord of twill.png"
+    "image": "Royal Accord of Twill.png",
+    "imagepath": "Royal Accord of Twill.png"
   },
   {
-    "name": "Royal accord of twill",
+    "name": "Royal Accord of Twill",
     "id": 25817,
-    "image": "Royal accord of twill.png",
-    "imagepath": "Royal accord of twill.png"
+    "image": "Royal Accord of Twill.png",
+    "imagepath": "Royal Accord of Twill.png"
   },
   {
     "name": "Royal crown",
@@ -63942,6 +63942,18 @@
     "imagepath": "Sanfew serum(4) (Last Man Standing).png"
   },
   {
+    "name": "Sanguine Scythe of Vitur",
+    "id": 25739,
+    "image": "Sanguine Scythe of Vitur.png",
+    "imagepath": "Sanguine Scythe of Vitur.png"
+  },
+  {
+    "name": "Sanguine Scythe of Vitur (uncharged)",
+    "id": 25741,
+    "image": "Sanguine Scythe of Vitur (uncharged).png",
+    "imagepath": "Sanguine Scythe of Vitur (uncharged).png"
+  },
+  {
     "name": "Sanguine dust",
     "id": 25746,
     "image": "Sanguine dust.png",
@@ -63952,18 +63964,6 @@
     "id": 25744,
     "image": "Sanguine ornament kit.png",
     "imagepath": "Sanguine ornament kit.png"
-  },
-  {
-    "name": "Sanguine scythe of vitur",
-    "id": 25739,
-    "image": "Sanguine scythe of vitur.png",
-    "imagepath": "Sanguine scythe of vitur.png"
-  },
-  {
-    "name": "Sanguine scythe of vitur (uncharged)",
-    "id": 25741,
-    "image": "Sanguine scythe of vitur (uncharged).png",
-    "imagepath": "Sanguine scythe of vitur (uncharged).png"
   },
   {
     "name": "Sanguine torva full helm",
@@ -65082,10 +65082,10 @@
     "imagepath": "Seagull wing (polished).png"
   },
   {
-    "name": "Seal of passage",
+    "name": "Seal of Passage",
     "id": 9083,
-    "image": "Seal of passage.png",
-    "imagepath": "Seal of passage.png"
+    "image": "Seal of Passage.png",
+    "imagepath": "Seal of Passage.png"
   },
   {
     "name": "Sealed letter",
@@ -66438,6 +66438,102 @@
     "imagepath": "Sieve.png"
   },
   {
+    "name": "Sigil of Barrows",
+    "id": 26008,
+    "image": "Sigil of Barrows (attuned).png",
+    "imagepath": "Sigil of Barrows (attuned).png"
+  },
+  {
+    "name": "Sigil of Barrows",
+    "id": 26009,
+    "image": "Sigil of Barrows.png",
+    "imagepath": "Sigil of Barrows.png"
+  },
+  {
+    "name": "Sigil of Consistency",
+    "id": 25993,
+    "image": "Sigil of Consistency (attuned).png",
+    "imagepath": "Sigil of Consistency (attuned).png"
+  },
+  {
+    "name": "Sigil of Consistency",
+    "id": 25994,
+    "image": "Sigil of Consistency.png",
+    "imagepath": "Sigil of Consistency.png"
+  },
+  {
+    "name": "Sigil of Deft Strikes",
+    "id": 26011,
+    "image": "Sigil of Deft Strikes (attuned).png",
+    "imagepath": "Sigil of Deft Strikes (attuned).png"
+  },
+  {
+    "name": "Sigil of Deft Strikes",
+    "id": 26012,
+    "image": "Sigil of Deft Strikes.png",
+    "imagepath": "Sigil of Deft Strikes.png"
+  },
+  {
+    "name": "Sigil of Enhanced Harvest",
+    "id": 26017,
+    "image": "Sigil of Enhanced Harvest (attuned).png",
+    "imagepath": "Sigil of Enhanced Harvest (attuned).png"
+  },
+  {
+    "name": "Sigil of Enhanced Harvest",
+    "id": 26018,
+    "image": "Sigil of Enhanced Harvest.png",
+    "imagepath": "Sigil of Enhanced Harvest.png"
+  },
+  {
+    "name": "Sigil of Fortification",
+    "id": 26005,
+    "image": "Sigil of Fortification (attuned).png",
+    "imagepath": "Sigil of Fortification (attuned).png"
+  },
+  {
+    "name": "Sigil of Fortification",
+    "id": 26006,
+    "image": "Sigil of Fortification.png",
+    "imagepath": "Sigil of Fortification.png"
+  },
+  {
+    "name": "Sigil of Freedom",
+    "id": 26014,
+    "image": "Sigil of Freedom (attuned).png",
+    "imagepath": "Sigil of Freedom (attuned).png"
+  },
+  {
+    "name": "Sigil of Freedom",
+    "id": 26015,
+    "image": "Sigil of Freedom.png",
+    "imagepath": "Sigil of Freedom.png"
+  },
+  {
+    "name": "Sigil of Resilience",
+    "id": 25990,
+    "image": "Sigil of Resilience (attuned).png",
+    "imagepath": "Sigil of Resilience (attuned).png"
+  },
+  {
+    "name": "Sigil of Resilience",
+    "id": 25991,
+    "image": "Sigil of Resilience.png",
+    "imagepath": "Sigil of Resilience.png"
+  },
+  {
+    "name": "Sigil of Storage",
+    "id": 26020,
+    "image": "Sigil of Storage (attuned).png",
+    "imagepath": "Sigil of Storage (attuned).png"
+  },
+  {
+    "name": "Sigil of Storage",
+    "id": 26021,
+    "image": "Sigil of Storage.png",
+    "imagepath": "Sigil of Storage.png"
+  },
+  {
     "name": "Sigil of aggression",
     "id": 26131,
     "image": "Sigil of aggression (attuned).png",
@@ -66486,18 +66582,6 @@
     "imagepath": "Sigil of automation.png"
   },
   {
-    "name": "Sigil of barrows",
-    "id": 26008,
-    "image": "Sigil of barrows (attuned).png",
-    "imagepath": "Sigil of barrows (attuned).png"
-  },
-  {
-    "name": "Sigil of barrows",
-    "id": 26009,
-    "image": "Sigil of barrows.png",
-    "imagepath": "Sigil of barrows.png"
-  },
-  {
     "name": "Sigil of binding",
     "id": 26065,
     "image": "Sigil of binding (attuned).png",
@@ -66522,18 +66606,6 @@
     "imagepath": "Sigil of conclusion.png"
   },
   {
-    "name": "Sigil of consistency",
-    "id": 25993,
-    "image": "Sigil of consistency (attuned).png",
-    "imagepath": "Sigil of consistency (attuned).png"
-  },
-  {
-    "name": "Sigil of consistency",
-    "id": 25994,
-    "image": "Sigil of consistency.png",
-    "imagepath": "Sigil of consistency.png"
-  },
-  {
     "name": "Sigil of deception",
     "id": 29657,
     "image": "Sigil of deception (attuned).png",
@@ -66544,18 +66616,6 @@
     "id": 29658,
     "image": "Sigil of deception.png",
     "imagepath": "Sigil of deception.png"
-  },
-  {
-    "name": "Sigil of deft strikes",
-    "id": 26011,
-    "image": "Sigil of deft strikes (attuned).png",
-    "imagepath": "Sigil of deft strikes (attuned).png"
-  },
-  {
-    "name": "Sigil of deft strikes",
-    "id": 26012,
-    "image": "Sigil of deft strikes.png",
-    "imagepath": "Sigil of deft strikes.png"
   },
   {
     "name": "Sigil of devotion",
@@ -66580,18 +66640,6 @@
     "id": 33062,
     "image": "Sigil of efficiency.png",
     "imagepath": "Sigil of efficiency.png"
-  },
-  {
-    "name": "Sigil of enhanced harvest",
-    "id": 26017,
-    "image": "Sigil of enhanced harvest (attuned).png",
-    "imagepath": "Sigil of enhanced harvest (attuned).png"
-  },
-  {
-    "name": "Sigil of enhanced harvest",
-    "id": 26018,
-    "image": "Sigil of enhanced harvest.png",
-    "imagepath": "Sigil of enhanced harvest.png"
   },
   {
     "name": "Sigil of escaping",
@@ -66652,30 +66700,6 @@
     "id": 26126,
     "image": "Sigil of finality.png",
     "imagepath": "Sigil of finality.png"
-  },
-  {
-    "name": "Sigil of fortification",
-    "id": 26005,
-    "image": "Sigil of fortification (attuned).png",
-    "imagepath": "Sigil of fortification (attuned).png"
-  },
-  {
-    "name": "Sigil of fortification",
-    "id": 26006,
-    "image": "Sigil of fortification.png",
-    "imagepath": "Sigil of fortification.png"
-  },
-  {
-    "name": "Sigil of freedom",
-    "id": 26014,
-    "image": "Sigil of freedom (attuned).png",
-    "imagepath": "Sigil of freedom (attuned).png"
-  },
-  {
-    "name": "Sigil of freedom",
-    "id": 26015,
-    "image": "Sigil of freedom.png",
-    "imagepath": "Sigil of freedom.png"
   },
   {
     "name": "Sigil of garments",
@@ -66846,18 +66870,6 @@
     "imagepath": "Sigil of remote storage.png"
   },
   {
-    "name": "Sigil of resilience",
-    "id": 25990,
-    "image": "Sigil of resilience (attuned).png",
-    "imagepath": "Sigil of resilience (attuned).png"
-  },
-  {
-    "name": "Sigil of resilience",
-    "id": 25991,
-    "image": "Sigil of resilience.png",
-    "imagepath": "Sigil of resilience.png"
-  },
-  {
     "name": "Sigil of resistance",
     "id": 28489,
     "image": "Sigil of resistance (attuned).png",
@@ -66930,18 +66942,6 @@
     "imagepath": "Sigil of stamina.png"
   },
   {
-    "name": "Sigil of storage",
-    "id": 26020,
-    "image": "Sigil of storage (attuned).png",
-    "imagepath": "Sigil of storage (attuned).png"
-  },
-  {
-    "name": "Sigil of storage",
-    "id": 26021,
-    "image": "Sigil of storage.png",
-    "imagepath": "Sigil of storage.png"
-  },
-  {
     "name": "Sigil of supreme stamina",
     "id": 26119,
     "image": "Sigil of supreme stamina (attuned).png",
@@ -66964,6 +66964,78 @@
     "id": 28478,
     "image": "Sigil of sustenance.png",
     "imagepath": "Sigil of sustenance.png"
+  },
+  {
+    "name": "Sigil of the Alchemist",
+    "id": 26026,
+    "image": "Sigil of the Alchemist (attuned).png",
+    "imagepath": "Sigil of the Alchemist (attuned).png"
+  },
+  {
+    "name": "Sigil of the Alchemist",
+    "id": 26027,
+    "image": "Sigil of the Alchemist.png",
+    "imagepath": "Sigil of the Alchemist.png"
+  },
+  {
+    "name": "Sigil of the Chef",
+    "id": 26032,
+    "image": "Sigil of the Chef (attuned).png",
+    "imagepath": "Sigil of the Chef (attuned).png"
+  },
+  {
+    "name": "Sigil of the Fletcher",
+    "id": 26029,
+    "image": "Sigil of the Fletcher (attuned).png",
+    "imagepath": "Sigil of the Fletcher (attuned).png"
+  },
+  {
+    "name": "Sigil of the Fletcher",
+    "id": 26030,
+    "image": "Sigil of the Fletcher.png",
+    "imagepath": "Sigil of the Fletcher.png"
+  },
+  {
+    "name": "Sigil of the Formidable Fighter",
+    "id": 25997,
+    "image": "Sigil of the Formidable Fighter.png",
+    "imagepath": "Sigil of the Formidable Fighter.png"
+  },
+  {
+    "name": "Sigil of the Meticulous Mage",
+    "id": 26002,
+    "image": "Sigil of the Meticulous Mage (attuned).png",
+    "imagepath": "Sigil of the Meticulous Mage (attuned).png"
+  },
+  {
+    "name": "Sigil of the Meticulous Mage",
+    "id": 26003,
+    "image": "Sigil of the Meticulous Mage.png",
+    "imagepath": "Sigil of the Meticulous Mage.png"
+  },
+  {
+    "name": "Sigil of the Rigorous Ranger",
+    "id": 25999,
+    "image": "Sigil of the Rigorous Ranger (attuned).png",
+    "imagepath": "Sigil of the Rigorous Ranger (attuned).png"
+  },
+  {
+    "name": "Sigil of the Rigorous Ranger",
+    "id": 26000,
+    "image": "Sigil of the Rigorous Ranger.png",
+    "imagepath": "Sigil of the Rigorous Ranger.png"
+  },
+  {
+    "name": "Sigil of the Smith",
+    "id": 26023,
+    "image": "Sigil of the Smith (attuned).png",
+    "imagepath": "Sigil of the Smith (attuned).png"
+  },
+  {
+    "name": "Sigil of the Smith",
+    "id": 26024,
+    "image": "Sigil of the Smith.png",
+    "imagepath": "Sigil of the Smith.png"
   },
   {
     "name": "Sigil of the abyss",
@@ -67002,18 +67074,6 @@
     "imagepath": "Sigil of the alchemaniac.png"
   },
   {
-    "name": "Sigil of the alchemist",
-    "id": 26026,
-    "image": "Sigil of the alchemist (attuned).png",
-    "imagepath": "Sigil of the alchemist (attuned).png"
-  },
-  {
-    "name": "Sigil of the alchemist",
-    "id": 26027,
-    "image": "Sigil of the alchemist.png",
-    "imagepath": "Sigil of the alchemist.png"
-  },
-  {
     "name": "Sigil of the augmented thrall",
     "id": 28516,
     "image": "Sigil of the augmented thrall (attuned).png",
@@ -67048,12 +67108,6 @@
     "id": 28511,
     "image": "Sigil of the bloodhound.png",
     "imagepath": "Sigil of the bloodhound.png"
-  },
-  {
-    "name": "Sigil of the chef",
-    "id": 26032,
-    "image": "Sigil of the chef (attuned).png",
-    "imagepath": "Sigil of the chef (attuned).png"
   },
   {
     "name": "Sigil of the chef",
@@ -67122,18 +67176,6 @@
     "imagepath": "Sigil of the feral fighter.png"
   },
   {
-    "name": "Sigil of the fletcher",
-    "id": 26029,
-    "image": "Sigil of the fletcher (attuned).png",
-    "imagepath": "Sigil of the fletcher (attuned).png"
-  },
-  {
-    "name": "Sigil of the fletcher",
-    "id": 26030,
-    "image": "Sigil of the fletcher.png",
-    "imagepath": "Sigil of the fletcher.png"
-  },
-  {
     "name": "Sigil of the food master",
     "id": 28495,
     "image": "Sigil of the food master (attuned).png",
@@ -67162,12 +67204,6 @@
     "id": 25996,
     "image": "Sigil of the formidable fighter (attuned).png",
     "imagepath": "Sigil of the formidable fighter (attuned).png"
-  },
-  {
-    "name": "Sigil of the formidable fighter",
-    "id": 25997,
-    "image": "Sigil of the formidable fighter.png",
-    "imagepath": "Sigil of the formidable fighter.png"
   },
   {
     "name": "Sigil of the fortune farmer",
@@ -67290,18 +67326,6 @@
     "imagepath": "Sigil of the menacing mage.png"
   },
   {
-    "name": "Sigil of the meticulous mage",
-    "id": 26002,
-    "image": "Sigil of the meticulous mage (attuned).png",
-    "imagepath": "Sigil of the meticulous mage (attuned).png"
-  },
-  {
-    "name": "Sigil of the meticulous mage",
-    "id": 26003,
-    "image": "Sigil of the meticulous mage.png",
-    "imagepath": "Sigil of the meticulous mage.png"
-  },
-  {
     "name": "Sigil of the ninja",
     "id": 28525,
     "image": "Sigil of the ninja (attuned).png",
@@ -67350,18 +67374,6 @@
     "imagepath": "Sigil of the rampart.png"
   },
   {
-    "name": "Sigil of the rigorous ranger",
-    "id": 25999,
-    "image": "Sigil of the rigorous ranger (attuned).png",
-    "imagepath": "Sigil of the rigorous ranger (attuned).png"
-  },
-  {
-    "name": "Sigil of the rigorous ranger",
-    "id": 26000,
-    "image": "Sigil of the rigorous ranger.png",
-    "imagepath": "Sigil of the rigorous ranger.png"
-  },
-  {
     "name": "Sigil of the ruthless ranger",
     "id": 26071,
     "image": "Sigil of the ruthless ranger (attuned).png",
@@ -67396,18 +67408,6 @@
     "id": 26138,
     "image": "Sigil of the skiller.png",
     "imagepath": "Sigil of the skiller.png"
-  },
-  {
-    "name": "Sigil of the smith",
-    "id": 26023,
-    "image": "Sigil of the smith (attuned).png",
-    "imagepath": "Sigil of the smith (attuned).png"
-  },
-  {
-    "name": "Sigil of the smith",
-    "id": 26024,
-    "image": "Sigil of the smith.png",
-    "imagepath": "Sigil of the smith.png"
   },
   {
     "name": "Sigil of the swashbuckler",
@@ -75246,6 +75246,36 @@
     "imagepath": "Tome of Earth (empty).png"
   },
   {
+    "name": "Tome of Experience",
+    "id": 22415,
+    "image": "Tome of Experience (A Taste of Hope).png",
+    "imagepath": "Tome of Experience (A Taste of Hope).png"
+  },
+  {
+    "name": "Tome of Experience",
+    "id": 24690,
+    "image": "Tome of Experience (Sins of the Father).png",
+    "imagepath": "Tome of Experience (Sins of the Father).png"
+  },
+  {
+    "name": "Tome of Experience (1)",
+    "id": 9658,
+    "image": "Tome of Experience (1).png",
+    "imagepath": "Tome of Experience (1).png"
+  },
+  {
+    "name": "Tome of Experience (2)",
+    "id": 9657,
+    "image": "Tome of Experience (2).png",
+    "imagepath": "Tome of Experience (2).png"
+  },
+  {
+    "name": "Tome of Experience (3)",
+    "id": 9656,
+    "image": "Tome of Experience (3).png",
+    "imagepath": "Tome of Experience (3).png"
+  },
+  {
     "name": "Tome of Fire",
     "id": 20714,
     "image": "Tome of Fire.png",
@@ -75277,39 +75307,9 @@
   },
   {
     "name": "Tome of experience",
-    "id": 22415,
-    "image": "Tome of experience (A Taste of Hope).png",
-    "imagepath": "Tome of experience (A Taste of Hope).png"
-  },
-  {
-    "name": "Tome of experience",
-    "id": 24690,
-    "image": "Tome of experience (Sins of the Father).png",
-    "imagepath": "Tome of experience (Sins of the Father).png"
-  },
-  {
-    "name": "Tome of experience",
     "id": 33715,
     "image": "Tome of experience (The Blood Moon Rises).png",
     "imagepath": "Tome of experience (The Blood Moon Rises).png"
-  },
-  {
-    "name": "Tome of experience (1)",
-    "id": 9658,
-    "image": "Tome of experience (1).png",
-    "imagepath": "Tome of experience (1).png"
-  },
-  {
-    "name": "Tome of experience (2)",
-    "id": 9657,
-    "image": "Tome of experience (2).png",
-    "imagepath": "Tome of experience (2).png"
-  },
-  {
-    "name": "Tome of experience (3)",
-    "id": 9656,
-    "image": "Tome of experience (3).png",
-    "imagepath": "Tome of experience (3).png"
   },
   {
     "name": "Tome of the Moon",
@@ -75828,6 +75828,12 @@
     "imagepath": "Tower key (The Heart of Darkness).png"
   },
   {
+    "name": "Toxic Staff of the Dead",
+    "id": 12904,
+    "image": "Toxic Staff of the Dead.png",
+    "imagepath": "Toxic Staff of the Dead.png"
+  },
+  {
     "name": "Toxic blowpipe",
     "id": 12926,
     "image": "Toxic blowpipe.png",
@@ -75868,12 +75874,6 @@
     "id": 33035,
     "image": "Toxic staff (uncharged, deadman).png",
     "imagepath": "Toxic staff (uncharged_ deadman).png"
-  },
-  {
-    "name": "Toxic staff of the dead",
-    "id": 12904,
-    "image": "Toxic staff of the dead.png",
-    "imagepath": "Toxic staff of the dead.png"
   },
   {
     "name": "Toy cat",
@@ -78324,6 +78324,12 @@
     "imagepath": "Vardorvis_ medallion.png"
   },
   {
+    "name": "Varlamore Envoy",
+    "id": 21756,
+    "image": "Varlamore Envoy.png",
+    "imagepath": "Varlamore Envoy.png"
+  },
+  {
     "name": "Varlamore crest",
     "id": 28973,
     "image": "Varlamore crest.png",
@@ -78340,12 +78346,6 @@
     "id": 30401,
     "image": "Varlamore echo orb (Demonic Pacts League).png",
     "imagepath": "Varlamore echo orb (Demonic Pacts League).png"
-  },
-  {
-    "name": "Varlamore envoy",
-    "id": 21756,
-    "image": "Varlamore envoy.png",
-    "imagepath": "Varlamore envoy.png"
   },
   {
     "name": "Varlamore invitation",
