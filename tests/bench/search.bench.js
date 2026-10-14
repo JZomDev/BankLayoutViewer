@@ -1,7 +1,7 @@
 // Measures item-search costs on the real generated data. Not part of `make check`.
 // Run: tests/.node/*/bin/node tests/bench/search.bench.js
-// The "current" functions are copies of assets/js/script.js (loadItems, fuzzyScore, FuzzySearch);
-// re-copy them if that code changes, or the numbers describe old code.
+// buildItems and itemmeta.json are the shipped code. `buildCurrent` is the old loadItems, kept only as a
+// baseline; fuzzyScore is a copy of assets/js/script.js, so re-copy it if that changes.
 const fs = require('node:fs');
 const path = require('node:path');
 const zlib = require('node:zlib');
@@ -64,13 +64,17 @@ function buildMaps() {
       img: 'cdn/items/' + encodeURIComponent(it.imagepath || ''), placeholderId: matchPlaceHolder ? matchPlaceHolder.id : undefined }];
   });
 }
+const { buildItems } = require('../../assets/js/helpers/build-items.js');
+const meta = JSON.parse(read('cdn/json/itemmeta.json').toString());
+report('cdn/json/itemmeta.json size (raw / gzip)', `${kb(read('cdn/json/itemmeta.json').length)} / ${kb(zlib.gzipSync(read('cdn/json/itemmeta.json')).length)}`);
 const cur = timeIt(buildCurrent);
-const fast = timeIt(buildMaps, 5);
+const fast = timeIt(() => buildItems(data, meta, skipIds), 5);
 report('build items: current (find x2 per item)', `${cur.median} ms  -> ${cur.out.length} items`);
-report('build items: Map lookups', `${fast.median} ms  -> ${fast.out.length} items`);
+report('build items: shipped buildItems + itemmeta.json', `${fast.median} ms  -> ${fast.out.length} items`);
 // Maps must give the same result, otherwise the speedup is meaningless.
-const same = JSON.stringify(cur.out) === JSON.stringify(fast.out);
-report('Map build identical to current', same ? 'yes' : 'NO - results differ');
+const strip = list => list.map(({ externalId, ...rest }) => rest);
+const same = JSON.stringify(strip(cur.out)) === JSON.stringify(strip(fast.out));
+report('shipped build identical to current (ignoring externalId)', same ? 'yes' : 'NO - results differ');
 
 // --- search: current fuzzyScore scan vs. precomputed lowercase names ---
 function fuzzyScore(name, query) {

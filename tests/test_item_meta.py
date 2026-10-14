@@ -36,6 +36,19 @@ class BuildItemMetaTests(unittest.TestCase):
         self.assertEqual(meta, {"names": {}, "placeholders": {}})
 
 
+class OddDataTests(unittest.TestCase):
+    def test_bool_float_and_missing_ids_are_ignored(self):
+        items = [{"id": 1}, {"id": 10}]
+        itemsmin = [
+            {"id": True, "name": "bool", "placeholderId": 1},
+            {"id": 10.0, "name": "float"},
+            {"name": "no id", "placeholderId": 10},
+            {"id": 3, "name": "ok", "placeholderId": 10.0},
+        ]
+        meta = item_meta.build_item_meta(items, itemsmin)
+        self.assertEqual(meta, {"names": {}, "placeholders": {}})
+
+
 class GeneratedFileTests(unittest.TestCase):
     def test_itemmeta_json_is_in_sync_with_its_sources(self):
         items = json.loads(item_meta.ITEMS_PATH.read_text(encoding="utf-8"))

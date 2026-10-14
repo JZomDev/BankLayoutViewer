@@ -594,7 +594,8 @@
       if(!Array.isArray(layouts) || layouts.length === 0){
         layouts = fetched;
       }
-      const meta = await getItemMeta();
+      // names fall back to items.json if the lookup file is unavailable
+      const meta = await getItemMeta().catch(() => null);
       if(Array.isArray(data) && data.length>0){
         externalIdMap = {};
         // 6678 is a known bad item id

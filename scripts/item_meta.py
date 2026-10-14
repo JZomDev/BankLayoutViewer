@@ -16,15 +16,17 @@ META_PATH = CDN / 'json' / 'itemmeta.json'
 
 
 def build_item_meta(items, itemsmin):
-    wanted = {it['id'] for it in items if isinstance(it.get('id'), int)}
+    wanted = {it['id'] for it in items if type(it.get('id')) is int}
     names = {}
     placeholders = {}
     for entry in itemsmin:
         item_id = entry.get('id')
+        if type(item_id) is not int:
+            continue
         if item_id in wanted and item_id not in names and isinstance(entry.get('name'), str):
             names[item_id] = entry['name']
         target = entry.get('placeholderId')
-        if target in wanted and target not in placeholders:
+        if type(target) is int and target in wanted and target not in placeholders:
             placeholders[target] = item_id
     return {
         'names': dict(sorted(names.items())),
