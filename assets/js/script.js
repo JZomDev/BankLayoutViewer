@@ -8,6 +8,8 @@
   let items = [];
 
   let layouts = [];
+  let layoutsFromStorage = false;
+  const IDS_MIGRATED_KEY = 'banktags:ids-are-game-ids';
   let current = null;
   let selected = null; // { type: 'palette'|'placed', id, fromPos, tileEl: }
 
@@ -22,7 +24,7 @@
   function getItemsJsonData(){
     if(itemsJsonCache) return Promise.resolve(itemsJsonCache);
     if(itemsJsonPromise) return itemsJsonPromise;
-    itemsJsonPromise = fetch('cdn/json/items.json', {cache:'no-store'})
+    itemsJsonPromise = fetch('cdn/json/items.json')
       .then(r => r.json())
       .then(data => {
         itemsJsonCache = Array.isArray(data) ? data : (data.layouts || []);
@@ -36,6 +38,16 @@
   }
 
   try{ window.getItemsJsonData = getItemsJsonData; }catch(e){}
+
+  // names and placeholder ids, a small file generated from itemsmin.js (scripts/item_meta.py)
+  let itemMetaPromise = null;
+  function getItemMeta(){
+    if(!itemMetaPromise){
+      itemMetaPromise = fetch('cdn/json/itemmeta.json').then(r => r.json())
+        .catch(err => { itemMetaPromise = null; throw err; });
+    }
+    return itemMetaPromise;
+  }
 
   function ensureItemsLoaded(){
     if(itemsLoaded) return Promise.resolve(true);
@@ -138,12 +150,13 @@
       const persisted = window.loadLayoutsFromStorage();
       if(Array.isArray(persisted) && persisted.length){
         layouts = persisted;
+        layoutsFromStorage = true;
       }
     }
   }catch(e){}
 
   function renderItems(list){
-    itemsGrid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     const limited = Array.isArray(list) ? list.slice(0,20) : [];
     limited.forEach(it => {
         if(!it || !it.img || String(it.img).trim() === '') return;
@@ -151,7 +164,7 @@
       tile.className = 'item-tile';
       tile.setAttribute('draggable', 'true');
       tile.innerHTML = `
-        <img loading="lazy" src="${it.img}" alt="${it.name}" draggable="false">
+        <img loading="lazy" decoding="async" src="${it.img}" alt="${it.name}" draggable="false">
         <div class="name">${it.name}</div>
         <div class="id" style="display:none">${it.id}</div>
       `;
@@ -169,8 +182,9 @@
         clearSelection();
         placeItem(it);
       });
-      itemsGrid.appendChild(tile);
+      fragment.appendChild(tile);
     });
+    itemsGrid.replaceChildren(fragment);
   }
 
   function renderLayoutsList(){
@@ -536,6 +550,9 @@
   });
 
   async function load(){
+    // start the item downloads now so they overlap with the layouts request
+    getItemsJsonData().catch(() => {});
+    getItemMeta().catch(() => {});
     try{
       const r = await fetch(layoutsUrl, {cache:'no-store'});
       const data = await r.json();
@@ -557,6 +574,18 @@
     try{ const ov = document.getElementById('loadingOverlay'); if(ov) { ov.style.display = 'none'; ov.setAttribute('aria-hidden','true'); } }catch(e){}
   }
 
+  // Layouts saved before game ids were used stored array positions; convert them once.
+  function migrateSavedLayouts(data){
+    try{
+      if(localStorage.getItem(IDS_MIGRATED_KEY) === '1') return;
+      if(layoutsFromStorage && typeof window.migrateLayoutIds === 'function'){
+        window.migrateLayoutIds(layouts, data, items);
+        if(typeof window.saveLayoutsToStorage === 'function') window.saveLayoutsToStorage(layouts);
+      }
+      localStorage.setItem(IDS_MIGRATED_KEY, '1');
+    }catch(e){ console.warn('layout id migration failed', e); }
+  }
+
   async function loadItems(){
     try{
       const data = await getItemsJsonData();
@@ -565,36 +594,14 @@
       if(!Array.isArray(layouts) || layouts.length === 0){
         layouts = fetched;
       }
-      const r2 = await fetch('cdn/js/itemsmin.js', {cache:'no-store'});
-      const data2 = await r2.json();
+      // names fall back to items.json if the lookup file is unavailable
+      const meta = await getItemMeta().catch(() => null);
       if(Array.isArray(data) && data.length>0){
         externalIdMap = {};
-        // map to internal items array and build externalIdMap
-        // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
+        // 6678 is a known bad item id
+        items = window.buildItems(data, meta, new Set([6678]));
 
-        const skipIds = new Set([
-            6678, 
-        ]
-        
-        ); // example bad item IDs to skip
-
-        items = data.flatMap((it, idx) => {
-          const matchPlaceHolder = Array.isArray(data2) ? data2.find(x => x.placeholderId === it.id) : null;
-          const matchName = Array.isArray(data2) ? data2.find(x => x.id === it.id) : null;
-
-          if(skipIds.has(it.id))
-          {
-            return []; 
-          }
-
-          return {
-            id: idx,
-            name:  matchName ?  matchName.name : it.name || String(it.id || ('item-'+(idx+1))),
-            img: 'cdn/items/' + encodeURIComponent(it.imagepath || ''),
-            externalId: it.id,
-            placeholderId: matchPlaceHolder ? matchPlaceHolder.id : undefined
-          };
-        });
+        migrateSavedLayouts(data);
 
         items.forEach(it => { if(it.externalId !== undefined)
             { 
@@ -786,7 +793,7 @@
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim();
     clearTimeout(itemSearchTimeout);
-    itemSearchTimeout = setTimeout(() => FuzzySearch(q), 350);
+    itemSearchTimeout = setTimeout(() => FuzzySearch(q), 100);
   });
 
   // wire choose modal controls after DOM ready

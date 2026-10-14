@@ -160,7 +160,7 @@
             try{
               const data = (window.getItemsJsonData
                 ? await window.getItemsJsonData()
-                : await (await fetch('cdn/json/items.json', {cache:'no-store'})).json());
+                : await (await fetch('cdn/json/items.json')).json());
               if(Array.isArray(data)){
                 const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
                   if(foundIdx > -1){
@@ -171,7 +171,7 @@
                     const iconEl = document.querySelector('.tag-card .icon');
                     if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
                     
-                    try{ window.leftIconId = foundIdx + 1; }catch(e){}
+                    try{ window.leftIconId = found.id; }catch(e){}
                     if(window.current)
                       {
                        window.current.thumbId = found.id;
