@@ -20,70 +20,18 @@
 
   function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  function parseText(text){
-    
-    const t = text.trim();
-    if(!t) throw new Error('Empty input');
-    const lines = t.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-    if(!lines[0].toLowerCase().startsWith('banktags')){
-      throw new Error('Unsupported format, check your copy paste');
-    }
-    const out = {
-        layoutName: 'Imported Layout',
-        layoutIcon: 1963,
-        items: []
-    };
-    const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
-    const splits = lines[0].split(',');
-    if(splits.length < 7){
-      throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
-    }
-    let startIndex = 0;
-    for(let i=0;i<splits.length;i++)
-    {
-        const content = splits[i].trim();
-        if (i == 2)
-        {
-            out.layoutName = splits[i].trim();
-            continue;
-        }
-        if (i == 3)
-        {
-            out.layoutIcon = splits[i].trim();
-            continue;
-        }
-        if (content === 'layout')
-        {
-            startIndex = i + 1;
-            break;
-        }
-    }
-
-    for(let i=startIndex;i<splits.length - 1;i++)
-    {
-        const cellIndex = Number(splits[i].trim());
-        i = i + 1;
-        const externalId = splits[i].trim();
-        if(isNaN(cellIndex)) continue;
-        const x = cellIndex % cols;
-        const y = Math.floor(cellIndex / cols);
-        
-        let id = null;
-        if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(externalId)]){
-            id = window.reverseExternalIdMap[String(externalId)];
-        } else if (window && window.externalPlaceHolderMap && window.externalPlaceHolderMap[String(externalId)]){
-           id = window.externalPlaceHolderMap[String(externalId)];
-        } else {
-          const n = Number(externalId);
-          id = isNaN(n) ? externalId : n;
-        }
-
-        out.items.push({ x, y, id});
-        
-    }
-    return out;
-
+  function resolveExternalId(externalId){
+    const key = String(externalId);
+    if(window.reverseExternalIdMap && window.reverseExternalIdMap[key]) return window.reverseExternalIdMap[key];
+    if(window.externalPlaceHolderMap && window.externalPlaceHolderMap[key]) return window.externalPlaceHolderMap[key];
+    return undefined;
   }
+
+  function parseText(text){
+    const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
+    return window.parseBanktag(text, { cols, resolveId: resolveExternalId });
+  }
+  try{ window.parseEditorBanktag = parseText; }catch(e){}
 
 
   if(downloadBtn){
