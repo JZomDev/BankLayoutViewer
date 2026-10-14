@@ -301,6 +301,8 @@
 
   window.addEventListener('bank-layouts:imported', (e) => {
     if(window.current) showLayout(window.current);
+    // showLayout does not save, so persist the import or a refresh loses it
+    renderLayoutsList();
   });
 
   function clearSelection(){
