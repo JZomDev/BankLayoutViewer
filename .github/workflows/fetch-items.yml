@@ -21,7 +21,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run fetch_items.py
         working-directory: scripts
-        run: python fetch_items.py --max-updates 50
+        run: python fetch_items.py
       - name: Open a PR with the changes
         env:
           GH_TOKEN: ${{ secrets.FETCH_ITEMS_TOKEN }}
