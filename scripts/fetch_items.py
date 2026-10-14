@@ -13,6 +13,8 @@ import json
 import urllib.parse
 import re
 
+import item_meta
+
 FILE_NAME = '../cdn/json/items.json'
 WIKI_BASE = 'https://oldschool.runescape.wiki'
 API_BASE = WIKI_BASE + '/api.php'
@@ -209,6 +211,9 @@ def main():
                 print('Failed to download', url, 'status', r.status_code)
     except Exception as e:
         print('Error downloading itemsmin.js:', e)
+
+    # The page loads this small lookup instead of itemsmin.js
+    item_meta.write_item_meta()
 
 
 

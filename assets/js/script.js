@@ -39,6 +39,16 @@
 
   try{ window.getItemsJsonData = getItemsJsonData; }catch(e){}
 
+  // names and placeholder ids, a small file generated from itemsmin.js (scripts/item_meta.py)
+  let itemMetaPromise = null;
+  function getItemMeta(){
+    if(!itemMetaPromise){
+      itemMetaPromise = fetch('cdn/json/itemmeta.json').then(r => r.json())
+        .catch(err => { itemMetaPromise = null; throw err; });
+    }
+    return itemMetaPromise;
+  }
+
   function ensureItemsLoaded(){
     if(itemsLoaded) return Promise.resolve(true);
     if(itemsLoadingPromise) return itemsLoadingPromise;
@@ -146,7 +156,7 @@
   }catch(e){}
 
   function renderItems(list){
-    itemsGrid.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     const limited = Array.isArray(list) ? list.slice(0,20) : [];
     limited.forEach(it => {
         if(!it || !it.img || String(it.img).trim() === '') return;
@@ -154,7 +164,7 @@
       tile.className = 'item-tile';
       tile.setAttribute('draggable', 'true');
       tile.innerHTML = `
-        <img loading="lazy" src="${it.img}" alt="${it.name}" draggable="false">
+        <img loading="lazy" decoding="async" src="${it.img}" alt="${it.name}" draggable="false">
         <div class="name">${it.name}</div>
         <div class="id" style="display:none">${it.id}</div>
       `;
@@ -172,8 +182,9 @@
         clearSelection();
         placeItem(it);
       });
-      itemsGrid.appendChild(tile);
+      fragment.appendChild(tile);
     });
+    itemsGrid.replaceChildren(fragment);
   }
 
   function renderLayoutsList(){
@@ -539,6 +550,9 @@
   });
 
   async function load(){
+    // start the item downloads now so they overlap with the layouts request
+    getItemsJsonData().catch(() => {});
+    getItemMeta().catch(() => {});
     try{
       const r = await fetch(layoutsUrl, {cache:'no-store'});
       const data = await r.json();
@@ -580,35 +594,11 @@
       if(!Array.isArray(layouts) || layouts.length === 0){
         layouts = fetched;
       }
-      const r2 = await fetch('cdn/js/itemsmin.js');
-      const data2 = await r2.json();
+      const meta = await getItemMeta();
       if(Array.isArray(data) && data.length>0){
         externalIdMap = {};
-        // map to internal items array and build externalIdMap
-        // prefer `imagepath` from CDN JSON; fall back to `image` for backward compatibility
-
-        const skipIds = new Set([
-            6678, 
-        ]
-        
-        ); // example bad item IDs to skip
-
-        // item ids are the stable game ids; skip entries without one and keep the first of any duplicate
-        const seenIds = new Set();
-        items = data.flatMap((it, idx) => {
-          if(!Number.isInteger(it.id) || skipIds.has(it.id) || seenIds.has(it.id)) return [];
-          seenIds.add(it.id);
-          const matchPlaceHolder = Array.isArray(data2) ? data2.find(x => x.placeholderId === it.id) : null;
-          const matchName = Array.isArray(data2) ? data2.find(x => x.id === it.id) : null;
-
-          return {
-            id: it.id,
-            name:  matchName ?  matchName.name : it.name || String(it.id || ('item-'+(idx+1))),
-            img: 'cdn/items/' + encodeURIComponent(it.imagepath || ''),
-            externalId: it.id,
-            placeholderId: matchPlaceHolder ? matchPlaceHolder.id : undefined
-          };
-        });
+        // 6678 is a known bad item id
+        items = window.buildItems(data, meta, new Set([6678]));
 
         migrateSavedLayouts(data);
 
@@ -802,7 +792,7 @@
   itemSearch && itemSearch.addEventListener('input', e => {
     const q = (e.target.value||'').trim();
     clearTimeout(itemSearchTimeout);
-    itemSearchTimeout = setTimeout(() => FuzzySearch(q), 350);
+    itemSearchTimeout = setTimeout(() => FuzzySearch(q), 100);
   });
 
   // wire choose modal controls after DOM ready
