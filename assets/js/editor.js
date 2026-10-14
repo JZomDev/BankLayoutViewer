@@ -33,6 +33,67 @@
   }
   try{ window.parseEditorBanktag = parseText; }catch(e){}
 
+  // Applies a parsed layout to the editor's current layout. Throws an Error with a user-facing message.
+  async function applyImportedLayout(parsed){
+    if(!window.current) throw new Error('The editor is not ready yet.');
+    const layoutName = parsed.layoutName;
+    const layoutIcon = parsed.layoutIcon;
+    const itemsLayout = parsed.items;
+
+    try{
+      const nameInput = document.getElementById('tagName');
+      if(nameInput && layoutName) nameInput.value = layoutName;
+    }catch(e){}
+
+    if(layoutIcon){
+      try{
+        const data = (window.getItemsJsonData
+          ? await window.getItemsJsonData()
+          : await (await fetch('cdn/json/items.json')).json());
+        if(Array.isArray(data)){
+          const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
+          if(foundIdx > -1){
+            const found = data[foundIdx];
+            const imageName = found.imagepath || found.image || '';
+            if(imageName){
+              const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
+              const iconEl = document.querySelector('.tag-card .icon');
+              if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
+              try{ window.leftIconId = found.id; }catch(e){}
+              if(window.current){
+                window.current.thumbId = found.id;
+                window.current.thumbnail = imgUrl;
+              }
+            }
+          } else if(window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
+            try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
+          }
+        }
+      }catch(e){ /* ignore errors resolving icon */ }
+    }
+
+    let itemsToAdd = [];
+    if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
+    else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
+    else throw new Error('Invalid Layout.');
+
+    window.current.items = itemsToAdd.map(it => ({ ...it }));
+    window.current.height = 8;
+    // grow to fit imported items: if items use more rows than current height, expand +1 row
+    if(window.current.items.length){
+      let maxY = 0;
+      window.current.items.forEach(it => { if(typeof it.y === 'number' && it.y > maxY) maxY = it.y; });
+      const requiredRows = maxY + 1;
+      if(requiredRows >= window.current.height){
+        window.current.height = requiredRows + 1;
+      }
+    }
+    // refresh UI by dispatching a custom event the main script listens for
+    window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
+    return true;
+  }
+  try{ window.applyImportedLayout = applyImportedLayout; }catch(e){}
+
 
   if(downloadBtn){
     downloadBtn.addEventListener('click', () => {
@@ -89,76 +150,10 @@
           const txt = modalPaste ? modalPaste.value.trim() : (pasteArea ? pasteArea.value.trim() : '');
           if(!txt){ showMessage('No Text to import.', true); return; }
           let parsed;
-          let itemsLayout
-          let layoutName;
-          let layoutIcon
-          try{ 
-            parsed = parseText(txt);
-            itemsLayout = parsed.items;
-            layoutName = parsed.layoutName;
-            layoutIcon = parsed.layoutIcon;
-           }catch(err){ showMessage(err.message, true); return; }
-          
           try{
-            const nameInput = document.getElementById('tagName');
-            if(nameInput && layoutName) nameInput.value = layoutName;
-          }catch(e){}
-          
-          if(layoutIcon){
-            try{
-              const data = (window.getItemsJsonData
-                ? await window.getItemsJsonData()
-                : await (await fetch('cdn/json/items.json')).json());
-              if(Array.isArray(data)){
-                const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
-                  if(foundIdx > -1){
-                  const found = data[foundIdx];
-                  const imageName = found.imagepath || found.image || '';
-                  if(imageName){
-                    const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
-                    const iconEl = document.querySelector('.tag-card .icon');
-                    if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
-                    
-                    try{ window.leftIconId = found.id; }catch(e){}
-                    if(window.current)
-                      {
-                       window.current.thumbId = found.id;
-                       window.current.thumbnail = imgUrl; 
-                       try{ window.current = window.current; }catch(e){} 
-                      }
-                  }
-                } else {
-                  
-                  if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
-                    try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
-                  }
-                }
-              }
-            }catch(e){ /* ignore errors resolving icon */ }
-          }
-          
-              let itemsToAdd = [];
-              if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
-              else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
-              else { showMessage('Invalid Layout.', true); return; }
-              
-            
-            window.current.items = [];
-            window.current.height = 8;
-            // now import items
-            window.current.items = itemsToAdd.slice();
-            // grow to fit imported items: if items use more rows than current height, expand +1 row
-            if(window.current.items.length){
-              let maxY = 0;
-              window.current.items.forEach(it => { if(typeof it.y === 'number' && it.y > maxY) maxY = it.y; });
-              const requiredRows = maxY + 1;
-              if(requiredRows >= window.current.height){
-                window.current.height = requiredRows + 1;
-              }
-            }
-              // refresh UI by dispatching a custom event the main script can listen for
-              window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
-          
+            parsed = parseText(txt);
+            await applyImportedLayout(parsed);
+          }catch(err){ showMessage(err.message, true); return; }
           hideModal();
         });
       }
