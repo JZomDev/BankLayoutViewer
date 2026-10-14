@@ -147,3 +147,4 @@ footer{color:var(--muted);font-size:13px;padding:12px}
 .stored-meta,.stored-desc,.stored-message{color:var(--muted);font-size:13px}
 .stored-preview-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .stored-preview-head strong{flex:1}
+.stored-submit{display:inline-block;margin-bottom:10px;color:var(--accent);font-size:14px}
