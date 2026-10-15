@@ -13,7 +13,6 @@ import os
 import requests
 import json
 import urllib.parse
-import re
 import time
 from pathlib import Path
 
@@ -91,9 +90,11 @@ def image_name(row):
     return html.unescape(row['image'][-1]).replace('File:', '')
 
 
-def image_path(name):
-    """The name the image is saved under in cdn/items."""
-    return re.sub(r'[^a-zA-Z0-9\s._()-]', '_', name)
+def image_path(name, item_id):
+    """The name the image is saved under in cdn/items: the item id, so names that differ only by case cannot clash."""
+    if not name or type(item_id) is not int:
+        return ''
+    return f'{item_id}{os.path.splitext(name)[1].lower()}'
 
 
 def check_item_count(count):
@@ -202,7 +203,7 @@ def main(max_updates=None):
             'name': v['item_name'],
             'id': item_id,
             'image': image_name(v),
-            'imagepath': image_path(image_name(v)),
+            'imagepath': image_path(image_name(v), item_id),
         }
 
         if equipment['name'] in ITEMS_TO_SKIP:
@@ -228,17 +229,18 @@ def main(max_updates=None):
 
     # With a limit, only the items changed in this run get images; otherwise every item is checked
     image_source = new_data if max_updates is None else limited.changed
-    required_imgs = [e['image'] for e in image_source if e['image']]
+    # one file per item id; the first entry for an id supplies its image, as in build-items.js
+    required_imgs = {}
+    for e in image_source:
+        if e['imagepath'] and e['imagepath'] not in required_imgs:
+            required_imgs[e['imagepath']] = e['image']
 
     success_img_dls = 0
     failed_img_dls = 0
     skipped_img_dls = 0
-    required_imgs = set(required_imgs)
 
     # Fetch all the images from the wiki and store them for local serving
-    for idx, img in enumerate(required_imgs):
-
-        imgName = image_path(img)
+    for idx, (imgName, img) in enumerate(required_imgs.items()):
 
         if os.path.isfile(IMG_PATH + imgName):
             skipped_img_dls += 1
