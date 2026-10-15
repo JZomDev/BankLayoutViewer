@@ -3,18 +3,22 @@ on:
   pull_request:
     paths:
       - "data/stored-layouts/*.json"
+  push:
+    branches: [main]
+    paths:
+      - "data/stored-layouts/*.json"
 permissions:
   contents: write
 jobs:
   index:
     # a fork's branch cannot be pushed to
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the PR branch
+      - name: Check out the branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || github.ref_name }}
           # a push made with the default token does not start the check workflow
           token: ${{ secrets.FETCH_ITEMS_TOKEN }}
       - uses: actions/setup-python@v5
