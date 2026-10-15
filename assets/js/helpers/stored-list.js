@@ -1,4 +1,4 @@
-// Turns data/stored-layouts.json entries into list rows. `parse` turns an export string into
+// Turns data/stored-layouts/ files into list rows. `parse` turns an export string into
 // { layoutName, layoutIcon, items }. Entries that do not parse are skipped and reported to `warn`.
 (function(){
   function buildStoredList(entries, parse, warn){
