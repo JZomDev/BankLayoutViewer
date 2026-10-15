@@ -97,8 +97,17 @@ class ImageNameTests(unittest.TestCase):
         self.assertEqual(fetch_items.image_name({}), '')
         self.assertEqual(fetch_items.image_name({'image': []}), '')
 
-    def test_local_file_name_replaces_unsafe_characters(self):
-        self.assertEqual(fetch_items.image_path("Perseriya's medallion.png"), 'Perseriya_s medallion.png')
+    def test_local_file_name_is_the_item_id(self):
+        self.assertEqual(fetch_items.image_path("Perseriya's medallion.png", 1234), '1234.png')
+
+    def test_names_that_differ_only_by_case_get_different_files(self):
+        a = fetch_items.image_path('Sigil of Faith.png', 1)
+        b = fetch_items.image_path('Sigil of faith.png', 2)
+        self.assertNotEqual(a.lower(), b.lower())
+
+    def test_no_local_file_without_an_image_or_an_id(self):
+        self.assertEqual(fetch_items.image_path('', 5), '')
+        self.assertEqual(fetch_items.image_path('A.png', None), '')
 
 
 class MainLoggingTests(unittest.TestCase):
