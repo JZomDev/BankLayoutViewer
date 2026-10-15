@@ -783,9 +783,9 @@
       try{
         const iconEl = document.querySelector('.tag-card .icon');
         if(iconEl){
-          iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="cdn/items/Banana.png" alt="banana" itemid="1963" style="border-radius:6px">`;
+          iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="cdn/items/1963.png" alt="banana" itemid="1963" style="border-radius:6px">`;
         }
-        if(current){ current.thumbnail = 'cdn/items/Banana.png'; current.thumbId = 1963; }
+        if(current){ current.thumbnail = 'cdn/items/1963.png'; current.thumbId = 1963; }
       }catch(e){}
       renderLayoutsList();
     });
