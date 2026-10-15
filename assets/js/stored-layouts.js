@@ -1,4 +1,4 @@
-// "Stored layouts" tab: example layouts from data/stored-layouts.json, a read-only preview, and a load button.
+// "Stored layouts" tab: example layouts from data/stored-layouts.json, a read-only preview, and load and copy buttons.
 (function(){
   const COLS = 8;
   const tabs = document.querySelectorAll('.tabs .tab');
@@ -117,9 +117,21 @@
     const load = el('button', 'small-btn', 'Load into editor');
     load.type = 'button';
     load.addEventListener('click', () => loadIntoEditor(entry));
+    const copy = el('button', 'small-btn', 'Copy');
+    copy.type = 'button';
+    copy.addEventListener('click', () => copyLayout(entry, copy));
     const head = el('div', 'stored-preview-head');
-    head.append(back, el('strong', null, entry.title), load);
+    head.append(back, el('strong', null, entry.title), copy, load);
     previewEl.replaceChildren(head, el('p', 'stored-meta', 'by ' + (entry.author || 'unknown') + ' · ' + entry.description), grid);
+  }
+
+  // copies the RuneLite bank tag export string, ready to paste into Import
+  async function copyLayout(entry, button){
+    let label = 'Copied!';
+    try{ await navigator.clipboard.writeText(entry.layout); }
+    catch(err){ label = 'Copy failed'; }
+    button.textContent = label;
+    setTimeout(() => { button.textContent = 'Copy'; }, 1500);
   }
 
   async function loadIntoEditor(entry){

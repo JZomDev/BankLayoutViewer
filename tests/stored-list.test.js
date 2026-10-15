@@ -10,6 +10,7 @@ test('builds a row from an entry and its export string', () => {
   const [row] = buildStoredList([good], parse);
   assert.deepStrictEqual(row, {
     index: 0, title: 'Potions', author: 'zom', description: 'potion making', iconId: '249',
+    layout: good.layout,
     items: [{ x: 0, y: 0, id: 199 }, { x: 1, y: 0, id: 249 }]
   });
 });
