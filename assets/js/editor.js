@@ -20,70 +20,79 @@
 
   function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  function parseText(text){
-    
-    const t = text.trim();
-    if(!t) throw new Error('Empty input');
-    const lines = t.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-    if(!lines[0].toLowerCase().startsWith('banktags')){
-      throw new Error('Unsupported format, check your copy paste');
-    }
-    const out = {
-        layoutName: 'Imported Layout',
-        layoutIcon: 1963,
-        items: []
-    };
-    const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
-    const splits = lines[0].split(',');
-    if(splits.length < 7){
-      throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
-    }
-    let startIndex = 0;
-    for(let i=0;i<splits.length;i++)
-    {
-        const content = splits[i].trim();
-        if (i == 2)
-        {
-            out.layoutName = splits[i].trim();
-            continue;
-        }
-        if (i == 3)
-        {
-            out.layoutIcon = splits[i].trim();
-            continue;
-        }
-        if (content === 'layout')
-        {
-            startIndex = i + 1;
-            break;
-        }
-    }
-
-    for(let i=startIndex;i<splits.length - 1;i++)
-    {
-        const cellIndex = Number(splits[i].trim());
-        i = i + 1;
-        const externalId = splits[i].trim();
-        if(isNaN(cellIndex)) continue;
-        const x = cellIndex % cols;
-        const y = Math.floor(cellIndex / cols);
-        
-        let id = null;
-        if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(externalId)]){
-            id = window.reverseExternalIdMap[String(externalId)];
-        } else if (window && window.externalPlaceHolderMap && window.externalPlaceHolderMap[String(externalId)]){
-           id = window.externalPlaceHolderMap[String(externalId)];
-        } else {
-          const n = Number(externalId);
-          id = isNaN(n) ? externalId : n;
-        }
-
-        out.items.push({ x, y, id});
-        
-    }
-    return out;
-
+  function resolveExternalId(externalId){
+    const key = String(externalId);
+    if(window.reverseExternalIdMap && window.reverseExternalIdMap[key]) return window.reverseExternalIdMap[key];
+    if(window.externalPlaceHolderMap && window.externalPlaceHolderMap[key]) return window.externalPlaceHolderMap[key];
+    return undefined;
   }
+
+  function parseText(text){
+    const cols = (window.current && window.current.width) ? Number(window.current.width) : 8;
+    return window.parseBanktag(text, { cols, resolveId: resolveExternalId });
+  }
+  try{ window.parseEditorBanktag = parseText; }catch(e){}
+
+  // Applies a parsed layout to the editor's current layout. Throws an Error with a user-facing message.
+  async function applyImportedLayout(parsed){
+    if(!window.current) throw new Error('The editor is not ready yet.');
+    const layoutName = parsed.layoutName;
+    const layoutIcon = parsed.layoutIcon;
+    const itemsLayout = parsed.items;
+
+    try{
+      const nameInput = document.getElementById('tagName');
+      if(nameInput && layoutName) nameInput.value = layoutName;
+    }catch(e){}
+
+    if(layoutIcon){
+      try{
+        const data = (window.getItemsJsonData
+          ? await window.getItemsJsonData()
+          : await (await fetch('cdn/json/items.json')).json());
+        if(Array.isArray(data)){
+          const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
+          if(foundIdx > -1){
+            const found = data[foundIdx];
+            const imageName = found.imagepath || found.image || '';
+            if(imageName){
+              const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
+              const iconEl = document.querySelector('.tag-card .icon');
+              if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
+              try{ window.leftIconId = found.id; }catch(e){}
+              if(window.current){
+                window.current.thumbId = found.id;
+                window.current.thumbnail = imgUrl;
+              }
+            }
+          } else if(window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
+            try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
+          }
+        }
+      }catch(e){ /* ignore errors resolving icon */ }
+    }
+
+    let itemsToAdd = [];
+    if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
+    else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
+    else throw new Error('Invalid Layout.');
+
+    window.current.items = itemsToAdd.map(it => ({ ...it }));
+    window.current.height = 8;
+    // grow to fit imported items: if items use more rows than current height, expand +1 row
+    if(window.current.items.length){
+      let maxY = 0;
+      window.current.items.forEach(it => { if(typeof it.y === 'number' && it.y > maxY) maxY = it.y; });
+      const requiredRows = maxY + 1;
+      if(requiredRows >= window.current.height){
+        window.current.height = requiredRows + 1;
+      }
+    }
+    // refresh UI by dispatching a custom event the main script listens for
+    window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
+    return true;
+  }
+  try{ window.applyImportedLayout = applyImportedLayout; }catch(e){}
 
 
   if(downloadBtn){
@@ -141,76 +150,10 @@
           const txt = modalPaste ? modalPaste.value.trim() : (pasteArea ? pasteArea.value.trim() : '');
           if(!txt){ showMessage('No Text to import.', true); return; }
           let parsed;
-          let itemsLayout
-          let layoutName;
-          let layoutIcon
-          try{ 
-            parsed = parseText(txt);
-            itemsLayout = parsed.items;
-            layoutName = parsed.layoutName;
-            layoutIcon = parsed.layoutIcon;
-           }catch(err){ showMessage(err.message, true); return; }
-          
           try{
-            const nameInput = document.getElementById('tagName');
-            if(nameInput && layoutName) nameInput.value = layoutName;
-          }catch(e){}
-          
-          if(layoutIcon){
-            try{
-              const data = (window.getItemsJsonData
-                ? await window.getItemsJsonData()
-                : await (await fetch('cdn/json/items.json')).json());
-              if(Array.isArray(data)){
-                const foundIdx = data.findIndex(it => String(it.id) === String(layoutIcon));
-                  if(foundIdx > -1){
-                  const found = data[foundIdx];
-                  const imageName = found.imagepath || found.image || '';
-                  if(imageName){
-                    const imgUrl = 'cdn/items/' + encodeURIComponent(imageName);
-                    const iconEl = document.querySelector('.tag-card .icon');
-                    if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" src="${imgUrl}" alt="${found.name||''}" itemid="${found.id}" style="border-radius:6px">`; }
-                    
-                    try{ window.leftIconId = found.id; }catch(e){}
-                    if(window.current)
-                      {
-                       window.current.thumbId = found.id;
-                       window.current.thumbnail = imgUrl; 
-                       try{ window.current = window.current; }catch(e){} 
-                      }
-                  }
-                } else {
-                  
-                  if(window && window.reverseExternalIdMap && window.reverseExternalIdMap[String(layoutIcon)]){
-                    try{ window.leftIconId = window.reverseExternalIdMap[String(layoutIcon)]; if(window.current) window.current.thumbId = window.leftIconId; }catch(e){}
-                  }
-                }
-              }
-            }catch(e){ /* ignore errors resolving icon */ }
-          }
-          
-              let itemsToAdd = [];
-              if(Array.isArray(itemsLayout)) itemsToAdd = itemsLayout;
-              else if(itemsLayout && Array.isArray(itemsLayout.layouts) && itemsLayout.layouts[0] && Array.isArray(itemsLayout.layouts[0].items)) itemsToAdd = itemsLayout.layouts[0].items;
-              else { showMessage('Invalid Layout.', true); return; }
-              
-            
-            window.current.items = [];
-            window.current.height = 8;
-            // now import items
-            window.current.items = itemsToAdd.slice();
-            // grow to fit imported items: if items use more rows than current height, expand +1 row
-            if(window.current.items.length){
-              let maxY = 0;
-              window.current.items.forEach(it => { if(typeof it.y === 'number' && it.y > maxY) maxY = it.y; });
-              const requiredRows = maxY + 1;
-              if(requiredRows >= window.current.height){
-                window.current.height = requiredRows + 1;
-              }
-            }
-              // refresh UI by dispatching a custom event the main script can listen for
-              window.dispatchEvent(new CustomEvent('bank-layouts:imported', { detail: { layout: window.current } }));
-          
+            parsed = parseText(txt);
+            await applyImportedLayout(parsed);
+          }catch(err){ showMessage(err.message, true); return; }
           hideModal();
         });
       }

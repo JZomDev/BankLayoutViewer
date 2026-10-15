@@ -5,3 +5,6 @@ __pycache__/
 .vscode/
 CLAUDE.local.md
 tests/.node/
+
+# local specs and plans
+docs/superpowers/

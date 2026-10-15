@@ -17,8 +17,9 @@ class JsTests(unittest.TestCase):
         node = find_node()
         if node is None:
             self.skipTest("node not found")
+        node_tests = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "tests").glob("*.test.js"))
         result = subprocess.run(
-            [node, "--test", "tests/migrate.test.js", "tests/build-items.test.js"], cwd=ROOT, capture_output=True, text=True
+            [node, "--test", *node_tests], cwd=ROOT, capture_output=True, text=True
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 

@@ -135,3 +135,16 @@ footer{color:var(--muted);font-size:13px;padding:12px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 
+
+/* Stored layouts tab */
+[hidden]{display:none !important}
+.stored-panel{width:100%;box-sizing:border-box}
+.stored-list{display:flex;flex-direction:column;gap:8px}
+.stored-row{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:#121918;color:inherit;border:1px solid #1b2a29;border-radius:6px;padding:10px;cursor:pointer}
+.stored-row:hover{border-color:var(--accent-2)}
+.stored-icon{width:36px;height:36px;object-fit:contain}
+.stored-title{font-weight:600;color:var(--accent)}
+.stored-meta,.stored-desc,.stored-message{color:var(--muted);font-size:13px}
+.stored-preview-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.stored-preview-head strong{flex:1}
+.stored-submit{display:inline-block;margin-bottom:10px;color:var(--accent);font-size:14px}
