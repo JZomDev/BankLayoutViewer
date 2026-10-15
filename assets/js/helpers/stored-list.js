@@ -13,6 +13,7 @@
           author: String(entry.author || ''),
           description: String(entry.description || ''),
           iconId: parsed.layoutIcon,
+          layout: entry.layout,
           items: parsed.items
         });
       }catch(e){ if(warn) warn(index, e); }
