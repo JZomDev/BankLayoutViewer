@@ -1,0 +1,35 @@
+name: stored-layouts-index
+on:
+  pull_request:
+    paths:
+      - "data/stored-layouts/*.json"
+permissions:
+  contents: write
+jobs:
+  index:
+    # a fork's branch cannot be pushed to
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          # a push made with the default token does not start the check workflow
+          token: ${{ secrets.FETCH_ITEMS_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild index.json
+        run: python scripts/build_stored_layouts.py
+      - name: Commit the index if it changed
+        run: |
+          if [ -z "$(git status --porcelain data/stored-layouts/index.json)" ]; then
+            echo "Index is up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stored-layouts/index.json
+          git commit -m "chore: update stored layouts index"
+          git push
