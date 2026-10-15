@@ -4,3 +4,7 @@ PY ?= .venv/bin/python
 check:
 	$(PY) -m ruff check .
 	$(PY) -m unittest discover -s tests
+
+.PHONY: layouts
+layouts:
+	$(PY) scripts/build_stored_layouts.py

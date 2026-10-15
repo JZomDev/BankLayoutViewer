@@ -4,14 +4,16 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { parseBanktag } = require('../assets/js/helpers/banktag-parse.js');
 
-const entries = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'stored-layouts.json'), 'utf8'));
+const dir = path.join(__dirname, '..', 'data', 'stored-layouts');
+const names = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
 
-test('the file is a non-empty array', () => {
-  assert.ok(Array.isArray(entries) && entries.length > 0);
+test('the index is a non-empty array of file names', () => {
+  assert.ok(Array.isArray(names) && names.length > 0);
 });
 
-entries.forEach((entry, i) => {
-  test(`entry ${i} has text fields and a layout that parses to items`, () => {
+names.forEach(name => {
+  test(`${name} has text fields and a layout that parses to items`, () => {
+    const entry = JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'));
     for (const field of ['author', 'description', 'layout']) {
       assert.strictEqual(typeof entry[field], 'string', `${field} must be a string`);
       assert.ok(entry[field].trim(), `${field} must not be empty`);

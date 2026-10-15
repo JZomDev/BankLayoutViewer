@@ -1,4 +1,4 @@
-// "Stored layouts" tab: example layouts from data/stored-layouts.json, a read-only preview, and load and copy buttons.
+// "Stored layouts" tab: example layouts from data/stored-layouts/, a read-only preview, and load and copy buttons.
 (function(){
   const COLS = 8;
   const tabs = document.querySelectorAll('.tabs .tab');
@@ -24,13 +24,27 @@
     if(name === 'stored') openList();
   }
 
+  function getJson(url){
+    return fetch(url).then(r => {
+      if(!r.ok) throw new Error(url + ': status ' + r.status);
+      return r.json();
+    });
+  }
+
+  // data/stored-layouts/index.json names the layout files; one that fails to load is skipped
+  async function fetchLayouts(){
+    const names = await getJson('data/stored-layouts/index.json');
+    const entries = await Promise.all(names.map(name => getJson('data/stored-layouts/' + encodeURIComponent(name)).catch(err => {
+      console.warn('stored layout ' + name + ' skipped:', err.message);
+      return null;
+    })));
+    return entries.filter(Boolean);
+  }
+
   function loadStored(){
     if(!loading){
       loading = Promise.all([
-        fetch('data/stored-layouts.json').then(r => {
-          if(!r.ok) throw new Error('status ' + r.status);
-          return r.json();
-        }),
+        fetchLayouts(),
         window.ensureItemsLoaded ? window.ensureItemsLoaded() : Promise.resolve()
       ]).then(([entries]) => window.buildStoredList(entries, window.parseEditorBanktag,
         (i, e) => console.warn('stored layout ' + i + ' skipped:', e.message))
