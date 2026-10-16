@@ -200,15 +200,8 @@
     try{
       const iconEl = document.querySelector('.tag-card .icon');
       if(iconEl){
-        if(current && current.thumbnail){
-          iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${current.thumbnail}" alt="layout thumb" itemid="${current.thumbId||''}" style="border-radius:6px">`;
-        } else if(current && current.thumbId && Array.isArray(items) && items.length){
-          const found = items.find(it => Number(it.id) === Number(current.thumbId));
-          if(found && found.img) iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${found.img}" alt="layout thumb" itemid="${found.externalId||found.id||''}" style="border-radius:6px">`;
-        } else if(window && typeof window.leftIconId !== 'undefined' && Array.isArray(items) && items.length){
-          const left = items.find(it => Number(it.id) === Number(window.leftIconId));
-          if(left && left.img) iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${left.img}" alt="layout thumb" itemid="${left.externalId||left.id||''}" style="border-radius:6px">`;
-        }
+        const t = window.resolveThumb(current, items);
+        iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${t.img}" alt="${t.name || 'layout thumb'}" itemid="${t.itemId}" style="border-radius:6px">`;
       }
     }catch(e){}
     const cols = 8;
