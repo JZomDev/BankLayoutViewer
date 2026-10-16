@@ -650,7 +650,7 @@
         // if choosing the left icon (no layout id), set the tag-card icon and update current
         if(choosingLayoutId === 'left-icon'){
           const iconEl = document.querySelector('.tag-card .icon');
-          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${it.img}" alt="${it.name} itemid="${it.externalId}" style="border-radius:6px">`; }
+          if(iconEl){ iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="${it.img}" alt="${it.name}" itemid="${it.externalId}" style="border-radius:6px">`; }
           // record left icon id globally so exports use it when no layout thumb set
           try{ window.leftIconId = it.id; }catch(e){}
           if(current){ current.thumbId = it.id; current.thumbnail = it.img; try{ window.current = current; }catch(e){} }
@@ -717,11 +717,8 @@
     const cols = 8;
     const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
     const lines = [];
-    // Determine the item id to place in the header (use current.thumbId, or left icon fallback)
-    
-    
     // header line: banktags,1,<tagName>,<itemid>,layout
-    const header = ['banktags','1', name.replace(/,/g,' '), String(document.getElementById('layoutimage').getAttribute('itemid')), 'layout'].join(',');
+    const header = ['banktags','1', name.replace(/,/g,' '), String(window.resolveThumb(current, items).itemId), 'layout'].join(',');
     lines.push(header);
     // For each placed item, output a line in the format:
     // banktags,1,LayoutName,952,layout,<cellIndex>,<externalId>
