@@ -89,3 +89,16 @@ test('Bank Tag Layouts plugin: a name with no cells throws', () => {
   assert.throws(() => parseBanktag('banktaglayoutsplugin:x'), /Invalid Bank Tag Layouts/);
   assert.throws(() => parseBanktag('banktaglayoutsplugin:x,banktag:x,1'), /Invalid Bank Tag Layouts/);
 });
+test('keeps the tag item list, including negative variation ids', () => {
+  const text = 'banktags,1,bonemining,952,10354,1704,-1704,layout,0,1712,1,12013';
+  const out = parseBanktag(text);
+  assert.deepStrictEqual(out.tagItems, [10354, 1704, -1704]);
+  assert.deepStrictEqual(out.items, [{ x: 0, y: 0, id: 1712 }, { x: 1, y: 0, id: 12013 }]);
+});
+test('tag item ids are not passed through resolveId', () => {
+  const resolveId = () => 99;
+  assert.deepStrictEqual(parseBanktag('banktags,1,x,1,5,-5,layout,0,10', { resolveId }).tagItems, [5, -5]);
+});
+test('an export without a tag item list gives an empty tagItems', () => {
+  assert.deepStrictEqual(parseBanktag(potions).tagItems, []);
+});

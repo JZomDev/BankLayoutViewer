@@ -716,20 +716,9 @@
     if(!current) return '';
     const cols = 8;
     const name = (layoutNameInput && layoutNameInput.value) ? layoutNameInput.value : (current.title || 'New layout');
-    const lines = [];
-    // header line: banktags,1,<tagName>,<itemid>,layout
-    const header = ['banktags','1', name.replace(/,/g,' '), String(window.resolveThumb(current, items).itemId), 'layout'].join(',');
-    lines.push(header);
-    // For each placed item, output a line in the format:
-    // banktags,1,LayoutName,952,layout,<cellIndex>,<externalId>
     // cellIndex is linear index: y * cols + x
-    (current.items || []).forEach(it => {
-      const idx = (it.y * cols) + it.x;
-      const ext = externalIdMap[it.id] || it.id;
-      const line = [String(idx), String(ext)].join(',');
-      lines.push(line);
-    });
-    return lines.join(',');
+    const cells = (current.items || []).map(it => [(it.y * cols) + it.x, externalIdMap[it.id] || it.id]);
+    return window.buildBanktag({ name, iconId: window.resolveThumb(current, items).itemId, tagItems: current.tagItems, cells });
   }
 
   if(exportBtn){
@@ -776,7 +765,7 @@
         if(iconEl){
           iconEl.innerHTML = `<img id="layoutimage" loading="lazy" src="cdn/items/1963.png" alt="banana" itemid="1963" style="border-radius:6px">`;
         }
-        if(current){ current.thumbnail = 'cdn/items/1963.png'; current.thumbId = 1963; }
+        if(current){ current.thumbnail = 'cdn/items/1963.png'; current.thumbId = 1963; current.tagItems = []; }
       }catch(e){}
       renderLayoutsList();
     });

@@ -1,5 +1,5 @@
 // Turns data/stored-layouts/ files into list rows. `parse` turns an export string into
-// { layoutName, layoutIcon, items }. Entries that do not parse are skipped and reported to `warn`.
+// { layoutName, layoutIcon, items, tagItems }. Entries that do not parse are skipped and reported to `warn`.
 (function(){
   function buildStoredList(entries, parse, warn){
     const out = [];
@@ -14,7 +14,8 @@
           description: String(entry.description || ''),
           iconId: parsed.layoutIcon,
           layout: entry.layout,
-          items: parsed.items
+          items: parsed.items,
+          tagItems: parsed.tagItems
         });
       }catch(e){ if(warn) warn(index, e); }
     });
