@@ -2382,6 +2382,18 @@
     "imagepath": "5767.png"
   },
   {
+    "name": "Alliance log",
+    "id": 34729,
+    "image": "Alliance log.png",
+    "imagepath": "34729.png"
+  },
+  {
+    "name": "Alliance's message",
+    "id": 34657,
+    "image": "Alliance's message.png",
+    "imagepath": "34657.png"
+  },
+  {
     "name": "Aluft Aloft box",
     "id": 9477,
     "image": "Aluft Aloft box.png",
@@ -4878,6 +4890,24 @@
     "imagepath": "33153.png"
   },
   {
+    "name": "Archive key",
+    "id": 34658,
+    "image": "Archive key.png",
+    "imagepath": "34658.png"
+  },
+  {
+    "name": "Archivist's folio",
+    "id": 34723,
+    "image": "Archivist's folio.png",
+    "imagepath": "34723.png"
+  },
+  {
+    "name": "Archivist's folio (inert)",
+    "id": 34722,
+    "image": "Archivist's folio (inert).png",
+    "imagepath": "34722.png"
+  },
+  {
     "name": "Arclight",
     "id": 19675,
     "image": "Arclight.png",
@@ -5416,6 +5446,24 @@
     "id": 7995,
     "image": "Arthur portrait.png",
     "imagepath": "7995.png"
+  },
+  {
+    "name": "Ascension bolts",
+    "id": 34684,
+    "image": "Ascension bolts 5.png",
+    "imagepath": "34684.png"
+  },
+  {
+    "name": "Ascension crossbows",
+    "id": 34681,
+    "image": "Ascension crossbows.png",
+    "imagepath": "34681.png"
+  },
+  {
+    "name": "Ascension shards",
+    "id": 34669,
+    "image": "Ascension shards.png",
+    "imagepath": "34669.png"
   },
   {
     "name": "Asgarnia echo orb",
@@ -6712,36 +6760,6 @@
     "id": 26394,
     "image": "Bandosian components.png",
     "imagepath": "26394.png"
-  },
-  {
-    "name": "Bank key",
-    "id": 13304,
-    "image": "Bank key.png",
-    "imagepath": "13304.png"
-  },
-  {
-    "name": "Bank key",
-    "id": 13305,
-    "image": "Bank key.png",
-    "imagepath": "13305.png"
-  },
-  {
-    "name": "Bank key",
-    "id": 13306,
-    "image": "Bank key.png",
-    "imagepath": "13306.png"
-  },
-  {
-    "name": "Bank key",
-    "id": 13303,
-    "image": "Bank key.png",
-    "imagepath": "13303.png"
-  },
-  {
-    "name": "Bank key",
-    "id": 13302,
-    "image": "Bank key.png",
-    "imagepath": "13302.png"
   },
   {
     "name": "Banker's briefcase",
@@ -28626,6 +28644,18 @@
     "imagepath": "1681.png"
   },
   {
+    "name": "Diamond ascension bolts",
+    "id": 34690,
+    "image": "Diamond ascension bolts 5.png",
+    "imagepath": "34690.png"
+  },
+  {
+    "name": "Diamond ascension bolts (e)",
+    "id": 34696,
+    "image": "Diamond ascension bolts (e) 5.png",
+    "imagepath": "34696.png"
+  },
+  {
     "name": "Diamond bolt tips",
     "id": 9192,
     "image": "Diamond bolt tips 5.png",
@@ -35208,6 +35238,30 @@
     "imagepath": "9689.png"
   },
   {
+    "name": "Fragment of burning fire",
+    "id": 34677,
+    "image": "Fragment of burning fire.png",
+    "imagepath": "34677.png"
+  },
+  {
+    "name": "Fragment of deep water",
+    "id": 34673,
+    "image": "Fragment of deep water.png",
+    "imagepath": "34673.png"
+  },
+  {
+    "name": "Fragment of living earth",
+    "id": 34671,
+    "image": "Fragment of living earth.png",
+    "imagepath": "34671.png"
+  },
+  {
+    "name": "Fragment of whispering wind",
+    "id": 34675,
+    "image": "Fragment of whispering wind.png",
+    "imagepath": "34675.png"
+  },
+  {
     "name": "Frank's print",
     "id": 1821,
     "image": "Frank's print.png",
@@ -41724,6 +41778,12 @@
     "imagepath": "31823.png"
   },
   {
+    "name": "Horn of Bran",
+    "id": 34679,
+    "image": "Horn of Bran.png",
+    "imagepath": "34679.png"
+  },
+  {
     "name": "Horn of Plenty",
     "id": 31241,
     "image": "Horn of Plenty.png",
@@ -46872,6 +46932,12 @@
     "imagepath": "9008.png"
   },
   {
+    "name": "Leftovers",
+    "id": 34730,
+    "image": "Leftovers.png",
+    "imagepath": "34730.png"
+  },
+  {
     "name": "Legendary cocktail",
     "id": 3707,
     "image": "Legendary cocktail.png",
@@ -47428,6 +47494,36 @@
     "id": 25836,
     "image": "Little Parasite.png",
     "imagepath": "25836.png"
+  },
+  {
+    "name": "Living record (tier 1)",
+    "id": 34659,
+    "image": "Living record (tier 1).png",
+    "imagepath": "34659.png"
+  },
+  {
+    "name": "Living record (tier 2)",
+    "id": 34661,
+    "image": "Living record (tier 2).png",
+    "imagepath": "34661.png"
+  },
+  {
+    "name": "Living record (tier 3)",
+    "id": 34663,
+    "image": "Living record (tier 3).png",
+    "imagepath": "34663.png"
+  },
+  {
+    "name": "Living record (tier 4)",
+    "id": 34665,
+    "image": "Living record (tier 4).png",
+    "imagepath": "34665.png"
+  },
+  {
+    "name": "Living record (tier 5)",
+    "id": 34667,
+    "image": "Living record (tier 5).png",
+    "imagepath": "34667.png"
   },
   {
     "name": "Lizardkicker",
@@ -53736,6 +53832,18 @@
     "imagepath": "33439.png"
   },
   {
+    "name": "Obligator",
+    "id": 34715,
+    "image": "Obligator.png",
+    "imagepath": "34715.png"
+  },
+  {
+    "name": "Obligator (uncharged)",
+    "id": 34717,
+    "image": "Obligator (uncharged).png",
+    "imagepath": "34717.png"
+  },
+  {
     "name": "Observations",
     "id": 34051,
     "image": "Observations.png",
@@ -54480,6 +54588,18 @@
     "imagepath": "6579.png"
   },
   {
+    "name": "Onyx ascension bolts",
+    "id": 34702,
+    "image": "Onyx ascension bolts 5.png",
+    "imagepath": "34702.png"
+  },
+  {
+    "name": "Onyx ascension bolts (e)",
+    "id": 34708,
+    "image": "Onyx ascension bolts (e) 5.png",
+    "imagepath": "34708.png"
+  },
+  {
     "name": "Onyx bolt tips",
     "id": 9194,
     "image": "Onyx bolt tips 5.png",
@@ -55102,6 +55222,18 @@
     "id": 33657,
     "image": "Orikalkum gravel.png",
     "imagepath": "33657.png"
+  },
+  {
+    "name": "Orion",
+    "id": 34648,
+    "image": "Orion (robed).png",
+    "imagepath": "34648.png"
+  },
+  {
+    "name": "Orion",
+    "id": 34646,
+    "image": "Orion.png",
+    "imagepath": "34646.png"
   },
   {
     "name": "Ornament",
@@ -62170,6 +62302,12 @@
     "id": 7445,
     "image": "Rolling pin.png",
     "imagepath": "7445.png"
+  },
+  {
+    "name": "Rondache",
+    "id": 34719,
+    "image": "Rondache.png",
+    "imagepath": "34719.png"
   },
   {
     "name": "Root kindling",
@@ -83716,6 +83854,18 @@
     "id": 7593,
     "image": "Zombie trousers.png",
     "imagepath": "7593.png"
+  },
+  {
+    "name": "Zorya's tome",
+    "id": 34725,
+    "image": "Zorya's tome.png",
+    "imagepath": "34725.png"
+  },
+  {
+    "name": "Zorya's tome (uncharged)",
+    "id": 34727,
+    "image": "Zorya's tome (uncharged).png",
+    "imagepath": "34727.png"
   },
   {
     "name": "Zul-andra teleport",
