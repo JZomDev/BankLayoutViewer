@@ -80,6 +80,8 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 
 /* drag state */
 .cell.drag-over{outline:2px dashed var(--accent-2);box-shadow:0 0 0 4px rgba(47,182,168,0.06) inset}
+.cell.variation{border-color:#ffd24a}
+.cell.variation::after{content:'*';position:absolute;top:0;right:4px;color:#ffd24a;font-weight:700;font-size:16px;line-height:1.2;pointer-events:none}
 .cell.selected{outline:2px solid var(--accent);box-shadow:0 0 0 6px rgba(31,194,160,0.06) inset}
 
 /* right layouts */

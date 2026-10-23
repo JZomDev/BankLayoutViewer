@@ -5,6 +5,7 @@ const path = require('node:path');
 const { parseBanktag } = require('../assets/js/helpers/banktag-parse.js');
 const { buildBanktag } = require('../assets/js/helpers/banktag-export.js');
 const { buildItems } = require('../assets/js/helpers/build-items.js');
+const { setVariation } = require('../assets/js/helpers/variations.js');
 
 const readJson = name => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'cdn', 'json', name), 'utf8'));
 const items = buildItems(readJson('items.json'), readJson('itemmeta.json'), new Set([6678]));
@@ -29,5 +30,16 @@ test('a placeholder id exports as the item it is the placeholder of', () => {
   assert.strictEqual(
     roundTrip('banktags,1,prayerpotions,952,layout,1,2434,2,15259'),
     'banktags,1,prayerpotions,952,layout,1,2434,2,2434'
+  );
+});
+
+test('enabling variation on 22798 adds -5070 to the tag list', () => {
+  const variations = readJson('itemvariations.json');
+  const p = parseBanktag('banktags,1,banktesting,952,layout,0,22798', { cols: 8, resolveId });
+  const tagItems = setVariation(p.tagItems, 22798, variations, true);
+  const cells = p.items.map(i => [i.y * 8 + i.x, external[i.id] || i.id]);
+  assert.strictEqual(
+    buildBanktag({ name: p.layoutName, iconId: p.layoutIcon, tagItems, cells }),
+    'banktags,1,banktesting,952,-5070,layout,0,22798'
   );
 });
