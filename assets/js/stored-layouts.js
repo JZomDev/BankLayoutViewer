@@ -152,7 +152,7 @@
     const cur = window.current;
     if(cur && Array.isArray(cur.items) && cur.items.length && !confirm('Replace your current layout with "' + entry.title + '"?')) return;
     try{
-      await window.applyImportedLayout({ layoutName: entry.title, layoutIcon: entry.iconId, items: entry.items.map(i => ({ ...i })) });
+      await window.applyImportedLayout({ layoutName: entry.title, layoutIcon: entry.iconId, items: entry.items.map(i => ({ ...i })), tagItems: entry.tagItems });
       showTab('layout');
     }catch(err){ alert(err.message); }
   }

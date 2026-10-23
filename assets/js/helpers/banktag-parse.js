@@ -1,4 +1,5 @@
-// Parses a RuneLite bank tag export: banktags,1,<name>,<icon id>,layout,<cell>,<item id>,<cell>,<item id>,...
+// Parses a RuneLite bank tag export: banktags,1,<name>,<icon id>,<tag item ids>,layout,<cell>,<item id>,<cell>,<item id>,...
+// Tag item ids are kept raw in `tagItems`; a negative id flags that item as a variation.
 // Pure: item ids are resolved through options.resolveId (return a falsy value to fall back to the number).
 (function(){
   function parseBanktag(text, options){
@@ -11,7 +12,7 @@
     if(!lines[0].toLowerCase().startsWith('banktags')){
       throw new Error('Unsupported format, check your copy paste');
     }
-    const out = { layoutName: 'Imported Layout', layoutIcon: 1963, items: [] };
+    const out = { layoutName: 'Imported Layout', layoutIcon: 1963, items: [], tagItems: [] };
     const splits = lines[0].split(',');
     if(splits.length < 7){
       throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
@@ -21,7 +22,11 @@
       const content = splits[i].trim();
       if(i === 2){ out.layoutName = content; continue; }
       if(i === 3){ out.layoutIcon = content; continue; }
-      if(content === 'layout'){ startIndex = i + 1; break; }
+      if(content === 'layout'){
+        startIndex = i + 1;
+        out.tagItems = splits.slice(4, i).map(s => Number(s.trim())).filter(n => !isNaN(n));
+        break;
+      }
     }
     for(let i = startIndex; i < splits.length - 1; i++){
       const cellIndex = Number(splits[i].trim());

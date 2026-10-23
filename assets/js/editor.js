@@ -78,6 +78,7 @@
     else throw new Error('Invalid Layout.');
 
     window.current.items = itemsToAdd.map(it => ({ ...it }));
+    window.current.tagItems = Array.isArray(parsed.tagItems) ? parsed.tagItems.slice() : [];
     window.current.height = 8;
     // grow to fit imported items: if items use more rows than current height, expand +1 row
     if(window.current.items.length){
