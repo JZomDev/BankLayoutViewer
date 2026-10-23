@@ -49,6 +49,41 @@
     return itemMetaPromise;
   }
 
+  // variation groups from RuneLite, id -> base id (scripts/item_variations.py)
+  let itemVariations = null;
+  let itemVariationsPromise = null;
+  function getItemVariations(){
+    if(!itemVariationsPromise){
+      itemVariationsPromise = fetch('cdn/json/itemvariations.json').then(r => r.json())
+        .then(data => { itemVariations = data; refreshVariationMarks(); return data; })
+        .catch(err => { itemVariationsPromise = null; throw err; });
+    }
+    return itemVariationsPromise;
+  }
+
+  // the game id a placed cell exports as, which is what the tag list uses
+  function cellGameId(cell){
+    const id = Number(cell.dataset.itemId);
+    return Number((window.externalIdMap || {})[id] || id);
+  }
+
+  function refreshVariationMarks(){
+    const tagItems = (current && current.tagItems) || [];
+    layoutGrid.querySelectorAll('.cell').forEach(cell => {
+      const on = !!cell.dataset.itemId && window.variations.hasVariation(tagItems, cellGameId(cell), itemVariations);
+      cell.classList.toggle('variation', on);
+    });
+  }
+
+  function toggleVariationAt(cell){
+    if(!current || !cell || !cell.dataset.itemId || !itemVariations) return;
+    const id = cellGameId(cell);
+    const on = !window.variations.hasVariation(current.tagItems, id, itemVariations);
+    current.tagItems = window.variations.setVariation(current.tagItems, id, itemVariations, on);
+    refreshVariationMarks();
+    renderLayoutsList();
+  }
+
   function ensureItemsLoaded(){
     if(itemsLoaded) return Promise.resolve(true);
     if(itemsLoadingPromise) return itemsLoadingPromise;
@@ -104,6 +139,23 @@
       hideCellContextMenu();
     });
 
+    const variationBtn = document.createElement('div');
+    variationBtn.className = 'cm-item';
+    variationBtn.id = 'cm-variation';
+    variationBtn.style.padding = '8px 10px';
+    variationBtn.style.cursor = 'pointer';
+    variationBtn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      toggleVariationAt(menu._cell);
+      hideCellContextMenu();
+    });
+
+    const divider = document.createElement('div');
+    divider.id = 'cm-variation-divider';
+    divider.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0';
+
+    menu.appendChild(variationBtn);
+    menu.appendChild(divider);
     menu.appendChild(insertBtn);
     menu.appendChild(delBtn);
     document.body.appendChild(menu);
@@ -115,11 +167,20 @@
     document.addEventListener('keydown', (e) => { if(e.key === 'Escape') hideCellContextMenu(); });
   }
 
-  function showCellContextMenu(event, row){
+  function showCellContextMenu(event, row, cell){
     createCellContextMenu();
     const menu = document.getElementById('cell-context-menu');
     if(!menu) return;
     menu.dataset.row = String(row);
+    menu._cell = cell;
+    // the variation entry is only for cells holding an item, and needs the group data
+    const canToggle = !!(cell && cell.dataset.itemId && itemVariations);
+    menu.querySelector('#cm-variation').style.display = canToggle ? 'block' : 'none';
+    menu.querySelector('#cm-variation-divider').style.display = canToggle ? 'block' : 'none';
+    if(canToggle){
+      const on = window.variations.hasVariation(current && current.tagItems, cellGameId(cell), itemVariations);
+      menu.querySelector('#cm-variation').textContent = on ? 'Disable variation' : 'Enable variation';
+    }
     // position menu near cursor using fixed positioning so it aligns with viewport coords
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
@@ -238,7 +299,7 @@
             const pos = cell.dataset.pos || '0,0';
             const row = Number(pos.split(',')[1]);
             if(!Number.isFinite(row)) return;
-            showCellContextMenu(event, row);
+            showCellContextMenu(event, row, cell);
         });
         cell.addEventListener('dblclick', () => {
           if(cell.dataset.itemId){
@@ -290,6 +351,7 @@
         if(img) img.setAttribute('draggable','true');
       }
     });
+    refreshVariationMarks();
   }
 
   window.addEventListener('bank-layouts:imported', (e) => {
@@ -548,6 +610,7 @@
     // start the item downloads now so they overlap with the layouts request
     getItemsJsonData().catch(() => {});
     getItemMeta().catch(() => {});
+    getItemVariations().catch(() => {});
     try{
       const r = await fetch(layoutsUrl, {cache:'no-store'});
       const data = await r.json();

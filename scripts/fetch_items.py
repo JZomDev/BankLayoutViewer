@@ -17,6 +17,7 @@ import time
 from pathlib import Path
 
 import item_meta
+import item_variations
 import item_updates
 
 FILE_NAME = '../cdn/json/items.json'
@@ -268,6 +269,9 @@ def main(max_updates=None):
 
     # The page loads this small lookup instead of itemsmin.js
     item_meta.write_item_meta()
+
+    # RuneLite's variation groups, for the variation toggle on bank tag items
+    item_variations.write_variations(get(item_variations.VARIATIONS_URL).json())
 
 
 def positive_int(text):
