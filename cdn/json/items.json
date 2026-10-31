@@ -756,6 +756,12 @@
     "imagepath": "12006.png"
   },
   {
+    "name": "Abyssal tentacle",
+    "id": 34619,
+    "image": "Abyssal tentacle.png",
+    "imagepath": "34619.png"
+  },
+  {
     "name": "Abyssal tentacle (or)",
     "id": 26484,
     "image": "Abyssal tentacle (or).png",
@@ -3726,6 +3732,12 @@
     "imagepath": "13441.png"
   },
   {
+    "name": "Anglerfish",
+    "id": 34623,
+    "image": "Anglerfish.png",
+    "imagepath": "34623.png"
+  },
+  {
     "name": "Anguish ornament kit",
     "id": 22246,
     "image": "Anguish ornament kit.png",
@@ -6576,6 +6588,12 @@
     "imagepath": "11832.png"
   },
   {
+    "name": "Bandos chestplate",
+    "id": 34611,
+    "image": "Bandos chestplate.png",
+    "imagepath": "34611.png"
+  },
+  {
     "name": "Bandos cloak",
     "id": 12273,
     "image": "Bandos cloak.png",
@@ -8272,6 +8290,12 @@
     "id": 22284,
     "image": "Black d'hide shield.png",
     "imagepath": "22284.png"
+  },
+  {
+    "name": "Black d'hide shield",
+    "id": 34615,
+    "image": "Black d'hide shield.png",
+    "imagepath": "34615.png"
   },
   {
     "name": "Black d'hide vambraces",
@@ -15040,6 +15064,12 @@
     "id": 22719,
     "image": "Candy cane.png",
     "imagepath": "22719.png"
+  },
+  {
+    "name": "Candy onion",
+    "id": 34732,
+    "image": "Candy onion.png",
+    "imagepath": "34732.png"
   },
   {
     "name": "Canister",
@@ -29496,6 +29526,12 @@
     "imagepath": "11840.png"
   },
   {
+    "name": "Dragon boots",
+    "id": 34621,
+    "image": "Dragon boots.png",
+    "imagepath": "34621.png"
+  },
+  {
     "name": "Dragon boots (cr)",
     "id": 28055,
     "image": "Dragon boots (cr).png",
@@ -34222,6 +34258,12 @@
     "id": 10551,
     "image": "Fighter torso.png",
     "imagepath": "10551.png"
+  },
+  {
+    "name": "Fighter torso",
+    "id": 34613,
+    "image": "Fighter torso.png",
+    "imagepath": "34613.png"
   },
   {
     "name": "Fighter torso (broken)",
@@ -45120,6 +45162,12 @@
     "imagepath": "4738.png"
   },
   {
+    "name": "Karil's leatherskirt",
+    "id": 34609,
+    "image": "Karil's leatherskirt.png",
+    "imagepath": "34609.png"
+  },
+  {
     "name": "Karil's leatherskirt 0",
     "id": 4950,
     "image": "Karil's leatherskirt 0.png",
@@ -51516,6 +51564,12 @@
     "imagepath": "24260.png"
   },
   {
+    "name": "Molten sugar",
+    "id": 34736,
+    "image": "Molten sugar.png",
+    "imagepath": "34736.png"
+  },
+  {
     "name": "Monk's robe",
     "id": 542,
     "image": "Monk's robe.png",
@@ -54370,6 +54424,12 @@
     "id": 23033,
     "image": "Old notes.png",
     "imagepath": "23033.png"
+  },
+  {
+    "name": "Old onion",
+    "id": 34738,
+    "image": "Old onion.png",
+    "imagepath": "34738.png"
   },
   {
     "name": "Old red disk",
@@ -73008,6 +73068,12 @@
     "imagepath": "28406.png"
   },
   {
+    "name": "Sugar",
+    "id": 34734,
+    "image": "Sugar.png",
+    "imagepath": "34734.png"
+  },
+  {
     "name": "Sulliuscep cap",
     "id": 21626,
     "image": "Sulliuscep cap.png",
@@ -76512,6 +76578,12 @@
     "imagepath": "26382.png"
   },
   {
+    "name": "Torva full helm",
+    "id": 34617,
+    "image": "Torva full helm.png",
+    "imagepath": "34617.png"
+  },
+  {
     "name": "Torva full helm (damaged)",
     "id": 26376,
     "image": "Torva full helm (damaged).png",
@@ -78996,6 +79068,24 @@
     "imagepath": "33768.png"
   },
   {
+    "name": "Vampyre costume bottom",
+    "id": 34744,
+    "image": "Vampyre costume bottom.png",
+    "imagepath": "34744.png"
+  },
+  {
+    "name": "Vampyre costume cape",
+    "id": 34746,
+    "image": "Vampyre costume cape.png",
+    "imagepath": "34746.png"
+  },
+  {
+    "name": "Vampyre costume top",
+    "id": 34742,
+    "image": "Vampyre costume top.png",
+    "imagepath": "34742.png"
+  },
+  {
     "name": "Vampyre dust",
     "id": 3325,
     "image": "Vampyre dust.png",
@@ -79012,6 +79102,12 @@
     "id": 32818,
     "image": "Vampyre kraken tentacle.png",
     "imagepath": "32818.png"
+  },
+  {
+    "name": "Vampyre monocle",
+    "id": 34740,
+    "image": "Vampyre monocle.png",
+    "imagepath": "34740.png"
   },
   {
     "name": "Vampyre snelm",
