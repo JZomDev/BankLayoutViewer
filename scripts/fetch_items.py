@@ -16,6 +16,7 @@ import urllib.parse
 import time
 from pathlib import Path
 
+import image_hashes
 import item_meta
 import item_variations
 import item_updates
@@ -228,13 +229,28 @@ def main(max_updates=None):
         print('Saving to JSON at file: ' + FILE_NAME)
         json.dump(limited.items, f, ensure_ascii=False, indent=2)
 
-    # With a limit, only the items changed in this run get images; otherwise every item is checked
-    image_source = new_data if max_updates is None else limited.changed
     # one file per item id; the first entry for an id supplies its image, as in build-items.js
+    all_imgs = {}
+    for e in new_data:
+        if e['imagepath'] and e['imagepath'] not in all_imgs:
+            all_imgs[e['imagepath']] = e['image']
+
+    # Ask the wiki which images changed since we saved them. This ignores --max-updates: it is a few hundred
+    # small requests, and a changed picture should not wait for its item record to change.
+    hashes = image_hashes.load(image_hashes.HASHES_FILE)
+    wiki_hashes = image_hashes.fetch_hashes(get, sorted(set(all_imgs.values())))
+    changed_imgs, adopted = image_hashes.stale(all_imgs, hashes, wiki_hashes, lambda f: os.path.isfile(IMG_PATH + f))
+    hashes.update(adopted)
+    print(f'Images changed on the wiki: {len(changed_imgs)}')
+
+    # With a limit, only the items changed in this run get new images; otherwise every item is checked
+    image_source = new_data if max_updates is None else limited.changed
     required_imgs = {}
     for e in image_source:
         if e['imagepath'] and e['imagepath'] not in required_imgs:
             required_imgs[e['imagepath']] = e['image']
+    for f in changed_imgs:
+        required_imgs[f] = all_imgs[f]
 
     success_img_dls = 0
     failed_img_dls = 0
@@ -243,7 +259,7 @@ def main(max_updates=None):
     # Fetch all the images from the wiki and store them for local serving
     for idx, (imgName, img) in enumerate(required_imgs.items()):
 
-        if os.path.isfile(IMG_PATH + imgName):
+        if os.path.isfile(IMG_PATH + imgName) and imgName not in changed_imgs:
             skipped_img_dls += 1
             continue
 
@@ -258,8 +274,11 @@ def main(max_updates=None):
         with open(IMG_PATH + imgName, 'wb') as f:
             f.write(r.content)
         print('Saved image: ' + imgName)
+        if img in wiki_hashes:
+            hashes[imgName] = wiki_hashes[img]
         success_img_dls += 1
 
+    image_hashes.save(image_hashes.HASHES_FILE, hashes)
     print('Total images saved: ' + str(success_img_dls))
     print('Total images skipped (already exists): ' + str(skipped_img_dls))
     print('Total images failed to save: ' + str(failed_img_dls))

@@ -122,6 +122,7 @@ class MainLoggingTests(unittest.TestCase):
             rows = [wiki_row('Known item', 'Known item', 1), wiki_row('New item', 'New item', 2)]
             out = io.StringIO()
             with mock.patch.object(fetch_items, 'FILE_NAME', str(items_path)), \
+                    mock.patch.object(fetch_items.image_hashes, 'HASHES_FILE', str(Path(tmp) / 'hashes.json')), \
                     mock.patch.object(fetch_items, 'getEquipmentData', return_value=rows), \
                     mock.patch.object(fetch_items, 'check_item_count'), \
                     mock.patch.object(fetch_items, 'download_itemsmin'), \
@@ -131,6 +132,48 @@ class MainLoggingTests(unittest.TestCase):
         log = out.getvalue()
         self.assertIn('Processing New item', log)
         self.assertNotIn('Processing Known item', log)
+
+
+class MainImageRefetchTests(unittest.TestCase):
+    def run_main(self, tmp, wiki_sha):
+        rows = [{'page_name_sub': 'Obligator', 'item_name': 'Obligator', 'item_id': ['34717'], 'image': ['File:Obligator.png']}]
+        calls = []
+
+        def fake_get(url, **kwargs):
+            calls.append(url)
+            if url == fetch_items.image_hashes.API_URL:
+                return FakeResponse({'query': {'pages': {'1': {'title': 'File:Obligator.png', 'imageinfo': [{'sha1': wiki_sha}]}}}})
+            return FakeResponse(content=b'new image bytes')
+
+        with mock.patch.object(fetch_items, 'FILE_NAME', str(Path(tmp) / 'items.json')), \
+                mock.patch.object(fetch_items, 'IMG_PATH', tmp + '/'), \
+                mock.patch.object(fetch_items.image_hashes, 'HASHES_FILE', str(Path(tmp) / 'hashes.json')), \
+                mock.patch.object(fetch_items, 'get', side_effect=fake_get), \
+                mock.patch.object(fetch_items, 'getEquipmentData', return_value=rows), \
+                mock.patch.object(fetch_items, 'check_item_count'), \
+                mock.patch.object(fetch_items, 'download_itemsmin'), \
+                mock.patch.object(fetch_items.item_meta, 'write_item_meta'), \
+                mock.patch.object(fetch_items.item_variations, 'write_variations'), \
+                contextlib.redirect_stdout(io.StringIO()):
+            fetch_items.main()
+        return [c for c in calls if '/w/Special:Filepath/' in c]
+
+    def test_an_image_that_changed_on_the_wiki_is_fetched_again(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / '34717.png').write_bytes(b'old image bytes')
+            (Path(tmp) / 'hashes.json').write_text(json.dumps({'34717.png': 'old'}))
+            fetched = self.run_main(tmp, 'new')
+            self.assertEqual(len(fetched), 1)
+            self.assertEqual((Path(tmp) / '34717.png').read_bytes(), b'new image bytes')
+            self.assertEqual(json.loads((Path(tmp) / 'hashes.json').read_text()), {'34717.png': 'new'})
+            self.assertEqual(self.run_main(tmp, 'new'), [])  # unchanged now, so nothing is fetched
+
+    def test_an_existing_image_with_no_stored_hash_is_trusted_and_recorded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / '34717.png').write_bytes(b'old image bytes')
+            self.assertEqual(self.run_main(tmp, 'abc'), [])
+            self.assertEqual((Path(tmp) / '34717.png').read_bytes(), b'old image bytes')
+            self.assertEqual(json.loads((Path(tmp) / 'hashes.json').read_text()), {'34717.png': 'abc'})
 
 
 class DownloadItemsminTests(unittest.TestCase):
