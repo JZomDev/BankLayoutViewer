@@ -20,6 +20,12 @@
     });
   }
 
-  try{ window.buildItems = buildItems; }catch(e){}
-  try{ module.exports = { buildItems }; }catch(e){}
+  // Items to offer in item searches. An item without a placeholder (itemsmin placeholderId -1) is dropped.
+  // Only searches use this; buildItems keeps every id so layouts that already hold one still resolve.
+  function searchableItems(items){
+    return (items || []).filter(it => it && it.placeholderId !== undefined);
+  }
+
+  try{ window.buildItems = buildItems; window.searchableItems = searchableItems; }catch(e){}
+  try{ module.exports = { buildItems, searchableItems }; }catch(e){}
 })();

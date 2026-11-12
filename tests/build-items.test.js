@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const { buildItems } = require('../assets/js/helpers/build-items.js');
+const { buildItems, searchableItems } = require('../assets/js/helpers/build-items.js');
 
 const skip = new Set([6678]);
 
@@ -58,4 +58,14 @@ test('matches the old first-match build on every real item', () => {
   const data2 = JSON.parse(fs.readFileSync(path.join(root, 'js', 'itemsmin.js'), 'utf8'));
   const meta = JSON.parse(fs.readFileSync(path.join(root, 'json', 'itemmeta.json'), 'utf8'));
   assert.deepStrictEqual(buildItems(data, meta, skip), buildFirstMatch(data, data2));
+});
+
+test('searchableItems drops items with no placeholder and keeps the rest in order', () => {
+  const items = [
+    { id: 1, placeholderId: 9001 },
+    { id: 2, placeholderId: undefined },
+    { id: 3, placeholderId: 9003 },
+  ];
+  assert.deepStrictEqual(searchableItems(items).map(i => i.id), [1, 3]);
+  assert.deepStrictEqual(searchableItems([]), []);
 });
