@@ -102,3 +102,10 @@ test('tag item ids are not passed through resolveId', () => {
 test('an export without a tag item list gives an empty tagItems', () => {
   assert.deepStrictEqual(parseBanktag(potions).tagItems, []);
 });
+
+test('a tag with no layout section keeps its ids as tag items and places nothing', () => {
+  const p = parseBanktag('banktags,1,tools,952,1275,-766,21146,-12016,-12022,-12015');
+  assert.deepStrictEqual(p.tagItems, [1275, -766, 21146, -12016, -12022, -12015]);
+  assert.deepStrictEqual(p.items, []);
+  assert.strictEqual(p.layoutName, 'tools');
+});

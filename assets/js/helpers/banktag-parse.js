@@ -57,7 +57,9 @@
     if(splits.length < 7){
       throw new Error('Invalid header format: \n Format: banktags,1,currency,952,layout,8,995');
     }
-    let startIndex = 0;
+    // a tag with no layout section is all tag items and has no cells to place
+    let startIndex = splits.length;
+    out.tagItems = splits.slice(4).map(s => Number(s.trim())).filter(n => !isNaN(n));
     for(let i = 0; i < splits.length; i++){
       const content = splits[i].trim();
       if(i === 2){ out.layoutName = content; continue; }
