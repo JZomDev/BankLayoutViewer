@@ -1656,6 +1656,12 @@
     "imagepath": "7358.png"
   },
   {
+    "name": "Adamant shortsword",
+    "id": 1287,
+    "image": "Adamant shortsword.png",
+    "imagepath": "1287.png"
+  },
+  {
     "name": "Adamant spear",
     "id": 1245,
     "image": "Adamant spear.png",
@@ -1696,12 +1702,6 @@
     "id": 30607,
     "image": "Adamant staff of collection.png",
     "imagepath": "30607.png"
-  },
-  {
-    "name": "Adamant sword",
-    "id": 1287,
-    "image": "Adamant sword.png",
-    "imagepath": "1287.png"
   },
   {
     "name": "Adamant thrownaxe",
@@ -2800,6 +2800,12 @@
     "id": 29804,
     "image": "Amulet of rancour (s).png",
     "imagepath": "29804.png"
+  },
+  {
+    "name": "Amulet of sight",
+    "id": 34762,
+    "image": "Amulet of sight.png",
+    "imagepath": "34762.png"
   },
   {
     "name": "Amulet of strength",
@@ -4462,6 +4468,42 @@
     "id": 32872,
     "image": "Antique lamp (salvaging).png",
     "imagepath": "32872.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34754,
+    "image": "Antique lamp (Romeo & Juliet).png",
+    "imagepath": "34754.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34749,
+    "image": "Antique lamp (Demon Slayer).png",
+    "imagepath": "34749.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34755,
+    "image": "Antique lamp (Shield of Arrav).png",
+    "imagepath": "34755.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34748,
+    "image": "Antique lamp (Black Knights' Fortress).png",
+    "imagepath": "34748.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34750,
+    "image": "Antique lamp (Ernest the Chicken).png",
+    "imagepath": "34750.png"
+  },
+  {
+    "name": "Antique lamp",
+    "id": 34751,
+    "image": "Antique lamp (Mudfoot's Big Adventure).png",
+    "imagepath": "34751.png"
   },
   {
     "name": "Antisanta boots",
@@ -7392,6 +7434,12 @@
     "imagepath": "1391.png"
   },
   {
+    "name": "Bea's supplies",
+    "id": 34791,
+    "image": "Bea's supplies.png",
+    "imagepath": "34791.png"
+  },
+  {
     "name": "Beach boxing gloves",
     "id": 11706,
     "image": "Beach boxing gloves (pink).png",
@@ -7582,6 +7630,18 @@
     "id": 4284,
     "image": "Bedsheet.png",
     "imagepath": "4284.png"
+  },
+  {
+    "name": "Bee box",
+    "id": 34775,
+    "image": "Bee box.png",
+    "imagepath": "34775.png"
+  },
+  {
+    "name": "Bee hunter's hat",
+    "id": 34777,
+    "image": "Bee hunter's hat.png",
+    "imagepath": "34777.png"
   },
   {
     "name": "Beef",
@@ -8430,6 +8490,12 @@
     "imagepath": "10400.png"
   },
   {
+    "name": "Black feather",
+    "id": 34785,
+    "image": "Black feather.png",
+    "imagepath": "34785.png"
+  },
+  {
     "name": "Black felling axe",
     "id": 28205,
     "image": "Black felling axe.png",
@@ -8970,6 +9036,12 @@
     "imagepath": "7356.png"
   },
   {
+    "name": "Black shortsword",
+    "id": 1283,
+    "image": "Black shortsword.png",
+    "imagepath": "1283.png"
+  },
+  {
     "name": "Black skirt",
     "id": 1015,
     "image": "Black skirt.png",
@@ -9058,12 +9130,6 @@
     "id": 30603,
     "image": "Black staff of collection.png",
     "imagepath": "30603.png"
-  },
-  {
-    "name": "Black sword",
-    "id": 1283,
-    "image": "Black sword.png",
-    "imagepath": "1283.png"
   },
   {
     "name": "Black tourmaline core",
@@ -10030,6 +10096,12 @@
     "id": 25799,
     "image": "Bloody knife.png",
     "imagepath": "25799.png"
+  },
+  {
+    "name": "Bloody knife",
+    "id": 34758,
+    "image": "Bloody knife (The Writing's on the Wall).png",
+    "imagepath": "34758.png"
   },
   {
     "name": "Bloody mourner top",
@@ -13374,6 +13446,12 @@
     "imagepath": "12962.png"
   },
   {
+    "name": "Bronze shortsword",
+    "id": 1277,
+    "image": "Bronze shortsword.png",
+    "imagepath": "1277.png"
+  },
+  {
     "name": "Bronze spear",
     "id": 1237,
     "image": "Bronze spear.png",
@@ -13420,12 +13498,6 @@
     "id": 30597,
     "image": "Bronze staff of collection.png",
     "imagepath": "30597.png"
-  },
-  {
-    "name": "Bronze sword",
-    "id": 1277,
-    "image": "Bronze sword.png",
-    "imagepath": "1277.png"
   },
   {
     "name": "Bronze thrownaxe",
@@ -13678,6 +13750,12 @@
     "id": 24980,
     "image": "Brown candy.png",
     "imagepath": "24980.png"
+  },
+  {
+    "name": "Brown feather",
+    "id": 34783,
+    "image": "Brown feather.png",
+    "imagepath": "34783.png"
   },
   {
     "name": "Brown headband",
@@ -14578,12 +14656,6 @@
     "id": 10012,
     "image": "Butterfly jar.png",
     "imagepath": "10012.png"
-  },
-  {
-    "name": "Butterfly net",
-    "id": 10010,
-    "image": "Butterfly net.png",
-    "imagepath": "10010.png"
   },
   {
     "name": "Butterfly ray fin",
@@ -15730,6 +15802,12 @@
     "id": 3114,
     "image": "Certificate (Death Plateau).png",
     "imagepath": "3114.png"
+  },
+  {
+    "name": "Certificate",
+    "id": 34761,
+    "image": "Certificate (The Writing's on the Wall).png",
+    "imagepath": "34761.png"
   },
   {
     "name": "Chain",
@@ -19963,12 +20041,6 @@
   },
   {
     "name": "Clue scroll (hard)",
-    "id": 30929,
-    "image": "Clue scroll (hard).png",
-    "imagepath": "30929.png"
-  },
-  {
-    "name": "Clue scroll (hard)",
     "id": 30931,
     "image": "Clue scroll (hard).png",
     "imagepath": "30931.png"
@@ -21022,12 +21094,6 @@
     "id": 29858,
     "image": "Clue scroll (medium).png",
     "imagepath": "29858.png"
-  },
-  {
-    "name": "Clue scroll (medium)",
-    "id": 30933,
-    "image": "Clue scroll (medium).png",
-    "imagepath": "30933.png"
   },
   {
     "name": "Clue scroll (medium)",
@@ -28470,6 +28536,12 @@
     "imagepath": "22954.png"
   },
   {
+    "name": "Dew-covered branch",
+    "id": 34795,
+    "image": "Dew-covered branch.png",
+    "imagepath": "34795.png"
+  },
+  {
     "name": "Dexterous prayer scroll",
     "id": 21034,
     "image": "Dexterous prayer scroll.png",
@@ -30300,6 +30372,18 @@
     "imagepath": "20002.png"
   },
   {
+    "name": "Dragon shortsword",
+    "id": 21009,
+    "image": "Dragon shortsword.png",
+    "imagepath": "21009.png"
+  },
+  {
+    "name": "Dragon shortsword (cr)",
+    "id": 28029,
+    "image": "Dragon shortsword (cr).png",
+    "imagepath": "28029.png"
+  },
+  {
     "name": "Dragon spear",
     "id": 1249,
     "image": "Dragon spear.png",
@@ -30382,18 +30466,6 @@
     "id": 30611,
     "image": "Dragon staff of collection.png",
     "imagepath": "30611.png"
-  },
-  {
-    "name": "Dragon sword",
-    "id": 21009,
-    "image": "Dragon sword.png",
-    "imagepath": "21009.png"
-  },
-  {
-    "name": "Dragon sword (cr)",
-    "id": 28029,
-    "image": "Dragon sword (cr).png",
-    "imagepath": "28029.png"
   },
   {
     "name": "Dragon thrownaxe",
@@ -35530,6 +35602,12 @@
     "id": 7538,
     "image": "Fresh crab shell.png",
     "imagepath": "7538.png"
+  },
+  {
+    "name": "Fresh leaves",
+    "id": 34793,
+    "image": "Fresh leaves.png",
+    "imagepath": "34793.png"
   },
   {
     "name": "Fresh monkfish",
@@ -42174,6 +42252,12 @@
     "imagepath": "26957.png"
   },
   {
+    "name": "Human head",
+    "id": 34759,
+    "image": "Human head.png",
+    "imagepath": "34759.png"
+  },
+  {
     "name": "Hunk of crystal",
     "id": 742,
     "image": "Hunk of crystal.png",
@@ -43482,6 +43566,12 @@
     "imagepath": "24421.png"
   },
   {
+    "name": "Insect net",
+    "id": 10010,
+    "image": "Insect net.png",
+    "imagepath": "10010.png"
+  },
+  {
     "name": "Insect repellent",
     "id": 28,
     "image": "Insect repellent.png",
@@ -44124,6 +44214,12 @@
     "imagepath": "7941.png"
   },
   {
+    "name": "Iron shortsword",
+    "id": 1279,
+    "image": "Iron shortsword.png",
+    "imagepath": "1279.png"
+  },
+  {
     "name": "Iron sickle",
     "id": 3899,
     "image": "Iron sickle.png",
@@ -44176,12 +44272,6 @@
     "id": 30599,
     "image": "Iron staff of collection.png",
     "imagepath": "30599.png"
-  },
-  {
-    "name": "Iron sword",
-    "id": 1279,
-    "image": "Iron sword.png",
-    "imagepath": "1279.png"
   },
   {
     "name": "Iron thrownaxe",
@@ -45648,6 +45738,18 @@
     "imagepath": "24957.png"
   },
   {
+    "name": "Killer wasp dart",
+    "id": 34789,
+    "image": "Killer wasp dart.png",
+    "imagepath": "34789.png"
+  },
+  {
+    "name": "Killer wasp sting",
+    "id": 34781,
+    "image": "Killer wasp sting.png",
+    "imagepath": "34781.png"
+  },
+  {
     "name": "Killer's knife",
     "id": 21059,
     "image": "Killer's knife.png",
@@ -47100,6 +47202,18 @@
     "imagepath": "31073.png"
   },
   {
+    "name": "Letter",
+    "id": 34756,
+    "image": "Letter (Jack Holland).png",
+    "imagepath": "34756.png"
+  },
+  {
+    "name": "Letter",
+    "id": 34760,
+    "image": "Letter (Bernard Holland).png",
+    "imagepath": "34760.png"
+  },
+  {
     "name": "Letter to surok",
     "id": 11009,
     "image": "Letter to surok.png",
@@ -48264,12 +48378,6 @@
     "imagepath": "10025.png"
   },
   {
-    "name": "Magic butterfly net",
-    "id": 11259,
-    "image": "Magic butterfly net.png",
-    "imagepath": "11259.png"
-  },
-  {
     "name": "Magic cape",
     "id": 9762,
     "image": "Magic cape.png",
@@ -48376,6 +48484,12 @@
     "id": 12744,
     "image": "Magic imp box pack.png",
     "imagepath": "12744.png"
+  },
+  {
+    "name": "Magic insect net",
+    "id": 11259,
+    "image": "Magic insect net.png",
+    "imagepath": "11259.png"
   },
   {
     "name": "Magic lamp",
@@ -51216,6 +51330,12 @@
     "imagepath": "13002.png"
   },
   {
+    "name": "Mithril shortsword",
+    "id": 1285,
+    "image": "Mithril shortsword.png",
+    "imagepath": "1285.png"
+  },
+  {
     "name": "Mithril spear",
     "id": 1243,
     "image": "Mithril spear.png",
@@ -51256,12 +51376,6 @@
     "id": 30605,
     "image": "Mithril staff of collection.png",
     "imagepath": "30605.png"
-  },
-  {
-    "name": "Mithril sword",
-    "id": 1285,
-    "image": "Mithril sword.png",
-    "imagepath": "1285.png"
   },
   {
     "name": "Mithril thrownaxe",
@@ -52258,6 +52372,12 @@
     "id": 4492,
     "image": "Muddy rock.png",
     "imagepath": "4492.png"
+  },
+  {
+    "name": "Mudfoot",
+    "id": 34752,
+    "image": "Mudfoot (item).png",
+    "imagepath": "34752.png"
   },
   {
     "name": "Mudskipper hat",
@@ -53284,6 +53404,12 @@
     "id": 11171,
     "image": "Newspaper.png",
     "imagepath": "11171.png"
+  },
+  {
+    "name": "Newspaper cutting",
+    "id": 34757,
+    "image": "Newspaper cutting.png",
+    "imagepath": "34757.png"
   },
   {
     "name": "Nexling",
@@ -55596,6 +55722,24 @@
     "imagepath": "4573.png"
   },
   {
+    "name": "Painted kiteshield",
+    "id": 34769,
+    "image": "Painted kiteshield.png",
+    "imagepath": "34769.png"
+  },
+  {
+    "name": "Painted shortbow",
+    "id": 34772,
+    "image": "Painted shortbow.png",
+    "imagepath": "34772.png"
+  },
+  {
+    "name": "Painted shortsword",
+    "id": 34766,
+    "image": "Painted shortsword.png",
+    "imagepath": "34766.png"
+  },
+  {
     "name": "Paladin's badge",
     "id": 1489,
     "image": "Paladin's badge (Sir Carl).png",
@@ -56710,6 +56854,12 @@
     "id": 1013,
     "image": "Pink skirt.png",
     "imagepath": "1013.png"
+  },
+  {
+    "name": "Pink snelm",
+    "id": 34801,
+    "image": "Pink snelm.png",
+    "imagepath": "34801.png"
   },
   {
     "name": "Pious Proceedings",
@@ -61164,6 +61314,12 @@
     "imagepath": "29541.png"
   },
   {
+    "name": "Restorative dew",
+    "id": 34797,
+    "image": "Restorative dew.png",
+    "imagepath": "34797.png"
+  },
+  {
     "name": "Restore mix(1)",
     "id": 11451,
     "image": "Restore mix(1).png",
@@ -63786,6 +63942,12 @@
     "imagepath": "7360.png"
   },
   {
+    "name": "Rune shortsword",
+    "id": 1289,
+    "image": "Rune shortsword.png",
+    "imagepath": "1289.png"
+  },
+  {
     "name": "Rune spear",
     "id": 1247,
     "image": "Rune spear.png",
@@ -63826,12 +63988,6 @@
     "id": 30609,
     "image": "Rune staff of collection.png",
     "imagepath": "30609.png"
-  },
-  {
-    "name": "Rune sword",
-    "id": 1289,
-    "image": "Rune sword.png",
-    "imagepath": "1289.png"
   },
   {
     "name": "Rune thrownaxe",
@@ -72090,6 +72246,12 @@
     "imagepath": "12986.png"
   },
   {
+    "name": "Steel shortsword",
+    "id": 1281,
+    "image": "Steel shortsword.png",
+    "imagepath": "1281.png"
+  },
+  {
     "name": "Steel spear",
     "id": 1241,
     "image": "Steel spear.png",
@@ -72136,12 +72298,6 @@
     "id": 2370,
     "image": "Steel studs.png",
     "imagepath": "2370.png"
-  },
-  {
-    "name": "Steel sword",
-    "id": 1281,
-    "image": "Steel sword.png",
-    "imagepath": "1281.png"
   },
   {
     "name": "Steel thrownaxe",
@@ -72826,6 +72982,12 @@
     "id": 26904,
     "image": "Strong cup of tea.png",
     "imagepath": "26904.png"
+  },
+  {
+    "name": "Strong sticks",
+    "id": 34799,
+    "image": "Strong sticks.png",
+    "imagepath": "34799.png"
   },
   {
     "name": "Strongbones' bone",
@@ -77112,34 +77274,10 @@
     "imagepath": "25007.png"
   },
   {
-    "name": "Training arrows",
-    "id": 9706,
-    "image": "Training arrows 5.png",
-    "imagepath": "9706.png"
-  },
-  {
-    "name": "Training bow",
-    "id": 9705,
-    "image": "Training bow.png",
-    "imagepath": "9705.png"
-  },
-  {
     "name": "Training manual",
     "id": 13396,
     "image": "Training manual.png",
     "imagepath": "13396.png"
-  },
-  {
-    "name": "Training shield",
-    "id": 9704,
-    "image": "Training shield.png",
-    "imagepath": "9704.png"
-  },
-  {
-    "name": "Training sword",
-    "id": 9703,
-    "image": "Training sword.png",
-    "imagepath": "9703.png"
   },
   {
     "name": "Transdimensional notes",
@@ -80778,6 +80916,18 @@
     "imagepath": "2964.png"
   },
   {
+    "name": "Wasp dart",
+    "id": 34787,
+    "image": "Wasp dart.png",
+    "imagepath": "34787.png"
+  },
+  {
+    "name": "Wasp sting",
+    "id": 34779,
+    "image": "Wasp sting.png",
+    "imagepath": "34779.png"
+  },
+  {
     "name": "Waste-paper basket",
     "id": 29522,
     "image": "Waste-paper basket.png",
@@ -81558,16 +81708,16 @@
     "imagepath": "6611.png"
   },
   {
+    "name": "White shortsword",
+    "id": 6605,
+    "image": "White shortsword.png",
+    "imagepath": "6605.png"
+  },
+  {
     "name": "White sq shield",
     "id": 6631,
     "image": "White sq shield.png",
     "imagepath": "6631.png"
-  },
-  {
-    "name": "White sword",
-    "id": 6605,
-    "image": "White sword.png",
-    "imagepath": "6605.png"
   },
   {
     "name": "White toy horsey",
@@ -82284,6 +82434,12 @@
     "imagepath": "20166.png"
   },
   {
+    "name": "Wooden shortsword",
+    "id": 7675,
+    "image": "Wooden shortsword.png",
+    "imagepath": "7675.png"
+  },
+  {
     "name": "Wooden spikes",
     "id": 34016,
     "image": "Wooden spikes.png",
@@ -82300,12 +82456,6 @@
     "id": 9440,
     "image": "Wooden stock.png",
     "imagepath": "9440.png"
-  },
-  {
-    "name": "Wooden sword",
-    "id": 7675,
-    "image": "Wooden sword.png",
-    "imagepath": "7675.png"
   },
   {
     "name": "Wool",
