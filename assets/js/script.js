@@ -573,7 +573,7 @@
     const q = (query||'').trim();
     if(q.length < 3){ renderItems([]); return Promise.resolve([]); }
     return ensureItemsLoaded().then(() => {
-      const scored = (items||[]).map(it => ({ it, score: fuzzyScore(it.name||'', q) }))
+      const scored = window.searchableItems(items).map(it => ({ it, score: fuzzyScore(it.name||'', q) }))
         .filter(s => s.score > 0)
         .sort((a,b) => b.score - a.score)
         .slice(0,20)
@@ -854,7 +854,7 @@
     if(chooseSearch) chooseSearch.addEventListener('input', e => {
       const q = (e.target.value||'').trim().toLowerCase();
       if(q.length < 3){ renderChooseItems([]); return; }
-      const filtered = items.filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
+      const filtered = window.searchableItems(items).filter(i => i && i.name && i.name.toLowerCase().includes(q) && i.img && String(i.img).trim() !== '');
       renderChooseItems(filtered);
     });
     // make left tag icon clickable to choose an item for the thumbnail
