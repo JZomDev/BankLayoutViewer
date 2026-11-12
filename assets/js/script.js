@@ -819,6 +819,8 @@
       current.items = [];
       // reset layout height to default (8 rows)
       current.height = 8;
+      // import sets the name box; put it back to the default (index.html) so an export does not reuse the old name
+      if(layoutNameInput) layoutNameInput.value = 'New layout';
       // clear DOM cells
       const cells = layoutGrid.querySelectorAll('.cell');
       cells.forEach(c => { c.innerHTML = ''; delete c.dataset.itemId; });
