@@ -92,6 +92,12 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .cell.variation{border-color:#ffd24a}
 .cell.variation::after{content:'*';position:absolute;top:0;right:4px;color:#ffd24a;font-weight:700;font-size:16px;line-height:1.2;pointer-events:none}
 .cell.selected{outline:2px solid var(--accent);box-shadow:0 0 0 6px rgba(31,194,160,0.06) inset}
+/* long-press opens the row menu on touch: no iOS image callout or text selection */
+.bank-grid .cell{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+@media (pointer:coarse){
+  /* the menu sets padding inline, so bigger touch targets need !important */
+  #cell-context-menu .cm-item{padding:12px 14px !important}
+}
 
 /* right layouts */
 .layouts-header{display:flex;align-items:center;justify-content:space-between}

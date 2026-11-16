@@ -595,6 +595,16 @@
     e.dataTransfer.effectAllowed = 'move';
   });
 
+  // touch screens: long-press a cell opens the same row menu as right-click
+  if(typeof window.attachLongPress === 'function'){
+    window.attachLongPress(layoutGrid, press => {
+      const cell = press.target && press.target.closest && press.target.closest('.cell');
+      if(!cell) return;
+      const row = Number((cell.dataset.pos || '').split(',')[1]);
+      if(Number.isFinite(row)) showCellContextMenu(press, row, cell);
+    });
+  }
+
   layoutGrid.addEventListener('click', e => {
     const img = e.target.closest && e.target.closest('img');
     if(!img) return;
