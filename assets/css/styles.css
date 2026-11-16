@@ -67,9 +67,18 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 
 /* Responsive: allow full-width on smaller screens */
 @media (max-width:900px){
-  .site-wrap{grid-template-columns:1fr}
+  /* one column; the side panels scroll with the page instead of pinning over it */
+  .site-wrap{grid-template-columns:minmax(0,1fr);gap:12px;padding:8px}
+  .left-col{position:static;height:auto;min-height:0;margin:0;overflow:visible}
   .right-col{display:none}
-  .bank-grid-wrap{display:block;width:100%}
+  .center-col{align-items:stretch;min-width:0}
+  .items-grid{grid-template-columns:repeat(4,1fr)}
+  /* shrink cells so 8 columns fit the screen: 8px page padding x2, 6px grid padding x2, 7 gaps of 4px */
+  :root{--cell-size:min(56px,calc((100vw - 56px) / 8))}
+  .bank-grid-wrap{display:block;width:100%;padding:0;box-sizing:border-box}
+  .bank-grid{gap:4px;padding:6px;justify-content:center}
+  .cell .thumb{width:calc(var(--cell-size) - 4px);height:calc(var(--cell-size) - 4px)}
+  .stored-preview-head{flex-wrap:wrap}
 }
 .cell{background:#1b2423;border-radius:4px;border:1px solid #121818;display:flex;align-items:center;justify-content:center;color:var(--muted);position:relative;padding:0;box-sizing:border-box}
 .cell.thumb{display:flex;align-items:center;justify-content:center;background:#2a3a39;border-radius:4px;min-width:36px;min-height:36px;padding:6px;box-sizing:border-box}
@@ -83,6 +92,12 @@ html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial
 .cell.variation{border-color:#ffd24a}
 .cell.variation::after{content:'*';position:absolute;top:0;right:4px;color:#ffd24a;font-weight:700;font-size:16px;line-height:1.2;pointer-events:none}
 .cell.selected{outline:2px solid var(--accent);box-shadow:0 0 0 6px rgba(31,194,160,0.06) inset}
+/* long-press opens the row menu on touch: no iOS image callout or text selection */
+.bank-grid .cell{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+@media (pointer:coarse){
+  /* the menu sets padding inline, so bigger touch targets need !important */
+  #cell-context-menu .cm-item{padding:12px 14px !important}
+}
 
 /* right layouts */
 .layouts-header{display:flex;align-items:center;justify-content:space-between}
